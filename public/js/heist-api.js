@@ -12,7 +12,8 @@ const Heist = (() => {
   const load = (k) => JSON.parse(sessionStorage.getItem(k) || 'null');
 
   return {
-    login: async (agent_name, rfid_uid) => { const p = await j('POST', '/api/login', { agent_name, rfid_uid }); save('player', p); return p; },
+    login: async (agent_name, password) => { const p = await j('POST', '/api/login', { agent_name, password }); save('player', p); return p; },
+    register: async (agent_name, password, display_name) => { const p = await j('POST', '/api/login', { agent_name, password, display_name, register: true }); save('player', p); return p; },
     player: () => load('player'),
     cases: () => j('GET', '/api/cases'),
     dailyCase: () => j('GET', '/api/cases/daily'),
@@ -41,7 +42,8 @@ window.Heist = Heist;
 /* Example: wire the boot screen (START MISSION button + #agentIdInput)
 document.querySelector('button[type=button]').addEventListener('click', async () => {
   const name = document.getElementById('agentIdInput').value;
-  await Heist.login(name);
+  const password = document.getElementById('passwordInput').value;
+  await Heist.login(name, password);
   location.href = '/case-select.html';
 });
 */

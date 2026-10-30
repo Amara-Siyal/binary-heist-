@@ -27,6 +27,8 @@
 table.board{width:100%;border-collapse:collapse;text-align:left;font:12px 'JetBrains Mono'}table.board th,table.board td{padding:13px;border-bottom:1px solid #333}table.board th{color:var(--gold)}
 @media(max-width:950px){.game-layout{grid-template-columns:1fr 1fr}.game-layout .puzzle{grid-column:1/-1;grid-row:1}.hud{grid-template-columns:repeat(3,1fr)}.grid3,.case-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.screen{padding:15px}.login-wrap{margin:4vh auto;padding:25px 20px}.topbar{align-items:flex-start;flex-direction:column}.grid3,.case-grid,.game-layout,.versus-grid{grid-template-columns:1fr}.game-layout .puzzle{grid-column:auto}.hud{grid-template-columns:repeat(2,1fr)}.bit{width:55px;height:65px}.bit-row{gap:6px}.step{font-size:8px;padding:8px 2px}.page-title{margin-bottom:18px}.stats{gap:15px}}
+.auth-error{display:none;margin:12px 0;padding:11px;border-radius:5px;background:#280e10;border:1px solid #702329;color:#ff7777;font:11px 'JetBrains Mono',monospace;line-height:1.5}.auth-error.show{display:block}
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;max-width:90vw;padding:12px 18px;border-radius:6px;background:#280e10;border:1px solid #702329;color:#ff7777;font:12px 'JetBrains Mono',monospace;display:none;box-shadow:0 0 20px #00000090}.toast.show{display:block}
 </style>
 </head>
 <body>
@@ -38,6 +40,7 @@ table.board{width:100%;border-collapse:collapse;text-align:left;font:12px 'JetBr
   <div id="loginForm">
    <label class="field"><span>Agent ID / Username</span><input id="agentId" placeholder="Enter agent ID" autocomplete="username"></label>
    <label class="field"><span>Password</span><input id="password" type="password" placeholder="Enter password" autocomplete="current-password"></label>
+   <div class="auth-error" id="loginMsg" role="alert"></div>
    <button class="btn full" id="loginBtn">LOGIN</button>
    <button class="linkbtn" id="showRegister">CREATE ACCOUNT →</button>
   </div>
@@ -46,6 +49,7 @@ table.board{width:100%;border-collapse:collapse;text-align:left;font:12px 'JetBr
    <label class="field"><span>Agent ID / Username</span><input id="regId" placeholder="Choose an agent ID"></label>
    <label class="field"><span>Password</span><input id="regPass" type="password" placeholder="Create password"></label>
    <label class="field"><span>Confirm Password</span><input id="regConfirm" type="password" placeholder="Repeat password"></label>
+   <div class="auth-error" id="regMsg" role="alert"></div>
    <button class="btn full" id="registerBtn">CREATE ACCOUNT</button>
    <button class="linkbtn" id="showLogin">← BACK TO LOGIN</button>
   </div>
@@ -90,17 +94,21 @@ table.board{width:100%;border-collapse:collapse;text-align:left;font:12px 'JetBr
 
 <section id="notes" class="screen"><div class="card notes"><div class="eyebrow">Evidence verified / stage cleared</div><h2>CASE NOTES</h2><p class="muted" id="noteQuestion"></p><div class="explain" id="noteExplanation"></div><div class="tiny" id="noteAnswer"></div><div class="big-code" id="noteBit"></div><button class="btn full" id="nextStage">NEXT STAGE</button></div></section>
 
-<section id="versus" class="screen"><div class="wrap"><div class="topbar"><div class="mini-brand">BINARY HEIST <small>VERSUS OPERATIONS</small></div><button class="btn ghost" id="versusBack">MAIN MENU</button></div><div class="eyebrow">Competitive operation</div><h1 class="page-title">VERSUS MODE</h1><div class="card"><div class="versus-grid"><div class="player"><h3>PLAYER 01</h3><p id="vsP1">Awaiting match</p></div><div class="player p2"><h3>PLAYER 02</h3><p id="vsP2" class="muted">Awaiting opponent</p></div></div><div class="disabled-note" id="vsNote">Asynchronous race: <b>CREATE MATCH</b> to play first and get a match code. Another agent then uses <b>JOIN MATCH</b> with that code to play the same case. Higher score wins; ties go to the most time left.</div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><select id="vsCase" class="field" style="background:#090909;color:#fff;border:1px solid #383838;border-radius:5px;padding:11px"></select><button class="btn" id="createMatch">CREATE MATCH</button><button class="btn secondary" id="joinMatch">JOIN MATCH</button><button class="btn goldbtn hidden" id="playMatch">PLAY MY RUN</button><button class="btn ghost" id="refreshMatch">REFRESH</button></div></div></div></section>
+<section id="versus" class="screen"><div class="wrap"><div class="topbar"><div class="mini-brand">BINARY HEIST <small>VERSUS OPERATIONS</small></div><button class="btn ghost" id="versusBack">MAIN MENU</button></div><div class="eyebrow">Competitive operation</div><h1 class="page-title">VERSUS MODE</h1><div class="card"><div class="versus-grid"><div class="player"><h3>PLAYER 01</h3><p id="vsP1">Awaiting match</p></div><div class="player p2"><h3>PLAYER 02</h3><p id="vsP2" class="muted">Awaiting opponent</p></div></div><div class="disabled-note" id="vsNote">Asynchronous race: <b>CREATE MATCH</b> to play first and get a match code. Another agent then uses <b>JOIN MATCH</b> with that code to play the same case. Higher score wins; ties go to the most time left.</div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><select id="vsCase" class="field" style="background:#090909;color:#fff;border:1px solid #383838;border-radius:5px;padding:11px"></select><button class="btn" id="createMatch">CREATE MATCH</button><input id="joinCode" placeholder="MATCH CODE" maxlength="6" autocomplete="off" style="background:#090909;color:#fff;border:1px solid #383838;border-radius:5px;padding:11px;width:130px;text-transform:uppercase;font:13px 'JetBrains Mono',monospace"><button class="btn secondary" id="joinMatch">JOIN MATCH</button><button class="btn goldbtn hidden" id="playMatch">PLAY MY RUN</button><button class="btn ghost" id="refreshMatch">REFRESH</button></div></div></div></section>
 
 <section id="leaderboard" class="screen"><div class="wrap"><div class="topbar"><div class="mini-brand">BINARY HEIST <small>AGENT RECORDS</small></div><button class="btn ghost" id="boardBack">MAIN MENU</button></div><div class="eyebrow">Verified records only</div><h1 class="page-title">LEADERBOARD</h1><div class="card"><div style="display:flex;gap:8px;margin-bottom:12px"><button class="btn secondary" data-p="today">TODAY</button><button class="btn secondary" data-p="week">THIS WEEK</button><button class="btn" data-p="all">ALL TIME</button></div><table class="board"><thead><tr><th>RANK</th><th>AGENT</th><th>SCORE</th><th>BEST TIME</th></tr></thead><tbody id="boardBody"></tbody></table></div></div></section>
 
 <section id="victory" class="screen"><div class="center-screen card"><div class="eyebrow gold">Mission accomplished</div><div class="vault">◉</div><h1>VAULT BREACHED</h1><p class="muted" id="victoryMsg">The five-stage case has been completed.</p><div class="stats"><div><small>FINAL SCORE</small><strong id="finalScore">0000</strong></div><div><small>TIME LEFT</small><strong id="finalTime">00:00</strong></div><div><small>LIVES LEFT</small><strong id="finalLives">3</strong></div></div><div class="big-code" id="finalCode">1011</div><button class="btn full" id="replayBtn">REPLAY CASE</button><button class="btn secondary full" id="victoryMenu" style="margin-top:9px">MAIN MENU</button></div></section>
 <section id="failure" class="screen"><div class="center-screen card"><div class="eyebrow red">Operation terminated</div><h1>MISSION FAILED</h1><p id="failureReason" class="muted">OUT OF LIVES</p><div class="stats"><div><small>FINAL SCORE</small><strong id="failedScore">0000</strong></div><div><small>STAGE REACHED</small><strong id="failedStage">01 / 05</strong></div></div><button class="btn full" id="retryBtn">RETRY CASE</button><button class="btn secondary full" id="failureMenu" style="margin-top:9px">MAIN MENU</button></div></section>
 </div>
+<div class="toast" id="toast" role="alert"></div>
 <script>
 const $=id=>document.getElementById(id);
+function authMsg(id,msg){const e=$(id);e.textContent=msg||'';e.classList.toggle('show',!!msg)}
+let toastT;function toast(msg){if($('auth').classList.contains('active'))return;const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),5000)}
+function vsErr(msg){$('vsNote').innerHTML='<span class="red">'+esc(msg)+'</span>'}
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const api=async(m,u,b)=>{const tk=(player&&player.token)||'';const r=await fetch(u,{method:m,headers:{'content-type':'application/json',...(tk?{authorization:'Bearer '+tk}:{})},body:b?JSON.stringify(b):undefined});let d={};try{d=await r.json()}catch(e){}if(r.status===401&&tk&&u!=='/api/login'){clearInterval(timer);sessionStorage.clear();player=null;show('auth');alert('Your session expired. Please log in again.')}if(!r.ok)throw Object.assign(new Error(d.error||'Request failed'),{data:d,status:r.status});return d};
+const api=async(m,u,b)=>{const tk=(player&&player.token)||'';const r=await fetch(u,{method:m,headers:{'content-type':'application/json',...(tk?{authorization:'Bearer '+tk}:{})},body:b?JSON.stringify(b):undefined});let d={};try{d=await r.json()}catch(e){}if(r.status===401&&tk&&u!=='/api/login'){clearInterval(timer);sessionStorage.clear();player=null;show('auth');authMsg('loginMsg','Your session expired. Please log in again.')}if(!r.ok)throw Object.assign(new Error(d.error||'Request failed'),{data:d,status:r.status});return d};
 const stageNames=['BINARY CLUE','LOGIC LOCK','TRUTH TABLE','ADDER BOSS','FINAL CODE'],titles=['Decode the signal','Break the logic lock','Identify the hidden gate','Defeat the firewall boss','Open the vault'];
 let player=null,sess=null,cases=[],cur=null,snap=null,timeLeft=0,timer=null,selected=null,bits=[0,0,0,0],curPuz=null,lastSummary=null,lastAnswer='',match=null,vsCode=null,vsPoll=null,busy=false;
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');clearInterval(vsPoll);if(id==='versus'&&vsCode)vsPoll=setInterval(renderVersus,4000)}
@@ -109,24 +117,32 @@ const fmt=t=>String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(
 const pname=p=>p.display_name||p.agent_name;
 function feedback(msg,type){$('feedback').textContent=msg;$('feedback').className='feedback show '+type}
 /* ---------- auth ---------- */
-function enter(p){player=p;sessionStorage.setItem('player',JSON.stringify(p));['agentName','sideAgent'].forEach(i=>$(i).textContent=pname(p).toUpperCase());$('agentCode').textContent=p.agent_name;['agentId','password','regName','regId','regPass','regConfirm'].forEach(i=>$(i).value='');loadCases().then(()=>show('menu'))}
-$('loginBtn').onclick=async()=>{const id=$('agentId').value.trim(),pw=$('password').value;if(!id||!pw){alert('Enter your agent ID and password.');return}try{enter(await api('POST','/api/login',{agent_name:id,password:pw}))}catch(e){alert(e.message)}};
-$('registerBtn').onclick=async()=>{const n=$('regName').value.trim(),id=$('regId').value.trim(),p=$('regPass').value,c=$('regConfirm').value;if(!n||!id||!p||!c){alert('Please complete every field.');return}if(p!==c){alert('Password confirmation does not match.');return}try{enter(await api('POST','/api/login',{agent_name:id,password:p,display_name:n,register:true}))}catch(e){alert(e.message)}};
+function enter(p){player=p;sessionStorage.setItem('player',JSON.stringify(p));['agentName','sideAgent'].forEach(i=>$(i).textContent=pname(p).toUpperCase());$('agentCode').textContent=p.agent_name;['agentId','password','regName','regId','regPass','regConfirm'].forEach(i=>$(i).value='');authMsg('loginMsg');authMsg('regMsg');$('registerForm').classList.add('hidden');$('loginForm').classList.remove('hidden');loadCases().then(()=>show('menu'))}
+$('loginBtn').onclick=async()=>{const id=$('agentId').value.trim(),pw=$('password').value;authMsg('loginMsg');if(!id||!pw){authMsg('loginMsg','Enter your agent ID and password.');return}
+ $('loginBtn').disabled=true;try{enter(await api('POST','/api/login',{agent_name:id,password:pw}))}catch(e){authMsg('loginMsg',e.message)}finally{$('loginBtn').disabled=false}};
+$('registerBtn').onclick=async()=>{const n=$('regName').value.trim(),id=$('regId').value.trim(),p=$('regPass').value,c=$('regConfirm').value;authMsg('regMsg');
+ if(!n||!id||!p||!c){authMsg('regMsg','Please complete every field.');return}
+ if(!/^[A-Za-z0-9_]{3,40}$/.test(id)){authMsg('regMsg','Agent ID must be 3-40 letters, digits or underscores.');return}
+ if(p.length<6){authMsg('regMsg','Password must be at least 6 characters.');return}
+ if(p!==c){authMsg('regMsg','Password confirmation does not match.');return}
+ $('registerBtn').disabled=true;try{enter(await api('POST','/api/login',{agent_name:id,password:p,display_name:n,register:true}))}catch(e){authMsg('regMsg',e.message)}finally{$('registerBtn').disabled=false}};
+['agentId','password','regName','regId','regPass','regConfirm'].forEach(i=>$(i).addEventListener('input',()=>{authMsg('loginMsg');authMsg('regMsg')}));
 ['agentId','password'].forEach(i=>$(i).addEventListener('keydown',e=>{if(e.key==='Enter')$('loginBtn').click()}));
-$('showRegister').onclick=()=>{$('loginForm').classList.add('hidden');$('registerForm').classList.remove('hidden')};
-$('showLogin').onclick=()=>{$('registerForm').classList.add('hidden');$('loginForm').classList.remove('hidden')};
+['regName','regId','regPass','regConfirm'].forEach(i=>$(i).addEventListener('keydown',e=>{if(e.key==='Enter')$('registerBtn').click()}));
+$('showRegister').onclick=()=>{authMsg('loginMsg');authMsg('regMsg');$('loginForm').classList.add('hidden');$('registerForm').classList.remove('hidden')};
+$('showLogin').onclick=()=>{authMsg('loginMsg');authMsg('regMsg');$('registerForm').classList.add('hidden');$('loginForm').classList.remove('hidden')};
 $('logoutBtn').onclick=()=>{clearInterval(timer);sessionStorage.clear();player=null;vsCode=null;show('auth')};
 /* ---------- cases / menu ---------- */
 async function loadCases(){try{cases=await api('GET','/api/cases')}catch(e){cases=[]}
  $('caseGrid').innerHTML=cases.map(c=>`<div class="case-card"><span class="tag">CASE 010${c.case_id} / ${esc(c.difficulty.toUpperCase())}</span><h4>${esc(c.title.toUpperCase())}</h4><p>${esc(c.story)}</p><p class="tiny">${fmt(c.time_limit_sec)} · ${c.lives} LIVES</p><button class="btn full" data-case="${c.case_id}">START CASE</button></div>`).join('')||'<p class="muted">Could not load cases.</p>';
  $('caseGrid').querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>startCase(cases.find(c=>c.case_id==b.dataset.case)));
  $('vsCase').innerHTML=cases.map(c=>`<option value="${c.case_id}">${esc(c.title)} (${c.difficulty})</option>`).join('')}
-$('playSolo').onclick=()=>cases[0]?startCase(cases[0]):alert('No cases available.');
+$('playSolo').onclick=()=>cases[0]?startCase(cases[0]):toast('No cases available.');
 $('replayBtn').onclick=$('retryBtn').onclick=()=>startCase(cur);
 $('victoryMenu').onclick=$('failureMenu').onclick=()=>show('menu');
 /* ---------- game ---------- */
 async function startCase(c,m){try{const s=await api('POST','/api/sessions',{player_id:player.player_id,case_id:c.case_id});sess=s.session_id;cur=c;match=m||null;if(m)await api('POST',`/api/matches/${m}/session`,{player_id:player.player_id,session_id:sess});
- $('terminal').innerHTML='';log('SYSTEM READY');log('CASE LOADED: '+c.title.toUpperCase());$('gameTitle').textContent=(m?'VERSUS '+m:'SOLO MISSION')+' / '+c.title.toUpperCase();apply(s);show('game');renderStage();clearInterval(timer);timer=setInterval(()=>{if(!snap||snap.status!=='active')return;timeLeft--;updateHud();if(timeLeft<=0){clearInterval(timer);sync()}},1000)}catch(e){alert(e.message)}}
+ $('terminal').innerHTML='';log('SYSTEM READY');log('CASE LOADED: '+c.title.toUpperCase());$('gameTitle').textContent=(m?'VERSUS '+m:'SOLO MISSION')+' / '+c.title.toUpperCase();apply(s);show('game');renderStage();clearInterval(timer);timer=setInterval(()=>{if(!snap||snap.status!=='active')return;timeLeft--;updateHud();if(timeLeft<=0){clearInterval(timer);sync()}},1000)}catch(e){toast(e.message)}}
 function apply(s){snap=s;timeLeft=s.time_left;updateHud()}
 async function sync(){try{const s=await api('GET','/api/sessions/'+sess);if(s.status!=='active')return finish(s);apply(s)}catch(e){}}
 function updateHud(){if(!snap)return;const done=snap.status==='win'?5:snap.stage-1;$('hudStage').textContent=String(snap.stage).padStart(2,'0')+' / 05';$('hudLives').textContent=Array.from({length:snap.max_lives},(_,i)=>i<snap.lives_left?'♥':'♡').join(' ');$('hudScore').textContent=String(snap.score).padStart(4,'0');$('hudTimer').textContent=fmt(Math.max(0,timeLeft));$('hudTimer').classList.toggle('warning',timeLeft<60);$('sideProgress').textContent=done+' / 5 STAGES';$('fsmState').textContent=snap.fsm_state;$('gameStatus').textContent=snap.status.toUpperCase();
@@ -170,8 +186,8 @@ async function renderVersus(){if(!vsCode){$('vsP1').textContent=pname(player);$(
   $('vsNote').innerHTML=n;$('playMatch').classList.toggle('hidden',!(mine&&!mine.session));$('playMatch').onclick=()=>startCase(cases.find(c=>c.case_id===m.case_id),m.code)}catch(e){$('vsNote').textContent=e.message}}
 $('playVersus').onclick=()=>{renderVersus();show('versus')};
 $('refreshMatch').onclick=renderVersus;
-$('createMatch').onclick=async()=>{const c=cases.find(x=>x.case_id==$('vsCase').value);if(!c)return;try{const m=await api('POST','/api/matches',{player_id:player.player_id,case_id:c.case_id});vsCode=m.code;await startCase(c,m.code)}catch(e){alert(e.message)}};
-$('joinMatch').onclick=async()=>{const code=(prompt('Enter match code:')||'').trim().toUpperCase();if(!code)return;try{const m=await api('POST',`/api/matches/${code}/join`,{player_id:player.player_id});vsCode=code;const mine=m.a.player_id===player.player_id?m.a:m.b;if(mine&&mine.session){renderVersus();show('versus')}else await startCase(cases.find(c=>c.case_id===m.case_id),code)}catch(e){alert(e.message)}};
+$('createMatch').onclick=async()=>{const c=cases.find(x=>x.case_id==$('vsCase').value);if(!c)return;try{const m=await api('POST','/api/matches',{player_id:player.player_id,case_id:c.case_id});vsCode=m.code;await startCase(c,m.code)}catch(e){vsErr(e.message)}};
+$('joinMatch').onclick=async()=>{const code=$('joinCode').value.trim().toUpperCase();if(!code){vsErr('Enter the match code first.');return}try{const m=await api('POST',`/api/matches/${code}/join`,{player_id:player.player_id});vsCode=code;const mine=m.a.player_id===player.player_id?m.a:m.b;if(mine&&mine.session){renderVersus();show('versus')}else await startCase(cases.find(c=>c.case_id===m.case_id),code)}catch(e){vsErr(e.message)}};
 /* ---------- boot ---------- */
 try{const saved=JSON.parse(sessionStorage.getItem('player'));if(saved&&saved.token){player=saved;api('GET','/api/players/'+saved.player_id).then(p=>enter({...p,token:saved.token}),()=>{player=null})}}catch(e){}
 </script>

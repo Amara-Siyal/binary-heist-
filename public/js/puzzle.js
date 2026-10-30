@@ -1,10 +1,10 @@
-
 (function () {
   'use strict';
 
   const state = {
     stage: 1,
     lives: 3,
+    maxLives: 3,
     score: 0,
     time: 300,
     bits: { 8: 0, 4: 0, 2: 0, 1: 0 },
@@ -171,7 +171,7 @@
 
     lives.textContent =
       '♥ '.repeat(Math.max(0, state.lives)) +
-      '♡ '.repeat(Math.max(0, 3 - state.lives));
+      '♡ '.repeat(Math.max(0, state.maxLives - state.lives));
   }
 
   function renderScoreAndStage() {
@@ -401,7 +401,7 @@ function ensureGateButtons() {
       </svg>`
   };
 
-  const gates = ['AND', 'OR', 'NOT', 'NAND', 'NOR', 'XOR', 'XNOR'];
+  const gates = ['AND', 'OR', 'NAND', 'NOR', 'XOR', 'XNOR'];
 
   gates.forEach((gate) => {
     let button = panel.querySelector(`[data-gate="${gate}"]`);
@@ -571,6 +571,7 @@ renderScoreAndStage();
 
     state.stage = Number(snapshot.stage || state.stage || 1);
     state.lives = Number(snapshot.lives_left ?? state.lives);
+    state.maxLives = Number(snapshot.max_lives ?? state.maxLives);
     state.score = Number(snapshot.score ?? state.score);
     state.time = Number(snapshot.time_left ?? state.time);
 

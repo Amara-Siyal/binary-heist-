@@ -234,38 +234,43 @@ function auth(req, res, next) {
 }
 const self = (req, res, next) => (Number(req.params.id) === req.pid ? next() : res.status(403).json({ error: 'forbidden' }));
 
-const hashPw = (pw) => { const salt = crypto.randomBytes(16).toString('hex'); return salt + ':' + crypto.scryptSync(pw, salt, 32).toString('hex'); };
-const checkPw = (pw, h) => { const [salt, hex] = h.split(':'); const a = Buffer.from(hex, 'hex'), b = crypto.scryptSync(pw, salt, 32); return a.length === b.length && crypto.timingSafeEqual(a, b); };
+const scrypt = require('util').promisify(crypto.scrypt); // async, so hashing does not block other requests
+const hashPw = async (pw) => { const salt = crypto.randomBytes(16).toString('hex'); return salt + ':' + (await scrypt(pw, salt, 32)).toString('hex'); };
+const checkPw = async (pw, h) => { const [salt, hex] = h.split(':'); const a = Buffer.from(hex, 'hex'), b = await scrypt(pw, salt, 32); return a.length === b.length && crypto.timingSafeEqual(a, b); };
+
+// Brute-force guard: max 8 failed logins per Agent ID per 10 minutes.
+// In-memory, so on serverless it is per instance (slows guessing; use a DB table or Vercel KV for a hard limit).
+const FAILS = new Map();
+const FAIL_MAX = 8, FAIL_WINDOW_MS = 10 * 60 * 1000;
+const lockedOut = (k) => { const f = FAILS.get(k); return !!f && Date.now() - f.t < FAIL_WINDOW_MS && f.n >= FAIL_MAX; };
+const noteFail = (k) => { const f = FAILS.get(k); FAILS.set(k, f && Date.now() - f.t < FAIL_WINDOW_MS ? { n: f.n + 1, t: f.t } : { n: 1, t: Date.now() }); };
 
 app.post('/api/login', ah(async (req, res) => {
-  const { agent_name, rfid_uid, password, display_name, register } = req.body || {};
-  let p = null;
-  if (rfid_uid) p = await db.get('SELECT * FROM players WHERE rfid_uid=?', [String(rfid_uid)]);
-  if (!p && agent_name) {
-    const name = String(agent_name).trim().replace(/_+$/, '');
-    if (!/^[A-Za-z0-9_]{3,40}$/.test(name)) return res.status(400).json({ error: 'Agent ID must be 3-40 letters, digits or underscores' });
-    p = await db.get('SELECT * FROM players WHERE agent_name=?', [name]);
-    const pw = password ? String(password) : '';
-    if (register) {
-      if (p) return res.status(409).json({ error: 'That Agent ID is already taken' });
-      if (pw.length < 4) return res.status(400).json({ error: 'Password must be at least 4 characters' });
-      const dn = String(display_name || '').trim().slice(0, 40) || null;
-      const r = await db.run('INSERT INTO players (agent_name, display_name, password_hash) VALUES (?,?,?)', [name, dn, hashPw(pw)]);
-      p = await db.get('SELECT * FROM players WHERE player_id=?', [r.lastInsertRowid]);
-    } else if (!p) {
-      if (pw) return res.status(404).json({ error: 'Unknown Agent ID. Create an account first.' });
-      const r = await db.run('INSERT INTO players (agent_name, rfid_uid) VALUES (?,?)', [name, rfid_uid ? String(rfid_uid) : null]);
-      p = await db.get('SELECT * FROM players WHERE player_id=?', [r.lastInsertRowid]);
-    } else {
-      if (p.password_hash) {
-        if (!pw || !checkPw(pw, p.password_hash)) return res.status(401).json({ error: 'Access denied. Invalid Agent ID or password.' });
-      } else if (pw) {
-        await db.run('UPDATE players SET password_hash=? WHERE player_id=?', [hashPw(pw), p.player_id]); // claim legacy account
-      }
-      if (rfid_uid && !p.rfid_uid) await db.run('UPDATE players SET rfid_uid=? WHERE player_id=?', [String(rfid_uid), p.player_id]);
+  const { agent_name, password, display_name, register } = req.body || {};
+  const name = String(agent_name || '').trim().replace(/_+$/, '');
+  if (!/^[A-Za-z0-9_]{3,40}$/.test(name)) return res.status(400).json({ error: 'Agent ID must be 3-40 letters, digits or underscores' });
+  const pw = password ? String(password) : '';
+  if (!pw) return res.status(400).json({ error: 'Password required' });
+  if (pw.length > 200) return res.status(400).json({ error: 'Password too long' });
+  const key = name.toLowerCase();
+  if (lockedOut(key)) return res.status(429).json({ error: 'Too many failed attempts. Try again in a few minutes.' });
+
+  let p = await db.get('SELECT * FROM players WHERE agent_name=?', [name]);
+  if (register) {
+    if (p) return res.status(409).json({ error: 'That Agent ID is already taken' });
+    if (pw.length < 6) return res.status(400).json({ error: 'Password must be at least 6 characters' });
+    const dn = String(display_name || '').trim().slice(0, 40) || null;
+    const r = await db.run('INSERT INTO players (agent_name, display_name, password_hash) VALUES (?,?,?)', [name, dn, await hashPw(pw)]);
+    p = await db.get('SELECT * FROM players WHERE player_id=?', [r.lastInsertRowid]);
+  } else {
+    // same message for "no such agent" and "wrong password" so Agent IDs cannot be probed;
+    // accounts without a password (old versions) can no longer be claimed by whoever logs in first
+    if (!p || !p.password_hash || !(await checkPw(pw, p.password_hash))) {
+      noteFail(key);
+      return res.status(401).json({ error: 'Access denied. Invalid Agent ID or password.' });
     }
+    FAILS.delete(key);
   }
-  if (!p) return res.status(404).json({ error: 'Unknown card. Enter an Agent ID once to register it.' });
   res.json({ ...(await playerProfile(p.player_id)), token: signToken(p.player_id) });
 }));
 
@@ -296,7 +301,7 @@ app.post('/api/sessions', auth, ah(async (req, res) => {
   const player = await db.get('SELECT * FROM players WHERE player_id=?', [player_id]);
   const c = await db.get('SELECT * FROM cases WHERE case_id=?', [case_id]);
   if (!player || !c) return res.status(404).json({ error: 'player or case not found' });
-  if (!['solo', 'hardware'].includes(mode)) return res.status(400).json({ error: 'bad mode' });
+  if (!['solo', 'hardware'].includes(mode) || (mode === 'hardware' && !HW_KEY)) return res.status(400).json({ error: 'bad mode' });
 
   const puzzles = generate(c.difficulty);
   const id = await db.transaction(async (d) => {
@@ -339,17 +344,32 @@ app.post('/api/sessions/:id/answer', ah(async (req, res) => {
 
   const ok = checkAnswer(row, given);
 
+  let stale = false;
   await db.transaction(async (d) => {
+    // Re-read inside the write transaction: a second request that raced this one will now see the new stage and is rejected,
+    // so a stage can never be solved (or a life lost) twice by one click.
+    const cur = await d.get('SELECT * FROM game_sessions WHERE session_id=?', [s.session_id]);
+    if (cur.result !== 'active' || cur.current_stage !== row.stage_no) { stale = true; return; }
+    if (!ok) {
+      // A late duplicate of the answer that was JUST accepted for the previous stage (double-click / retry)
+      // must not be charged as a wrong answer for the new stage.
+      const last = await d.get(`SELECT a.player_answer, a.is_correct, sp.stage_no,
+          (CAST(strftime('%s','now') AS INTEGER) - CAST(strftime('%s', a.attempted_at) AS INTEGER)) AS age
+        FROM attempts a JOIN session_puzzles sp ON sp.sp_id=a.sp_id
+        WHERE a.session_id=? ORDER BY a.attempt_id DESC LIMIT 1`, [s.session_id]);
+      if (last && last.is_correct === 1 && last.stage_no === row.stage_no - 1 && last.player_answer === given && last.age <= 3) { stale = true; return; }
+    }
+
     await d.run(`INSERT INTO attempts (session_id, sp_id, player_answer, is_correct, hint_used)
       VALUES (?, ?, ?, ?, ?)`, [s.session_id, row.sp_id, given, ok ? 1 : 0, row.hint_used]);
 
     if (ok) {
       await d.run('UPDATE session_puzzles SET solved=1 WHERE sp_id=?', [row.sp_id]);
-      const bonus = Math.floor(100 * timeLeft(s) / s.time_limit_sec);
+      const bonus = Math.floor(100 * timeLeft(cur) / cur.time_limit_sec);
       const gain = (row.puzzle_type === 'boss_adder' ? 500 : 250) + bonus;
       await d.run(`UPDATE game_sessions SET score=score+?, current_stage=current_stage+1 WHERE session_id=?`,
         [gain, s.session_id]);
-      if (s.current_stage >= TOTAL_STAGES) {
+      if (cur.current_stage >= TOTAL_STAGES) {
         const updated = await d.get('SELECT * FROM game_sessions WHERE session_id=?', [s.session_id]);
         await finishIn(d, updated, 'win', 'vault_opened');
       }
@@ -360,6 +380,12 @@ app.post('/api/sessions/:id/answer', ah(async (req, res) => {
       if (updated.lives_left <= 0) await finishIn(d, updated, 'lose', 'out_of_lives');
     }
   });
+
+  if (stale) {
+    const now = await loadSession(s.session_id);
+    return res.status(409).json({ error: 'That stage was already answered.', ...(await snapshot(now)),
+      summary: now.result !== 'active' ? await summaryFor(now) : undefined });
+  }
 
   const fresh = await loadSession(s.session_id);
   res.json({
@@ -378,14 +404,18 @@ app.post('/api/sessions/:id/hint', ah(async (req, res) => {
   if (s.result !== 'active') return res.status(409).json({ error: 'session finished' });
   const row = await db.get('SELECT * FROM session_puzzles WHERE session_id=? AND stage_no=?', [s.session_id, s.current_stage]);
   if (!row) return res.status(404).json({ error: 'puzzle not found' });
+  let charged = false;
   if (!row.hint_used) {
     await db.transaction(async (d) => {
-      await d.run('UPDATE session_puzzles SET hint_used=1 WHERE sp_id=?', [row.sp_id]);
-      await d.run('UPDATE game_sessions SET hint_penalty_sec=hint_penalty_sec+? WHERE session_id=?', [HINT_COST_SEC, s.session_id]);
+      const r = await d.run('UPDATE session_puzzles SET hint_used=1 WHERE sp_id=? AND hint_used=0', [row.sp_id]);
+      if (r.changes === 1) { // only the first request flips the flag, so only it pays the penalty
+        charged = true;
+        await d.run('UPDATE game_sessions SET hint_penalty_sec=hint_penalty_sec+? WHERE session_id=?', [HINT_COST_SEC, s.session_id]);
+      }
     });
   }
   const fresh = await loadSession(s.session_id);
-  res.json({ hint: row.hint, cost_sec: row.hint_used ? 0 : HINT_COST_SEC, ...(await snapshot(fresh)),
+  res.json({ hint: row.hint, cost_sec: charged ? HINT_COST_SEC : 0, ...(await snapshot(fresh)),
              summary: fresh.result !== 'active' ? await summaryFor(fresh) : undefined });
 }));
 

@@ -13,12 +13,31 @@ const answerFor = async (sid, stage) =>
   (await db.execute({ sql: 'SELECT correct_answer FROM session_puzzles WHERE session_id=? AND stage_no=?', args: [sid, stage] })).rows[0][0];
 
 (async () => {
-  const p = await call('POST', '/api/login', { agent_name: 'Agent_Zero_' });
+  // every account needs a password now: register a fresh one per run, then check the login rules
+  const id = 'Smoke_' + Date.now().toString(36), pw = 'secret123';
+  const p = await call('POST', '/api/login', { agent_name: id, password: pw, display_name: 'Smoke Test', register: true });
   A = { authorization: 'Bearer ' + p.token };
+  const bad = await call('POST', '/api/login', { agent_name: id, password: 'wrong-pass' });
+  console.log('wrong password rejected:', !!bad.error, '|', bad.error);
+  const nopw = await call('POST', '/api/login', { agent_name: id });
+  console.log('missing password rejected:', !!nopw.error, '|', nopw.error);
+  const ghost = await call('POST', '/api/login', { agent_name: 'Nobody_' + id, password: pw });
+  console.log('unknown id gives same message as wrong password:', ghost.error === bad.error);
+  const again = await call('POST', '/api/login', { agent_name: id, password: pw });
+  console.log('correct password accepted:', !!again.token);
   console.log('login:', p.agent_name, p.rank_title);
   const cases = await call('GET', '/api/cases');
   let s = await call('POST', '/api/sessions', { player_id: p.player_id, case_id: cases[0].case_id });
   console.log('stage 1 question:', s.puzzle.question);
+
+  // double-submit race: send the same correct answer twice at once; only one may count
+  const a1 = await answerFor(s.session_id, 1);
+  const [r1, r2] = await Promise.all([
+    call('POST', `/api/sessions/${s.session_id}/answer`, { answer: a1 }),
+    call('POST', `/api/sessions/${s.session_id}/answer`, { answer: a1 }),
+  ]);
+  s = await call('GET', `/api/sessions/${s.session_id}`);
+  console.log('race: stage after 2 simultaneous correct answers =', s.stage, '(expected 2) |', [r1, r2].map((r) => (r.correct ? 'ok' : r.error)).join(' / '));
 
   s = await call('POST', `/api/sessions/${s.session_id}/answer`, { answer: '0000' });
   console.log('wrong ->', s.correct, 'lives', s.lives_left);
@@ -35,7 +54,8 @@ const answerFor = async (sid, stage) =>
   console.log('leaderboard:', JSON.stringify(await call('GET', '/api/leaderboard')));
   const an = await call('GET', `/api/players/${p.player_id}/analytics`);
   console.log('weakest:', JSON.stringify(an.weakest_concept));
-  const key = process.env.HW_KEY ? { 'x-hardware-key': process.env.HW_KEY } : {};
+  if (!process.env.HW_KEY) return console.log('hardware tests skipped (set HW_KEY to run them)');
+  const key = { 'x-hardware-key': process.env.HW_KEY };
   console.log('hw event:', JSON.stringify(await call('POST', '/api/hardware/event', { state: 'S2', lives: 3, timer: 200, bits: '1011', cmp: 0 }, key)));
   console.log('hw state:', JSON.stringify(await call('GET', '/api/hardware/state')));
   // hardware-mode session + command endpoint
