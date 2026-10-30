@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BINARY HEIST: CASE 0101 // OPERATIONAL DECK</title>
+<!-- Google Fonts: Space Grotesk & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-fixed": "#022100",
+            "on-surface": "#dfe2eb",
+            "on-background": "#dfe2eb",
+            "secondary": "#bdf4ff",
+            "on-primary-fixed-variant": "#095300",
+            "on-primary-container": "#107100",
+            "on-secondary": "#00363d",
+            "surface-container-low": "#181c22",
+            "on-tertiary-container": "#835900",
+            "tertiary-container": "#ffd79e",
+            "tertiary": "#fff8f4",
+            "inverse-on-surface": "#2d3137",
+            "error-container": "#93000a",
+            "surface": "#10141a",
+            "surface-bright": "#353940",
+            "on-surface-variant": "#baccb0",
+            "inverse-surface": "#dfe2eb",
+            "primary-fixed-dim": "#2ae500",
+            "on-tertiary-fixed": "#281800",
+            "error": "#ffb4ab",
+            "on-error": "#690005",
+            "primary-fixed": "#79ff5b",
+            "on-error-container": "#ffdad6",
+            "on-primary": "#053900",
+            "primary": "#efffe3",
+            "surface-container": "#1c2026",
+            "tertiary-fixed-dim": "#ffba43",
+            "surface-dim": "#10141a",
+            "on-tertiary-fixed-variant": "#614000",
+            "inverse-primary": "#106e00",
+            "primary-container": "#39ff14",
+            "on-secondary-container": "#00616d",
+            "background": "#10141a",
+            "on-tertiary": "#432c00",
+            "surface-container-lowest": "#0a0e14",
+            "surface-variant": "#31353c",
+            "secondary-container": "#00e3fd",
+            "outline-variant": "#3c4b35",
+            "surface-container-highest": "#31353c",
+            "tertiary-fixed": "#ffddaf",
+            "secondary-fixed-dim": "#00daf3",
+            "outline": "#85967c",
+            "secondary-fixed": "#9cf0ff",
+            "on-secondary-fixed-variant": "#004f58",
+            "surface-container-high": "#262a31",
+            "surface-tint": "#2ae500",
+            "on-secondary-fixed": "#001f24"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-tablet": "1.25rem",
+            "gutter": "1rem",
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem",
+            "margin": "1rem",
+            "space-md": "1rem",
+            "margin-tablet": "1.5rem",
+            "margin-desktop": "2.5rem",
+            "space-xl": "2.5rem",
+            "space-lg": "1.5rem",
+            "gutter-desktop": "1.5rem"
+          },
+          "fontFamily": {
+            "label-lg": ["JetBrains Mono"],
+            "body-lg": ["JetBrains Mono"],
+            "headline-lg": ["Space Grotesk"],
+            "headline-sm": ["Space Grotesk"],
+            "headline-xl-mobile": ["Space Grotesk"],
+            "body-md": ["JetBrains Mono"],
+            "headline-xl": ["Space Grotesk"],
+            "headline-lg-mobile": ["Space Grotesk"],
+            "headline-md": ["Space Grotesk"],
+            "label-sm": ["JetBrains Mono"],
+            "label-md": ["JetBrains Mono"],
+            "body-sm": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.14em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-xl": ["48px", { "lineHeight": "52px", "letterSpacing": "0.12em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "28px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.16em", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.12em", "fontWeight": "500" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Scanline CRT overlay */
+    .crt-scanlines {
+      background: linear-gradient(rgba(18, 24, 32, 0) 50%, rgba(0, 0, 0, 0.45) 50%);
+      background-size: 100% 3px;
+    }
+
+    /* Terminal HUD phosphor glow */
+    .glow-green {
+      box-shadow: 0 0 10px rgba(57, 255, 20, 0.45), inset 0 0 5px rgba(57, 255, 20, 0.2);
+    }
+    .glow-cyan {
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.4), inset 0 0 6px rgba(0, 229, 255, 0.18);
+    }
+    .glow-amber {
+      box-shadow: 0 0 14px rgba(255, 176, 0, 0.5), inset 0 0 6px rgba(255, 176, 0, 0.2);
+    }
+    .glow-red {
+      box-shadow: 0 0 12px rgba(255, 46, 76, 0.55), inset 0 0 5px rgba(255, 46, 76, 0.25);
+    }
+
+    /* 7-Segment amber digital clock styling */
+    .seven-segment {
+      letter-spacing: 0.15em;
+      text-shadow: 0 0 10px #ffb000, 0 0 20px rgba(255, 176, 0, 0.6);
+    }
+
+    /* Chamfer corner mask cuts */
+    .chamfer-sm {
+      clip-path: polygon(6px 0%, calc(100% - 6px) 0%, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0% calc(100% - 6px), 0% 6px);
+    }
+    .chamfer-lg {
+      clip-path: polygon(14px 0%, calc(100% - 14px) 0%, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0% calc(100% - 14px), 0% 14px);
+    }
+
+    /* Custom Terminal scrollbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0e14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3c4b35;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #39ff14;
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md antialiased min-h-screen relative overflow-x-hidden selection:bg-primary-container selection:text-surface-container-lowest">
+<!-- Ambient CRT Scanline Overlay -->
+<div class="fixed inset-0 pointer-events-none crt-scanlines z-50 opacity-40"></div>
+<!-- MAIN WRAPPER (Max 1440px desktop frame) -->
+<div class="max-w-[1440px] mx-auto min-h-screen flex flex-col justify-between border-x border-outline-variant/40 bg-surface-container-lowest shadow-2xl relative">
+<!-- 1. TOP APP BAR (Shared Components JSON Anchor) -->
+<header class="w-full bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center px-4 py-2 sticky top-0 z-40">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-primary-container text-xl animate-pulse" data-icon="terminal">terminal</span>
+<span class="text-headline-sm font-headline-sm tracking-widest text-primary-container uppercase font-extrabold flex items-center gap-2">
+          BINARY HEIST // TERMINAL_STATION_01
+          <span class="inline-block w-2 h-4 bg-primary-container animate-ping"></span>
+</span>
+</div>
+<!-- Live Global Metas (Decay, Lives, Bounty, Stage) -->
+<div class="hidden md:flex items-center space-x-6">
+<!-- Operative Circuit Hearts (3 Nodes) -->
+<div class="flex items-center space-x-2 bg-surface-container-low px-3 py-1 border border-outline-variant">
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-wider">CRC HEARTS</span>
+<div class="flex space-x-1.5 ml-1">
+<span class="w-3 h-3 rounded-full bg-primary-container glow-green animate-pulse"></span>
+<span class="w-3 h-3 rounded-full bg-primary-container glow-green animate-pulse" style="animation-delay: 200ms;"></span>
+<span class="w-3 h-3 rounded-full bg-error border border-error-container glow-red opacity-80"></span>
+</div>
+</div>
+<!-- 7-Segment Countdown Decay Timer -->
+<div class="flex items-center space-x-2 bg-surface-container-low px-3 py-1 border border-outline-variant">
+<span class="material-symbols-outlined text-[#ffb000] text-sm animate-spin" data-icon="timer">timer</span>
+<span class="text-label-sm font-label-sm text-outline">TTL:</span>
+<span class="font-label-lg text-label-lg font-bold text-[#ffb000] seven-segment" id="countdown-timer">02:45:12</span>
+</div>
+<!-- Score & Bounty Tracker -->
+<div class="flex items-center space-x-2 bg-surface-container-low px-3 py-1 border border-outline-variant">
+<span class="text-label-sm font-label-sm text-outline">BOUNTY:</span>
+<span class="font-label-lg text-label-lg text-secondary-container font-bold tracking-widest">04,850 PTS</span>
+</div>
+<!-- Stage Tracker JSON Trailing Action Anchor -->
+<div class="flex items-center space-x-2 bg-surface-container-high px-3 py-1 border border-outline">
+<span class="text-label-sm font-label-sm text-primary-container font-bold">STAGE 01 / 05</span>
+<div class="flex space-x-1">
+<div class="w-2.5 h-2 bg-secondary-container glow-cyan"></div>
+<div class="w-2.5 h-2 bg-outline-variant"></div>
+<div class="w-2.5 h-2 bg-outline-variant"></div>
+<div class="w-2.5 h-2 bg-outline-variant"></div>
+<div class="w-2.5 h-2 bg-outline-variant"></div>
+</div>
+</div>
+</div>
+<!-- Quick Actions Header Cluster -->
+<div class="flex items-center space-x-3">
+<div class="hidden lg:flex items-center text-label-sm font-label-sm text-outline space-x-1 px-2 border-r border-outline-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span>LATENCY: 12ms</span>
+</div>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors active:scale-95" title="Toggle Audio Feed">
+<span class="material-symbols-outlined text-base" data-icon="volume_up">volume_up</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors active:scale-95" title="Full Console Mode">
+<span class="material-symbols-outlined text-base" data-icon="fullscreen">fullscreen</span>
+</button>
+<div class="px-2 py-0.5 border border-primary-container/40 text-primary-container text-label-sm font-label-sm bg-primary-container/10">
+          NODE #09
+        </div>
+</div>
+</header>
+<!-- 2. MAIN TACTICAL HUD VIEWPORT (1440px Desktop 3-Panel Layout) -->
+<main class="w-full p-4 lg:p-6 grid grid-cols-12 gap-5 flex-1">
+<!-- ==========================================
+           LEFT PANEL: CLUE & DECRYPTION ARCHIVE
+           (Width: 3.5 cols on Desktop)
+           ========================================== -->
+<section class="col-span-12 lg:col-span-4 flex flex-col space-y-4">
+<!-- Case Evidence Dossier Box -->
+<div class="relative bg-surface-container-low border border-outline-variant p-4 chamfer-sm">
+<!-- Classified Corner Stamp -->
+<div class="absolute -top-2.5 right-4 px-2 py-0.5 bg-error-container border border-error text-error text-label-sm font-label-sm tracking-widest uppercase font-bold transform -rotate-1 shadow-md">
+            RESTRICTED // CASE 0101
+          </div>
+<!-- Dossier Header -->
+<div class="flex items-center space-x-2 border-b border-outline-variant/60 pb-2 mb-3">
+<span class="material-symbols-outlined text-secondary-container text-lg" data-icon="folder_open">folder_open</span>
+<h2 class="text-headline-sm font-headline-sm text-secondary tracking-wider uppercase">DECRYPTION DOSSIER</h2>
+</div>
+<!-- Paperclip & Clue Tape Detail -->
+<div class="bg-surface-container-lowest border-l-2 border-secondary-container p-3 mb-4 relative">
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-sm font-label-sm text-secondary-container font-mono">[CLUE REF: PIN_BUS_0101]</span>
+<span class="text-label-sm font-label-sm text-outline">SIG: VALID</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface leading-relaxed font-mono">
+<span class="text-primary-container font-bold">&gt;</span> Decode <span class="bg-surface-variant px-1.5 py-0.5 text-primary-container font-bold tracking-wider">0100 0011 0101</span> using the conversion matrix to extract bus register parity. 
+            </p>
+<div class="mt-2 text-label-sm font-label-sm text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-none bg-error inline-block"></span>
+              TARGET: Set 4-Bit Bus Register [B3..B0] matching low-nibble checksum.
+            </div>
+</div>
+<!-- ASCII / BINARY / HEX MATRIX TABLE -->
+<div class="border border-outline-variant bg-surface-container-lowest p-3">
+<div class="flex justify-between items-center mb-2 pb-1 border-b border-outline-variant/60">
+<span class="text-label-sm font-label-sm text-on-surface uppercase font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-primary-container" data-icon="grid_4x4">grid_4x4</span>
+                ASCII / HEX / BUS CONVERSION
+              </span>
+<span class="text-label-sm font-label-sm text-primary-container">[SYNCED]</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-label-sm text-label-sm font-mono border-collapse">
+<thead>
+<tr class="text-outline border-b border-outline-variant/40 bg-surface-container-high/40">
+<th class="py-1 px-2">CHAR</th>
+<th class="py-1 px-2">HEX</th>
+<th class="py-1 px-2">8-BIT BINARY</th>
+<th class="py-1 px-2 text-right">PARITY</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30 text-on-surface">
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-1 px-2 text-primary-container font-bold">'A'</td>
+<td class="py-1 px-2 text-secondary-container">0x41</td>
+<td class="py-1 px-2 text-outline">0100 0001</td>
+<td class="py-1 px-2 text-right text-on-surface-variant">ODD</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-1 px-2 text-primary-container font-bold">'B'</td>
+<td class="py-1 px-2 text-secondary-container">0x42</td>
+<td class="py-1 px-2 text-outline">0100 0010</td>
+<td class="py-1 px-2 text-right text-on-surface-variant">ODD</td>
+</tr>
+<tr class="bg-primary-container/10 border-l-2 border-primary-container">
+<td class="py-1 px-2 text-primary-container font-bold">'C'</td>
+<td class="py-1 px-2 text-secondary-container font-bold">0x43</td>
+<td class="py-1 px-2 text-primary-container font-bold">0100 0011</td>
+<td class="py-1 px-2 text-right text-primary-container font-bold">EVEN</td>
+</tr>
+<tr class="bg-secondary-container/10 border-l-2 border-secondary-container">
+<td class="py-1 px-2 text-secondary font-bold">'5'</td>
+<td class="py-1 px-2 text-secondary-container font-bold">0x35</td>
+<td class="py-1 px-2 text-secondary-container font-bold">0011 0101</td>
+<td class="py-1 px-2 text-right text-secondary-container font-bold">EVEN</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-1 px-2 text-primary-container font-bold">'Z'</td>
+<td class="py-1 px-2 text-secondary-container">0x5A</td>
+<td class="py-1 px-2 text-outline">0101 1010</td>
+<td class="py-1 px-2 text-right text-on-surface-variant">EVEN</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-2 text-[10px] text-outline text-right">
+              CHCK: 0x43 (C) ⊕ 0x35 (5) = [0x76]
+            </div>
+</div>
+</div>
+<!-- Teleprinter Intercept Notes -->
+<div class="bg-surface-container-lowest border border-outline-variant p-3">
+<div class="text-label-sm font-label-sm text-outline uppercase tracking-wider mb-1 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-error" data-icon="bug_report">bug_report</span>
+            COUNTER-MEASURE WARNING
+          </div>
+<p class="text-body-sm font-body-sm text-on-surface-variant leading-tight">
+            Mainframe watchdog fires CRC purge cycle on three consecutive parity mismatches. Check bits carefully before pushing to live bus rail.
+          </p>
+</div>
+</section>
+<!-- ==========================================
+           CENTER PANEL: TACTILE DIP SWITCH MATRIX
+           (Width: 5 cols on Desktop)
+           ========================================== -->
+<section class="col-span-12 lg:col-span-5 flex flex-col justify-between space-y-4">
+<!-- Physical Bay Chassis Enclosure -->
+<div class="bg-surface-container-low border-2 border-outline-variant p-5 chamfer-lg relative shadow-inner">
+<!-- Bay Enclosure Stencil Markings -->
+<div class="flex justify-between items-center border-b border-outline-variant pb-3 mb-5">
+<div>
+<span class="text-label-sm font-label-sm text-outline tracking-widest uppercase">INPUT MODULE // BUS_RX</span>
+<h1 class="text-headline-md font-headline-md text-primary tracking-wide uppercase">4-BIT DIP SWITCH BAY</h1>
+</div>
+<div class="text-right">
+<span class="px-2 py-0.5 border border-primary-container text-primary-container text-label-sm font-label-sm bg-primary-container/10 uppercase">
+                ACTIVE MODE
+              </span>
+</div>
+</div>
+<!-- MECHANICAL DIP SWITCH 4-ROCKER RACK -->
+<div class="bg-surface-container-lowest border border-outline-variant p-5 rounded relative">
+<div class="text-center text-label-sm font-label-sm text-outline mb-4 tracking-widest uppercase">
+              HARDWARE BUS PINS [ MSB -&gt; LSB ]
+            </div>
+<!-- The 4 Switch Enclosures -->
+<div class="grid grid-cols-4 gap-4 mb-6">
+<!-- BIT 3 (MSB - Weight 8) -->
+<div class="flex flex-col items-center bg-surface-container border border-outline-variant/80 p-3 chamfer-sm">
+<span class="text-label-sm font-label-sm text-outline mb-2">BIT 3 (8)</span>
+<!-- Vertical Toggle Track -->
+<button class="w-12 h-24 bg-surface-container-lowest border-2 border-outline relative p-1 flex flex-col justify-start items-center transition-all focus:outline-none glow-green" id="switch-3" onclick="toggleBit(3)">
+<!-- Indicator LED -->
+<span class="w-3 h-1 bg-primary-container mb-1 shadow-sm" id="led-3"></span>
+<!-- Mechanical Lever Head -->
+<div class="w-10 h-10 bg-primary-container text-surface-container-lowest font-headline-sm font-bold flex items-center justify-center border border-primary transition-all duration-150 transform translate-y-0" id="lever-3">
+                    1
+                  </div>
+<span class="text-[9px] font-mono text-primary-container mt-auto font-bold tracking-tighter">ON</span>
+</button>
+<span class="text-label-sm font-label-sm text-primary-container font-mono mt-2 font-bold" id="label-3">[HIGH]</span>
+</div>
+<!-- BIT 2 (Weight 4) -->
+<div class="flex flex-col items-center bg-surface-container border border-outline-variant/80 p-3 chamfer-sm">
+<span class="text-label-sm font-label-sm text-outline mb-2">BIT 2 (4)</span>
+<!-- Vertical Toggle Track -->
+<button class="w-12 h-24 bg-surface-container-lowest border-2 border-outline-variant relative p-1 flex flex-col justify-end items-center transition-all focus:outline-none" id="switch-2" onclick="toggleBit(2)">
+<span class="text-[9px] font-mono text-outline mb-auto font-bold tracking-tighter">OFF</span>
+<!-- Mechanical Lever Head -->
+<div class="w-10 h-10 bg-surface-bright text-outline font-headline-sm font-bold flex items-center justify-center border border-outline transition-all duration-150 transform translate-y-0" id="lever-2">
+                    0
+                  </div>
+<!-- Indicator LED -->
+<span class="w-3 h-1 bg-outline-variant mt-1" id="led-2"></span>
+</button>
+<span class="text-label-sm font-label-sm text-outline font-mono mt-2" id="label-2">[LOW]</span>
+</div>
+<!-- BIT 1 (Weight 2) -->
+<div class="flex flex-col items-center bg-surface-container border border-outline-variant/80 p-3 chamfer-sm">
+<span class="text-label-sm font-label-sm text-outline mb-2">BIT 1 (2)</span>
+<!-- Vertical Toggle Track -->
+<button class="w-12 h-24 bg-surface-container-lowest border-2 border-outline relative p-1 flex flex-col justify-start items-center transition-all focus:outline-none glow-green" id="switch-1" onclick="toggleBit(1)">
+<!-- Indicator LED -->
+<span class="w-3 h-1 bg-primary-container mb-1 shadow-sm" id="led-1"></span>
+<!-- Mechanical Lever Head -->
+<div class="w-10 h-10 bg-primary-container text-surface-container-lowest font-headline-sm font-bold flex items-center justify-center border border-primary transition-all duration-150 transform translate-y-0" id="lever-1">
+                    1
+                  </div>
+<span class="text-[9px] font-mono text-primary-container mt-auto font-bold tracking-tighter">ON</span>
+</button>
+<span class="text-label-sm font-label-sm text-primary-container font-mono mt-2 font-bold" id="label-1">[HIGH]</span>
+</div>
+<!-- BIT 0 (LSB - Weight 1) -->
+<div class="flex flex-col items-center bg-surface-container border border-outline-variant/80 p-3 chamfer-sm">
+<span class="text-label-sm font-label-sm text-outline mb-2">BIT 0 (1)</span>
+<!-- Vertical Toggle Track -->
+<button class="w-12 h-24 bg-surface-container-lowest border-2 border-outline-variant relative p-1 flex flex-col justify-end items-center transition-all focus:outline-none" id="switch-0" onclick="toggleBit(0)">
+<span class="text-[9px] font-mono text-outline mb-auto font-bold tracking-tighter">OFF</span>
+<!-- Mechanical Lever Head -->
+<div class="w-10 h-10 bg-surface-bright text-outline font-headline-sm font-bold flex items-center justify-center border border-outline transition-all duration-150 transform translate-y-0" id="lever-0">
+                    0
+                  </div>
+<!-- Indicator LED -->
+<span class="w-3 h-1 bg-outline-variant mt-1" id="led-0"></span>
+</button>
+<span class="text-label-sm font-label-sm text-outline font-mono mt-2" id="label-0">[LOW]</span>
+</div>
+</div>
+<!-- LIVE TELEMETRY READOUT BAR -->
+<div class="bg-surface-container-high border border-outline px-4 py-2 flex justify-between items-center">
+<span class="text-label-sm font-label-sm text-outline uppercase">REGISTER PAYLOAD:</span>
+<div class="font-mono text-body-md font-bold tracking-wider text-secondary-container">
+                [ <span class="text-primary-container" id="bit3-val">1</span>
+<span class="text-outline" id="bit2-val">0</span>
+<span class="text-primary-container" id="bit1-val">1</span>
+<span class="text-outline" id="bit0-val">0</span> ] 
+                = <span class="text-primary" id="dec-val">10</span> DEC 
+                // <span class="text-secondary-fixed" id="hex-val">0x0A</span> HEX
+              </div>
+</div>
+</div>
+<!-- QUICK UTILITY CONTROLS -->
+<div class="flex items-center justify-between mt-4">
+<button class="px-3 py-1.5 border border-outline text-outline hover:text-on-surface hover:bg-surface-variant font-label-sm text-label-sm uppercase transition-colors flex items-center gap-1 active:scale-95" onclick="clearMatrix()">
+<span class="material-symbols-outlined text-sm" data-icon="refresh">refresh</span>
+              [ CLEAR MATRIX ]
+            </button>
+<button class="px-3 py-1.5 border border-secondary-container/60 text-secondary-container hover:bg-secondary-container/10 font-label-sm text-label-sm uppercase transition-colors flex items-center gap-1 active:scale-95" onclick="invertBits()">
+<span class="material-symbols-outlined text-sm" data-icon="swap_horiz">swap_horiz</span>
+              [ INVERT BITS ]
+            </button>
+</div>
+<!-- PRIMARY TACTICAL CTA BUTTON -->
+<div class="mt-4">
+<button class="w-full py-4 bg-primary-container text-surface-container-lowest font-headline-sm font-bold tracking-widest uppercase chamfer-sm hover:brightness-110 active:scale-95 transition-all flex items-center justify-center space-x-3 glow-green" onclick="submitPayload()">
+<span class="material-symbols-outlined font-bold text-xl" data-icon="terminal">terminal</span>
+<span>[ SUBMIT ANSWER // TRANSMIT TO BUS ]</span>
+<span class="material-symbols-outlined font-bold text-xl" data-icon="bolt">bolt</span>
+</button>
+</div>
+</div>
+<!-- Telemetry Status Micro-banner -->
+<div class="bg-surface-container-lowest border border-outline-variant p-2 flex justify-between items-center text-label-sm font-label-sm">
+<span class="text-outline">SERIAL: USB_TTL_CH340</span>
+<span class="text-primary-container flex items-center gap-1 font-bold">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+            PAYLOAD READY FOR TRANSMISSION
+          </span>
+</div>
+</section>
+<!-- ==========================================
+           RIGHT PANEL: HARDWARE TELEMETRY & FSM STATE
+           (Width: 3.5 cols on Desktop)
+           ========================================== -->
+<section class="col-span-12 lg:col-span-3 flex flex-col space-y-4">
+<!-- Hardware Link Status Card -->
+<div class="bg-surface-container-low border border-outline-variant p-4 chamfer-sm">
+<div class="flex items-center justify-between border-b border-outline-variant/60 pb-2 mb-3">
+<span class="text-label-sm font-label-sm text-outline uppercase font-bold">HARDWARE STATUS</span>
+<span class="text-label-sm font-label-sm text-primary-container font-mono">3.3V BUS</span>
+</div>
+<!-- Link indicator node -->
+<div class="flex items-center space-x-3 bg-surface-container-lowest border border-outline-variant p-3 mb-3">
+<div class="relative flex items-center justify-center">
+<div class="w-4 h-4 rounded-full bg-primary-container glow-green"></div>
+<div class="absolute w-7 h-7 rounded-full border border-primary-container animate-ping"></div>
+</div>
+<div>
+<div class="text-body-sm font-body-sm text-primary font-bold">BOX CONNECTED</div>
+<div class="text-label-sm font-label-sm text-outline">SPI / I2C SYNCED @ 400kHz</div>
+</div>
+</div>
+<!-- Current Finite State Machine (FSM) State -->
+<div class="bg-surface-container-lowest border border-outline-variant p-2.5 mb-3">
+<div class="text-label-sm font-label-sm text-outline uppercase mb-1">FINITE STATE MACHINE (FSM)</div>
+<div class="flex items-center justify-between">
+<span class="font-mono text-label-lg font-bold text-secondary-container">S1_CLUE_EVAL</span>
+<span class="px-2 py-0.5 bg-secondary-container/20 border border-secondary-container text-secondary text-[10px] font-mono">
+                CYCLE 04
+              </span>
+</div>
+<!-- Miniature FSM flow diagram steps -->
+<div class="grid grid-cols-4 gap-1 mt-2 text-center text-[9px] font-mono">
+<div class="py-0.5 bg-outline-variant text-outline">INIT</div>
+<div class="py-0.5 bg-secondary-container text-surface-container-lowest font-bold">CLUE_1</div>
+<div class="py-0.5 bg-surface-variant text-outline">VERIF</div>
+<div class="py-0.5 bg-surface-variant text-outline">NEXT</div>
+</div>
+</div>
+<!-- Tactical Tool Actions -->
+<div class="space-y-2">
+<!-- Hint Action Button with Penalty Warning -->
+<button class="w-full py-2 bg-surface-container border border-[#ffb000]/60 text-[#ffb000] hover:bg-[#ffb000]/10 font-label-sm text-label-sm uppercase transition-all flex items-center justify-center gap-2 active:scale-95" onclick="requestHint()">
+<span class="material-symbols-outlined text-sm" data-icon="lightbulb">lightbulb</span>
+<span>REQUEST HINT (-30 SEC)</span>
+</button>
+<!-- Mini Logic Gate Scratchpad -->
+<button class="w-full py-1.5 bg-surface-container border border-outline text-on-surface hover:text-secondary hover:border-secondary-container font-label-sm text-label-sm uppercase transition-all flex items-center justify-center gap-2 active:scale-95">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+<span>LOGIC GATE SKETCHPAD</span>
+</button>
+<!-- Probe Register Pin -->
+<button class="w-full py-1.5 bg-surface-container border border-outline text-on-surface hover:text-primary-container hover:border-primary-container font-label-sm text-label-sm uppercase transition-all flex items-center justify-center gap-2 active:scale-95">
+<span class="material-symbols-outlined text-sm" data-icon="electric_bolt">electric_bolt</span>
+<span>PROBE REGISTER PIN</span>
+</button>
+</div>
+</div>
+<!-- Physical Hardware Enclosure Pinout Diagram -->
+<div class="bg-surface-container-low border border-outline-variant p-3 chamfer-sm">
+<div class="text-label-sm font-label-sm text-outline uppercase tracking-wider mb-2 flex justify-between">
+<span>GPIO PIN MAP</span>
+<span class="text-primary-container">ESP32-S3</span>
+</div>
+<div class="grid grid-cols-2 gap-2 text-label-sm font-label-sm font-mono bg-surface-container-lowest p-2 border border-outline-variant/60">
+<div class="flex justify-between items-center pr-2 border-r border-outline-variant/40">
+<span class="text-outline">P12 [B3]</span>
+<span class="w-2 h-2 bg-primary-container rounded-none"></span>
+</div>
+<div class="flex justify-between items-center pl-2">
+<span class="text-outline">P14 [B2]</span>
+<span class="w-2 h-2 bg-outline-variant rounded-none"></span>
+</div>
+<div class="flex justify-between items-center pr-2 border-r border-outline-variant/40">
+<span class="text-outline">P27 [B1]</span>
+<span class="w-2 h-2 bg-primary-container rounded-none"></span>
+</div>
+<div class="flex justify-between items-center pl-2">
+<span class="text-outline">P26 [B0]</span>
+<span class="w-2 h-2 bg-outline-variant rounded-none"></span>
+</div>
+</div>
+</div>
+</section>
+<!-- ==========================================
+           3. BOTTOM DECK: FIELD NOTES & SYSTEM LOGS
+           (12-Columns Split View)
+           ========================================== -->
+<section class="col-span-12 grid grid-cols-12 gap-5 mt-1">
+<!-- LEFT SPLIT: DETECTIVE'S FIELD NOTES (5 Columns) -->
+<div class="col-span-12 lg:col-span-5 bg-surface-container-low border border-outline-variant p-4 chamfer-sm">
+<div class="flex justify-between items-center border-b border-outline-variant/60 pb-2 mb-2">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-base" data-icon="edit_note">edit_note</span>
+<h3 class="text-headline-sm font-headline-sm text-tertiary uppercase tracking-wide">DETECTIVE'S FIELD NOTES</h3>
+</div>
+<span class="text-[10px] font-mono text-outline uppercase">AUTOSAVE: ON</span>
+</div>
+<div class="relative bg-surface-container-lowest border border-outline-variant p-3 font-mono">
+<div class="text-label-sm font-label-sm text-on-surface-variant mb-2">
+              // INVESTIGATION FRAGMENT #101 // PENCIL LOGIC:
+            </div>
+<textarea class="w-full bg-transparent text-body-sm font-body-sm text-primary border-none p-0 focus:ring-0 resize-none h-24 font-mono leading-relaxed" spellcheck="false">- High nibble 0x4 (0100) ignored by register bus.
+- Low nibble target = 0x3 (0011) from 'C' OR 0x5 (0101) from '5'?
+- Hypothesis: (B3 ⊕ B2) &amp; (B1 | B0) = 1
+- Current latch state: 1010 (10 DEC)
+            </textarea>
+<div class="flex justify-between items-center pt-2 border-t border-outline-variant/40 text-[10px] text-outline">
+<span>TAG: EVIDENCE_CRIME_SCENE_01</span>
+<span class="text-secondary-container">LAST EDITED: 14:22:58</span>
+</div>
+</div>
+</div>
+<!-- RIGHT SPLIT: TERMINAL SYSTEM LOG (7 Columns) -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container-low border border-outline-variant p-4 chamfer-sm flex flex-col justify-between">
+<div class="flex justify-between items-center border-b border-outline-variant/60 pb-2 mb-2">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary-container text-base animate-pulse" data-icon="receipt_long">receipt_long</span>
+<h3 class="text-headline-sm font-headline-sm text-primary uppercase tracking-wide">TERMINAL SYSTEM LOG</h3>
+</div>
+<span class="text-label-sm font-label-sm text-primary-container font-mono">STREAMING // 9600 BAUD</span>
+</div>
+<!-- Real-time Console Log Feed -->
+<div class="bg-surface-container-lowest border border-outline-variant p-3 font-mono text-label-sm font-label-sm h-28 overflow-y-auto space-y-1" id="system-logs">
+<div class="text-outline">
+<span class="text-on-surface-variant">[14:22:01]</span> <span class="text-primary-container">SYS_INIT:</span> Hardware handshake verified on UART0.
+            </div>
+<div class="text-error">
+<span class="text-on-surface-variant">[14:22:15]</span> <span class="text-error font-bold">&gt; Attempt 1:</span> WRONG. CRC checksum failure. Life lost (-1 CRC).
+            </div>
+<div class="text-[#ffb000]">
+<span class="text-on-surface-variant">[14:22:30]</span> <span class="text-[#ffb000] font-bold">&gt; WARNING:</span> Parity alert on Pin 03 (expected even).
+            </div>
+<div class="text-secondary">
+<span class="text-on-surface-variant">[14:23:05]</span> <span class="text-secondary font-bold">&gt; BUS_RDY:</span> Awaiting 4-bit bus payload from operator DIP array...
+            </div>
+</div>
+<div class="flex justify-between items-center pt-2 text-[10px] text-outline">
+<span class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-primary-container rounded-full animate-ping"></span>
+              PORT: /dev/ttyUSB0 ACTIVE
+            </span>
+<span>LOG REVISION 4.19</span>
+</div>
+</div>
+</section>
+</main>
+<!-- 4. BOTTOM NAVIGATION BAR (Shared Components JSON Anchor) -->
+<!-- Displayed on mobile viewports per layout responsive rules -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-2 bg-surface-container-lowest border-t-2 border-outline-variant">
+<!-- Nav Item 1: DECK (Active Screen Match) -->
+<button class="flex flex-col items-center justify-center text-primary-container font-bold border-t-2 border-primary-container p-2 flex-1">
+<span class="material-symbols-outlined text-lg" data-icon="memory">memory</span>
+<span class="text-label-sm font-label-sm uppercase mt-0.5">DECK</span>
+</button>
+<!-- Nav Item 2: DOSSIER -->
+<button class="flex flex-col items-center justify-center text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 flex-1">
+<span class="material-symbols-outlined text-lg" data-icon="folder_open">folder_open</span>
+<span class="text-label-sm font-label-sm uppercase mt-0.5">DOSSIER</span>
+</button>
+<!-- Nav Item 3: LOGS -->
+<button class="flex flex-col items-center justify-center text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 flex-1">
+<span class="material-symbols-outlined text-lg" data-icon="receipt_long">receipt_long</span>
+<span class="text-label-sm font-label-sm uppercase mt-0.5">LOGS</span>
+</button>
+<!-- Nav Item 4: DECRYPT -->
+<button class="flex flex-col items-center justify-center text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 flex-1">
+<span class="material-symbols-outlined text-lg" data-icon="lock_open">lock_open</span>
+<span class="text-label-sm font-label-sm uppercase mt-0.5">DECRYPT</span>
+</button>
+</nav>
+</div>
+<!-- Micro-interactions & DIP Switch Logic (Inline Vanilla JS) -->
+<!-- Binary Heist API and Deck Controller -->
+<script src="js/heist-api.js"></script>
+<script src="js/deck.js"></script>
+</body></html>

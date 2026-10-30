@@ -1,0 +1,539 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>BINARY HEIST // CASE NOTES: CIRCUIT FORENSICS</title>
+<!-- Material Symbols & Monospace Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary-container": "#00e3fd",
+            "on-background": "#dfe2eb",
+            "on-secondary-fixed": "#001f24",
+            "on-tertiary-fixed": "#281800",
+            "on-primary-fixed-variant": "#095300",
+            "outline-variant": "#3c4b35",
+            "on-primary": "#053900",
+            "primary-fixed": "#79ff5b",
+            "primary": "#efffe3",
+            "error-container": "#93000a",
+            "tertiary": "#fff8f4",
+            "on-tertiary-fixed-variant": "#614000",
+            "surface-tint": "#2ae500",
+            "surface-container-highest": "#31353c",
+            "secondary-fixed": "#9cf0ff",
+            "on-tertiary-container": "#835900",
+            "error": "#ffb4ab",
+            "on-secondary-container": "#00616d",
+            "inverse-primary": "#106e00",
+            "on-primary-container": "#107100",
+            "surface-container-high": "#262a31",
+            "on-surface": "#dfe2eb",
+            "primary-container": "#39ff14",
+            "primary-fixed-dim": "#2ae500",
+            "on-error-container": "#ffdad6",
+            "background": "#10141a",
+            "on-tertiary": "#432c00",
+            "surface-dim": "#10141a",
+            "outline": "#85967c",
+            "inverse-on-surface": "#2d3137",
+            "tertiary-fixed-dim": "#ffba43",
+            "on-primary-fixed": "#022100",
+            "on-surface-variant": "#baccb0",
+            "tertiary-fixed": "#ffddaf",
+            "inverse-surface": "#dfe2eb",
+            "surface": "#10141a",
+            "on-secondary-fixed-variant": "#004f58",
+            "on-secondary": "#00363d",
+            "secondary": "#bdf4ff",
+            "on-error": "#690005",
+            "surface-container": "#1c2026",
+            "surface-variant": "#31353c",
+            "surface-bright": "#353940",
+            "surface-container-lowest": "#0a0e14",
+            "surface-container-low": "#181c22",
+            "tertiary-container": "#ffd79e",
+            "secondary-fixed-dim": "#00daf3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "body-sm": ["JetBrains Mono"],
+            "body-lg": ["JetBrains Mono"],
+            "label-md": ["JetBrains Mono"],
+            "label-lg": ["JetBrains Mono"],
+            "headline-xl-mobile": ["Space Grotesk"],
+            "headline-xl": ["Space Grotesk"],
+            "headline-lg-mobile": ["Space Grotesk"],
+            "headline-md": ["Space Grotesk"],
+            "body-md": ["JetBrains Mono"],
+            "label-sm": ["JetBrains Mono"],
+            "headline-lg": ["Space Grotesk"],
+            "headline-sm": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.12em", "fontWeight": "500" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.14em", "fontWeight": "600" }],
+            "headline-xl": ["48px", { "lineHeight": "52px", "letterSpacing": "0.12em", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.16em", "fontWeight": "600" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "0.08em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Scanlines and CRT overlay */
+    .crt-overlay {
+      background: linear-gradient(rgba(18, 24, 32, 0) 50%, rgba(0, 0, 0, 0.45) 50%);
+      background-size: 100% 3px;
+    }
+    .phosphor-green-glow {
+      box-shadow: 0 0 12px rgba(57, 255, 20, 0.4), inset 0 0 6px rgba(57, 255, 20, 0.15);
+    }
+    .phosphor-cyan-glow {
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.35), inset 0 0 6px rgba(0, 229, 255, 0.15);
+    }
+    .phosphor-amber-glow {
+      box-shadow: 0 0 10px rgba(255, 186, 67, 0.35);
+    }
+    .radar-grid {
+      background-image: 
+        radial-gradient(circle at center, rgba(0, 227, 253, 0.08) 1px, transparent 1px),
+        linear-gradient(to right, rgba(31, 46, 61, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(31, 46, 61, 0.35) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    /* Signal animation keyframes */
+    @keyframes pulse-signal {
+      0% { stroke-dashoffset: 64; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .animate-signal-flow {
+      stroke-dasharray: 8 6;
+      animation: pulse-signal 1.8s linear infinite;
+    }
+    @keyframes cursor-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .animate-cursor {
+      animation: cursor-blink 0.9s infinite;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased selection:bg-primary-container selection:text-background min-h-screen overflow-x-hidden relative">
+<!-- ========================================== -->
+<!-- BACKGROUND LAYER: Blurred Tactical Terminal Console (Simulated Under-Canvas) -->
+<!-- ========================================== -->
+<div class="fixed inset-0 pointer-events-none filter blur-md opacity-35 radar-grid z-0">
+<!-- Simulated Underlay HUD Elements -->
+<div class="p-8 grid grid-cols-12 gap-6 h-full">
+<div class="col-span-3 border border-outline-variant bg-surface-container-lowest p-4">
+<div class="text-primary-container font-label-sm">CIRCUIT_BAY_04 // OFF-LINE</div>
+<div class="h-48 mt-4 bg-surface-container-low border border-outline-variant"></div>
+</div>
+<div class="col-span-6 border border-outline-variant bg-surface-container-lowest p-4">
+<div class="text-secondary font-label-sm">TELEMETRY_LOG_BUFFER: 0x881F</div>
+<div class="space-y-2 mt-4 text-outline font-body-sm">
+<div>&gt;&gt; TRACE ADDR 001928: INTERRUPT PIN HIGH</div>
+<div>&gt;&gt; V_LATCH CHECK: 3.30V DETECTED</div>
+<div>&gt;&gt; BIT VECTOR MISMATCH DETECTED ON PIN 14</div>
+<div>&gt;&gt; RESOLVED BY DETECTIVE FORENSIC PROBE</div>
+</div>
+</div>
+<div class="col-span-3 border border-outline-variant bg-surface-container-lowest p-4">
+<div class="text-error font-label-sm">VAULT LOCK STATUS: BYPASS ARMED</div>
+<div class="h-32 mt-4 border border-outline-variant flex items-center justify-center text-outline">SEC_ZONE_C</div>
+</div>
+</div>
+</div>
+<!-- CRT Scanline Global Texture Layer -->
+<div class="fixed inset-0 crt-overlay pointer-events-none z-10"></div>
+<!-- ========================================== -->
+<!-- DESKTOP TOP BAR (From Shared Components JSON) -->
+<!-- ========================================== -->
+<header class="relative z-20 flex justify-between items-center w-full px-6 py-2 bg-surface-container-lowest border-b border-outline-variant">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-primary-container" data-icon="terminal">terminal</span>
+<span class="text-headline-sm font-headline-sm tracking-widest text-primary-container uppercase">BINARY HEIST: CASE 0101</span>
+<span class="hidden md:inline-block px-2 py-0.5 text-label-sm font-label-sm bg-surface-container-high border border-outline-variant text-secondary">DEPT // CYBER-FORENSICS</span>
+</div>
+<div class="flex items-center space-x-4">
+<div class="hidden md:flex items-center space-x-2 text-label-sm font-label-sm text-on-surface-variant">
+<span class="inline-block w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span>MAINFRAME LINK: 4.8 GHz</span>
+</div>
+<div class="text-label-sm font-label-sm font-bold px-3 py-1 bg-surface-container border border-primary-container/40 text-primary-container">
+        STAGE 01/05
+      </div>
+</div>
+</header>
+<!-- ========================================== -->
+<!-- MODAL BACKDROP & CENTERING WRAPPER -->
+<!-- ========================================== -->
+<main class="relative z-30 min-h-[calc(100vh-45px)] flex items-center justify-center p-4 md:p-8">
+<!-- Centered Tactical Debrief Modal Window (Desktop 1440px Canvas Target, max-w-6xl) -->
+<section class="w-full max-w-6xl bg-surface-container-low border border-outline-variant relative overflow-hidden shadow-2xl">
+<!-- Aesthetic HUD Corner Reticles -->
+<div class="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-primary-container pointer-events-none"></div>
+<div class="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-primary-container pointer-events-none"></div>
+<div class="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-primary-container pointer-events-none"></div>
+<div class="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-primary-container pointer-events-none"></div>
+<!-- Classified Watermark Stamp -->
+<div class="absolute top-24 right-16 pointer-events-none select-none z-10 opacity-15 rotate-[-12deg]">
+<div class="border-4 border-error px-6 py-2 text-error font-headline-lg font-bold tracking-widest uppercase">
+          CONFIDENTIAL // CASE 0101
+        </div>
+</div>
+<!-- ========================================== -->
+<!-- MODAL HEADER -->
+<!-- ========================================== -->
+<div class="p-6 pb-4 bg-surface-container-lowest border-b border-outline-variant">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div>
+<div class="flex items-center space-x-2 mb-1">
+<span class="text-label-sm font-label-sm text-outline uppercase">[FORENSIC INVESTIGATION DIVISION]</span>
+<span class="text-outline text-label-sm">/</span>
+<span class="text-label-sm font-label-sm text-tertiary-fixed-dim">DECRYPTION SUCCESSFUL</span>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<h1 class="text-headline-md font-headline-md tracking-wider text-primary uppercase">
+                CASE NOTES // FORENSIC RECONNAISSANCE: GATE ANALYSIS <span class="text-primary-container">[SOLVED]</span>
+</h1>
+<span class="px-2.5 py-1 text-label-sm font-label-sm bg-surface-container-high border border-primary-container text-primary-container phosphor-green-glow">
+                [STAGE 03 / 05 DECRYPTED]
+              </span>
+</div>
+</div>
+<!-- Vault Security Level & Close Actions -->
+<div class="flex items-center space-x-4 self-end lg:self-center">
+<div class="text-right">
+<div class="text-label-sm font-label-sm text-outline">VAULT SEC LEVEL</div>
+<div class="text-label-lg font-label-lg text-tertiary-fixed-dim tracking-wider">TIER-4 [HARDENED]</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant hover:border-error hover:text-error text-on-surface-variant bg-surface-container transition-colors duration-150 active:scale-95" title="Dismiss Debrief Modal">
+<span class="material-symbols-outlined text-body-lg" data-icon="close">close</span>
+</button>
+</div>
+</div>
+<!-- Telemetry Data Ribbon -->
+<div class="mt-4 pt-3 border-t border-outline-variant/60 flex flex-wrap items-center justify-between gap-3 text-label-sm font-label-sm bg-surface-container/60 px-4 py-2">
+<div class="flex items-center space-x-2 text-secondary">
+<span class="material-symbols-outlined text-label-md" data-icon="check_circle">check_circle</span>
+<span>CRC INTEGRITY: <strong class="text-primary-container">100%</strong></span>
+</div>
+<div class="text-on-surface-variant">
+<span>TIME CONSUMED: <strong class="text-secondary-fixed">01:14</strong></span>
+</div>
+<div class="text-on-surface-variant">
+<span>BOUNTY AWARDED: <strong class="text-primary-container font-bold">+1,250 PTS</strong></span>
+</div>
+<div class="flex items-center space-x-2 text-secondary-fixed">
+<span class="inline-block w-2 h-2 bg-secondary-container rounded-full animate-ping"></span>
+<span>PARITY STATUS: <strong class="text-secondary-container">SYNCHRONIZED</strong></span>
+</div>
+<div class="text-outline uppercase tracking-widest hidden sm:inline-block">
+            ARCHIVE // #BHEIST-0101-XOR
+          </div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- MODAL BODY: 2-COLUMN COMPARISON ARCHITECTURE -->
+<!-- ========================================== -->
+<div class="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 bg-surface-container-low">
+<!-- LEFT COLUMN: Truth Table Verification (6 Cols) -->
+<div class="lg:col-span-6 flex flex-col space-y-4">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-secondary" data-icon="table_chart">table_chart</span>
+<h2 class="text-headline-sm font-headline-sm text-secondary uppercase">
+                INPUT/OUTPUT SIGNAL MATRIX
+              </h2>
+</div>
+<span class="text-label-sm font-label-sm text-outline">[OBSERVED VS EXPECTED]</span>
+</div>
+<!-- Truth Table Frame -->
+<div class="border border-outline-variant bg-surface-container-lowest overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container text-label-sm font-label-sm text-on-surface-variant">
+<th class="py-2.5 px-4 font-semibold border-r border-outline-variant">PIN A [IN]</th>
+<th class="py-2.5 px-4 font-semibold border-r border-outline-variant">PIN B [IN]</th>
+<th class="py-2.5 px-4 font-semibold border-r border-outline-variant">EXPECTED Q</th>
+<th class="py-2.5 px-4 font-semibold text-right">TELEMETRY MATCH</th>
+</tr>
+</thead>
+<tbody class="font-body-sm divide-y divide-outline-variant">
+<!-- Row 1: 0, 0 -> 0 -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-3 px-4 font-mono text-outline border-r border-outline-variant">0 (LOW)</td>
+<td class="py-3 px-4 font-mono text-outline border-r border-outline-variant">0 (LOW)</td>
+<td class="py-3 px-4 font-mono text-secondary border-r border-outline-variant font-bold">0 (LOW)</td>
+<td class="py-3 px-4 text-right">
+<span class="px-2 py-0.5 text-label-sm font-label-sm border border-outline-variant text-outline bg-surface-container">[ MATCH ]</span>
+</td>
+</tr>
+<!-- Row 2: 0, 1 -> 1 -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-3 px-4 font-mono text-outline border-r border-outline-variant">0 (LOW)</td>
+<td class="py-3 px-4 font-mono text-primary-container border-r border-outline-variant font-bold">1 (HIGH)</td>
+<td class="py-3 px-4 font-mono text-primary-container border-r border-outline-variant font-bold">1 (HIGH)</td>
+<td class="py-3 px-4 text-right">
+<span class="px-2 py-0.5 text-label-sm font-label-sm border border-outline-variant text-outline bg-surface-container">[ MATCH ]</span>
+</td>
+</tr>
+<!-- Row 3: 1, 0 -> 1 -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-3 px-4 font-mono text-primary-container border-r border-outline-variant font-bold">1 (HIGH)</td>
+<td class="py-3 px-4 font-mono text-outline border-r border-outline-variant">0 (LOW)</td>
+<td class="py-3 px-4 font-mono text-primary-container border-r border-outline-variant font-bold">1 (HIGH)</td>
+<td class="py-3 px-4 text-right">
+<span class="px-2 py-0.5 text-label-sm font-label-sm border border-outline-variant text-outline bg-surface-container">[ MATCH ]</span>
+</td>
+</tr>
+<!-- Row 4: CRITICAL HIGHLIGHTED SOLVED ROW (1, 1 -> 0) -->
+<tr class="bg-surface-container-high border-2 border-primary-container relative phosphor-green-glow">
+<td class="py-3.5 px-4 font-mono text-primary-container font-bold border-r border-outline-variant">
+<div class="flex items-center space-x-1">
+<span class="material-symbols-outlined text-label-sm text-primary-container" data-icon="play_arrow">play_arrow</span>
+<span>1 (HIGH)</span>
+</div>
+</td>
+<td class="py-3.5 px-4 font-mono text-primary-container font-bold border-r border-outline-variant">1 (HIGH)</td>
+<td class="py-3.5 px-4 font-mono text-secondary-fixed border-r border-outline-variant font-extrabold text-body-lg">
+                    0 (LOW)
+                  </td>
+<td class="py-3.5 px-4 text-right">
+<span class="px-2 py-1 text-label-sm font-label-sm font-bold bg-primary-container text-on-primary">
+                      [ODD PARITY ANOMALY // XOR CONFIRMED]
+                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Forensic Breakdown Callout Card -->
+<div class="border border-outline-variant bg-surface-container-lowest p-4 relative">
+<div class="text-label-sm font-label-sm text-tertiary-fixed-dim uppercase mb-1.5 flex items-center space-x-1.5">
+<span class="material-symbols-outlined text-label-sm" data-icon="psychology_alt">psychology_alt</span>
+<span>FORENSIC ANALYSIS // LOGICAL CONTRAST</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface leading-relaxed">
+<span class="text-error font-semibold">Why Standard OR Gate Failed:</span> Standard OR topology produces HIGH (1) whenever any or both inputs are energized. The observed physical bus collapsed to LOW (0) when pins 12 &amp; 14 were simultaneously triggered, explicitly confirming an <strong class="text-primary-container">EXCLUSIVE OR (XOR)</strong> gate signature.
+            </p>
+<div class="mt-3 pt-2.5 border-t border-outline-variant flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-outline">VECTOR CORRELATION SCORE:</span>
+<span class="text-primary-container font-bold">100% MATCH TO PHYSICAL HARDWARE BUS PIN 12/14</span>
+</div>
+</div>
+<!-- Hardware DIP / Pin Status Telemetry -->
+<div class="grid grid-cols-2 gap-3">
+<div class="border border-outline-variant bg-surface-container-lowest p-2.5 flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-outline">GATE CLASSIFICATION:</span>
+<span class="text-label-md font-label-md text-secondary">74LS86 QUAD XOR</span>
+</div>
+<div class="border border-outline-variant bg-surface-container-lowest p-2.5 flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-outline">PROPAGATION DELAY:</span>
+<span class="text-label-md font-label-md text-primary-container font-bold">4.2 ns [NOMINAL]</span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Animated Signal Flow // Circuit Schematic (6 Cols) -->
+<div class="lg:col-span-6 flex flex-col space-y-4">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="schema">schema</span>
+<h2 class="text-headline-sm font-headline-sm text-primary-container uppercase">
+                HARDWARE GATE TELEMETRY // SIGNAL PROPAGATION
+              </h2>
+</div>
+<span class="text-label-sm font-label-sm text-primary-container flex items-center space-x-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+<span>LIVE BUS PROBE</span>
+</span>
+</div>
+<!-- Interactive Vector Circuit Schematic Viewport -->
+<div class="border border-outline-variant bg-surface-container-lowest p-4 relative overflow-hidden flex flex-col justify-between h-[280px]">
+<!-- Subtle HUD background grid -->
+<div class="absolute inset-0 radar-grid opacity-50 pointer-events-none"></div>
+<!-- Pin Header Labeling -->
+<div class="relative z-10 flex justify-between items-center text-label-sm font-label-sm text-outline pb-2">
+<div>TESTBENCH PROBE: OSCILLOSCOPE CH-A/B</div>
+<div class="text-secondary-fixed">VOLTAGE DOMAIN: +3.3V CMOS</div>
+</div>
+<!-- SVG Circuit Schematic of the XOR Gate with Animated Signal Paths -->
+<div class="relative z-10 flex items-center justify-center py-2">
+<svg class="w-full max-w-md h-36" fill="none" viewBox="0 0 460 140" xmlns="http://www.w3.org/2000/svg">
+<!-- Grid background subtle line -->
+<line stroke="#1f2e3d" stroke-dasharray="2 4" stroke-width="1" x1="10" x2="450" y1="70" y2="70"></line>
+<!-- Input Wire A: Energized HIGH (3.3V) -->
+<path d="M 20 40 L 165 40" stroke="#39ff14" stroke-linecap="square" stroke-width="3"></path>
+<path class="animate-signal-flow" d="M 20 40 L 165 40" stroke="#efffe3" stroke-width="2"></path>
+<!-- Input Node A -->
+<circle class="phosphor-green-glow" cx="20" cy="40" fill="#39ff14" r="4"></circle>
+<text fill="#efffe3" font-family="JetBrains Mono" font-size="10" font-weight="600" x="25" y="32">INPUT A: PIN 12 [HIGH / 3.3V]</text>
+<!-- Input Wire B: Energized HIGH (3.3V) -->
+<path d="M 20 100 L 165 100" stroke="#39ff14" stroke-linecap="square" stroke-width="3"></path>
+<path class="animate-signal-flow" d="M 20 100 L 165 100" stroke="#efffe3" stroke-width="2"></path>
+<!-- Input Node B -->
+<circle class="phosphor-green-glow" cx="20" cy="100" fill="#39ff14" r="4"></circle>
+<text fill="#efffe3" font-family="JetBrains Mono" font-size="10" font-weight="600" x="25" y="118">INPUT B: PIN 14 [HIGH / 3.3V]</text>
+<!-- XOR Gate Body (IEEE Std 91-1984 Symbol) -->
+<g transform="translate(160, 20)">
+<!-- Back curved auxiliary shield line for XOR -->
+<path d="M 0 15 Q 22 50 0 85" fill="none" stroke="#39ff14" stroke-width="3"></path>
+<!-- Main Gate Hull: curved input edge, curved top and bottom leading to sharp point -->
+<path d="M 12 15 Q 34 50 12 85 Q 55 83 95 50 Q 55 17 12 15 Z" fill="#161f2c" stroke="#39ff14" stroke-width="2.5"></path>
+<!-- Gate internal ID watermark -->
+<text fill="#00e3fd" font-family="Space Grotesk" font-size="12" font-weight="700" letter-spacing="1" x="36" y="54">XOR</text>
+<text fill="#85967c" font-family="JetBrains Mono" font-size="8" x="32" y="66">74LS86</text>
+</g>
+<!-- Output Wire Q: De-energized LOW (0.0V Grounded Signal) -->
+<path d="M 255 70 L 420 70" stroke="#3c4b35" stroke-dasharray="4 2" stroke-width="3"></path>
+<!-- Output Node Q -->
+<circle cx="420" cy="70" fill="#181c22" r="4" stroke="#00e3fd" stroke-width="2"></circle>
+<text fill="#00daf3" font-family="JetBrains Mono" font-size="10" font-weight="700" x="268" y="62">OUTPUT Q: PIN 15 [LOW / 0.0V]</text>
+<!-- Logic State Callout tags -->
+<rect fill="#0a0e14" height="16" stroke="#39ff14" stroke-width="1" width="60" x="18" y="52"></rect>
+<text fill="#39ff14" font-family="JetBrains Mono" font-size="9" font-weight="700" x="25" y="64">Vin_A: 1</text>
+<rect fill="#0a0e14" height="16" stroke="#39ff14" stroke-width="1" width="60" x="18" y="76"></rect>
+<text fill="#39ff14" font-family="JetBrains Mono" font-size="9" font-weight="700" x="25" y="88">Vin_B: 1</text>
+<rect fill="#0a0e14" height="18" stroke="#00e3fd" stroke-width="1" width="70" x="360" y="80"></rect>
+<text fill="#00e3fd" font-family="JetBrains Mono" font-size="9" font-weight="700" x="367" y="93">Vout: 0.0V</text>
+</svg>
+</div>
+<!-- Voltage & Logic State Live Indicators -->
+<div class="relative z-10 grid grid-cols-3 gap-2 pt-2 border-t border-outline-variant/60 text-center">
+<div class="bg-surface-container py-1.5 px-2 border border-outline-variant">
+<div class="text-label-sm font-label-sm text-outline">Vin_A</div>
+<div class="text-label-md font-label-md text-primary-container font-bold">3.3V [1]</div>
+</div>
+<div class="bg-surface-container py-1.5 px-2 border border-outline-variant">
+<div class="text-label-sm font-label-sm text-outline">Vin_B</div>
+<div class="text-label-md font-label-md text-primary-container font-bold">3.3V [1]</div>
+</div>
+<div class="bg-surface-container py-1.5 px-2 border border-secondary/40 phosphor-cyan-glow">
+<div class="text-label-sm font-label-sm text-secondary-fixed">Vout (Q)</div>
+<div class="text-label-md font-label-md text-secondary font-bold">0.0V [0]</div>
+</div>
+</div>
+</div>
+<!-- Oscilloscope Latency & Timing Diagram -->
+<div class="border border-outline-variant bg-surface-container-lowest p-3.5 space-y-2">
+<div class="flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-outline uppercase flex items-center space-x-1">
+<span class="material-symbols-outlined text-label-md text-secondary" data-icon="show_chart">show_chart</span>
+<span>PULSE TIMING // GATE PROPAGATION LATENCY</span>
+</span>
+<span class="text-tertiary-fixed-dim font-mono">Δt = 4.2 ns</span>
+</div>
+<!-- Waveform visualization representation -->
+<div class="h-12 bg-surface-container-low border border-outline-variant flex items-center px-3 relative overflow-hidden">
+<div class="absolute inset-y-0 left-1/4 w-px bg-outline-variant"></div>
+<div class="absolute inset-y-0 left-2/4 w-px bg-outline-variant"></div>
+<div class="absolute inset-y-0 left-3/4 w-px bg-outline-variant"></div>
+<!-- Waveform SVG Line -->
+<svg class="w-full h-8" fill="none" preserveAspectRatio="none" viewBox="0 0 500 40">
+<!-- Clock Pulse Line -->
+<path d="M 0 30 H 80 V 10 H 220 V 30 H 500" stroke="#3c4b35" stroke-width="1.5"></path>
+<!-- Output response transition with 4.2ns lag -->
+<path d="M 0 10 H 85 V 30 H 500" stroke="#00e3fd" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex justify-between text-label-sm font-label-sm text-outline font-mono">
+<span>T0 [TRIGGER IN]</span>
+<span>+2.1 ns</span>
+<span>+4.2 ns [LATCH FALL]</span>
+<span>+6.3 ns</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- BOTTOM SECTION: DETECTIVE'S LOG & ACTION FOOTER -->
+<!-- ========================================== -->
+<div class="p-6 bg-surface-container-lowest border-t border-outline-variant space-y-4">
+<!-- Plain-English Detective Explanation Box -->
+<div class="border border-outline-variant bg-surface-container p-4 relative">
+<div class="flex items-center justify-between mb-2 pb-1.5 border-b border-outline-variant/60">
+<div class="flex items-center space-x-2 text-label-sm font-label-sm text-primary-container">
+<span class="material-symbols-outlined text-label-md" data-icon="description">description</span>
+<span class="font-bold uppercase tracking-wider">DETECTIVE'S LOG &amp; LOGIC SUMMARY</span>
+</div>
+<span class="text-label-sm font-label-sm text-outline">INVESTIGATOR: AGENT_C_0101</span>
+</div>
+<p class="font-body-sm text-on-surface leading-relaxed text-body-md font-mono">
+<span class="text-secondary font-bold">CASE BRIEFING:</span> In digital circuitry, an <strong class="text-primary-container">XOR (Exclusive OR)</strong> gate acts like a strict discriminator: it outputs a 1 only when inputs differ. When both inputs are 1, it shuts the door. By comparing the live vault door test vectors against our matrix, we isolated the rogue gate bypassing the lock mechanism.<span class="inline-block w-2 h-4 ml-1 bg-primary-container align-middle animate-cursor"></span>
+</p>
+</div>
+<!-- Action Controls & Primary CTA Footer -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-2">
+<!-- Secondary Action Buttons -->
+<div class="flex flex-wrap items-center gap-3">
+<button class="px-4 py-2.5 border border-outline hover:border-secondary hover:text-secondary text-on-surface-variant bg-surface-container-low text-label-md font-label-md transition-colors duration-150 flex items-center space-x-2 active:scale-95">
+<span class="material-symbols-outlined text-body-sm" data-icon="file_download">file_download</span>
+<span>[ EXPORT CASE REPORT ]</span>
+</button>
+<button class="px-4 py-2.5 border border-outline hover:border-secondary hover:text-secondary text-on-surface-variant bg-surface-container-low text-label-md font-label-md transition-colors duration-150 flex items-center space-x-2 active:scale-95">
+<span class="material-symbols-outlined text-body-sm" data-icon="receipt_long">receipt_long</span>
+<span>[ REVIEW TEST LOGS ]</span>
+</button>
+</div>
+<!-- Primary Action CTA Button -->
+<button class="px-6 py-3 bg-primary-container text-background font-headline-sm font-bold tracking-wider uppercase border border-primary-container phosphor-green-glow hover:bg-primary-fixed transition-all duration-150 flex items-center justify-center space-x-3 active:scale-95 group">
+<span>[ NEXT STAGE // PROCEED TO CIRCUIT 04 ]</span>
+<span class="material-symbols-outlined text-body-lg group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- ========================================== -->
+<!-- MOBILE BOTTOM NAV BAR (From Shared Components JSON) -->
+<!-- Rendered on mobile screens per platform adaptation mandate -->
+<!-- ========================================== -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-2 bg-surface-container-lowest border-t border-outline-variant">
+<!-- DECK -->
+<a class="flex flex-col items-center justify-center text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="memory">memory</span>
+<span class="text-label-sm font-label-sm">DECK</span>
+</a>
+<!-- DOSSIER -->
+<a class="flex flex-col items-center justify-center text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="text-label-sm font-label-sm">DOSSIER</span>
+</a>
+<!-- LOGS (Active Tab corresponding to Debrief & Forensic Notes) -->
+<a class="flex flex-col items-center justify-center text-primary-container font-bold border-t-2 border-primary-container p-2" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="text-label-sm font-label-sm">LOGS</span>
+</a>
+<!-- DECRYPT -->
+<a class="flex flex-col items-center justify-center text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="lock_open">lock_open</span>
+<span class="text-label-sm font-label-sm">DECRYPT</span>
+</a>
+</nav>
+<script src="js/heist-api.js"></script>
+<script src="js/case-notes.js"></script>
+</body></html>

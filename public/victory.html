@@ -1,0 +1,538 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>BINARY HEIST: CASE 0101 // VICTORY DEBRIEF</title>
+<!-- Google Fonts: Space Grotesk & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS with custom theme config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-dim": "#10141a",
+            "on-background": "#dfe2eb",
+            "error": "#ffb4ab",
+            "primary-container": "#39ff14",
+            "surface-container-low": "#181c22",
+            "secondary-fixed": "#9cf0ff",
+            "surface-container-highest": "#31353c",
+            "surface-container-high": "#262a31",
+            "inverse-on-surface": "#2d3137",
+            "on-primary-fixed-variant": "#095300",
+            "surface-tint": "#2ae500",
+            "surface-bright": "#353940",
+            "on-secondary-fixed": "#001f24",
+            "secondary-fixed-dim": "#00daf3",
+            "on-tertiary-fixed-variant": "#614000",
+            "on-error-container": "#ffdad6",
+            "surface-container": "#1c2026",
+            "tertiary": "#fff8f4",
+            "primary": "#efffe3",
+            "tertiary-container": "#ffd79e",
+            "background": "#10141a",
+            "tertiary-fixed-dim": "#ffba43",
+            "on-surface": "#dfe2eb",
+            "on-surface-variant": "#baccb0",
+            "outline-variant": "#3c4b35",
+            "primary-fixed-dim": "#2ae500",
+            "on-primary-container": "#107100",
+            "secondary": "#bdf4ff",
+            "surface": "#10141a",
+            "on-tertiary-container": "#835900",
+            "on-primary-fixed": "#022100",
+            "inverse-surface": "#dfe2eb",
+            "inverse-primary": "#106e00",
+            "tertiary-fixed": "#ffddaf",
+            "secondary-container": "#00e3fd",
+            "on-tertiary": "#432c00",
+            "on-error": "#690005",
+            "on-tertiary-fixed": "#281800",
+            "surface-variant": "#31353c",
+            "on-secondary-fixed-variant": "#004f58",
+            "primary-fixed": "#79ff5b",
+            "on-secondary": "#00363d",
+            "on-primary": "#053900",
+            "surface-container-lowest": "#0a0e14",
+            "outline": "#85967c",
+            "on-secondary-container": "#00616d",
+            "error-container": "#93000a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline-sm": ["Space Grotesk"],
+            "label-sm": ["JetBrains Mono"],
+            "headline-xl": ["Space Grotesk"],
+            "headline-md": ["Space Grotesk"],
+            "headline-xl-mobile": ["Space Grotesk"],
+            "body-sm": ["JetBrains Mono"],
+            "headline-lg-mobile": ["Space Grotesk"],
+            "headline-lg": ["Space Grotesk"],
+            "label-md": ["JetBrains Mono"],
+            "body-lg": ["JetBrains Mono"],
+            "label-lg": ["JetBrains Mono"],
+            "body-md": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.16em", "fontWeight": "600" }],
+            "headline-xl": ["48px", { "lineHeight": "52px", "letterSpacing": "0.12em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "28px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.12em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.14em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Scanline CRT overlay */
+    .crt-overlay {
+      background: linear-gradient(rgba(18, 24, 32, 0) 50%, rgba(0, 0, 0, 0.45) 50%);
+      background-size: 100% 3px;
+      pointer-events: none;
+    }
+
+    /* Chromatic Aberration & Glow for Title */
+    .title-chromatic {
+      text-shadow: 
+        -2px 0 0 rgba(0, 229, 255, 0.75),
+        2px 0 0 rgba(255, 46, 76, 0.75),
+        0 0 16px rgba(57, 255, 20, 0.85);
+    }
+
+    .phosphor-glow-primary {
+      box-shadow: 0 0 14px rgba(57, 255, 20, 0.4), inset 0 0 8px rgba(57, 255, 20, 0.2);
+    }
+
+    .gold-core-glow {
+      box-shadow: 0 0 45px rgba(255, 186, 67, 0.5), inset 0 0 25px rgba(255, 221, 175, 0.4);
+    }
+
+    /* Keyframe Animations */
+    @keyframes gearRotateClockwise {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes gearRotateCounter {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-360deg); }
+    }
+    @keyframes vaultPulse {
+      0%, 100% { opacity: 0.85; filter: drop-shadow(0 0 25px rgba(255, 186, 67, 0.6)); }
+      50% { opacity: 1; filter: drop-shadow(0 0 45px rgba(255, 221, 175, 0.9)); }
+    }
+    @keyframes binaryFall {
+      0% { transform: translateY(-30px); opacity: 0; }
+      20% { opacity: 0.9; }
+      80% { opacity: 0.9; }
+      100% { transform: translateY(140px); opacity: 0; }
+    }
+    @keyframes hydraulicPull {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(18px); }
+    }
+    @keyframes xpBarFill {
+      0% { width: 12%; }
+      100% { width: 100%; }
+    }
+
+    .animate-gear-cw {
+      animation: gearRotateClockwise 45s linear infinite;
+    }
+    .animate-gear-ccw {
+      animation: gearRotateCounter 30s linear infinite;
+    }
+    .animate-core-pulse {
+      animation: vaultPulse 3.5s ease-in-out infinite;
+    }
+    .animate-xp-fill {
+      animation: xpBarFill 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .animate-piston-retract {
+      animation: hydraulicPull 1.8s ease-out forwards;
+    }
+
+    /* Falling binary confetti particles */
+    .bin-particle-1 { animation: binaryFall 2.4s linear infinite; animation-delay: 0.1s; }
+    .bin-particle-2 { animation: binaryFall 3.1s linear infinite; animation-delay: 0.7s; }
+    .bin-particle-3 { animation: binaryFall 2.8s linear infinite; animation-delay: 1.3s; }
+    .bin-particle-4 { animation: binaryFall 3.4s linear infinite; animation-delay: 0.4s; }
+    .bin-particle-5 { animation: binaryFall 2.2s linear infinite; animation-delay: 1.8s; }
+    .bin-particle-6 { animation: binaryFall 2.9s linear infinite; animation-delay: 0.9s; }
+    .bin-particle-7 { animation: binaryFall 3.6s linear infinite; animation-delay: 1.5s; }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface min-h-screen relative font-body-md overflow-x-hidden selection:bg-primary-container selection:text-surface-container-lowest">
+<!-- CRT Screen Glare & Scanline Micro-texture -->
+<div class="fixed inset-0 crt-overlay z-50 pointer-events-none"></div>
+<!-- Ambient Tactical Vignette Background -->
+<div class="fixed inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_20%,rgba(0,227,253,0.06),rgba(10,14,20,0.95))] pointer-events-none z-0"></div>
+<!-- ================= TOP APP BAR (Shared Component Anchor) ================= -->
+<header class="bg-surface-container-lowest border-b border-outline-variant w-full flex justify-between items-center px-6 py-2.5 z-40 sticky top-0 backdrop-blur-md">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">terminal</span>
+<div class="flex flex-col">
+<span class="text-headline-sm font-headline-sm tracking-widest text-primary-container uppercase">
+          BINARY HEIST: CASE 0101
+        </span>
+<span class="text-label-sm font-label-sm text-outline tracking-wider">
+          TACTICAL MAINFRAME // DEBRIEF INTERFACE
+        </span>
+</div>
+</div>
+<!-- Telemetry Bus Status Badges -->
+<div class="hidden lg:flex items-center gap-4 text-label-sm font-label-sm">
+<div class="flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-low border border-outline-variant text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+<span>LINK: <strong class="text-primary-container">SYNCHRONIZED</strong></span>
+</div>
+<div class="px-2.5 py-1 bg-surface-container-low border border-outline-variant text-outline">
+<span>LATENCY: 0.04ms</span>
+</div>
+<div class="px-2.5 py-1 bg-surface-container-low border border-outline-variant text-outline">
+<span>BUS: SECURE FIBER-09</span>
+</div>
+</div>
+<!-- Trailing Action Indicator -->
+<div class="flex items-center gap-3">
+<button class="px-2.5 py-1 text-label-sm font-label-sm border border-outline-variant text-on-surface-variant hover:text-primary-container hover:border-primary-container transition-colors flex items-center gap-1" title="Terminal Audio Stream">
+<span class="material-symbols-outlined text-sm">volume_up</span>
+<span class="hidden sm:inline">AUDIO ON</span>
+</button>
+<div class="px-3 py-1 bg-surface-container-high border border-outline-variant text-primary-container font-headline-sm text-headline-sm tracking-wider">
+        [CASE 0101: 100% SOLVED]
+      </div>
+</div>
+</header>
+<!-- ================= MAIN CANVAS WRAPPER (1440px Desktop Focus) ================= -->
+<main class="relative z-10 max-w-[1440px] mx-auto px-6 py-8 flex flex-col gap-8">
+<!-- HERO HEADER: GLITCH CELEBRATION BANNER -->
+<section class="text-center relative py-4">
+<div class="inline-flex items-center gap-2 px-3 py-0.5 mb-2 bg-surface-container border border-outline-variant text-label-sm font-label-sm text-primary-container tracking-widest uppercase">
+<span class="material-symbols-outlined text-xs">verified</span>
+        TACTICAL MISSION STATUS: MAXIMUM BREACH REACHED
+      </div>
+<h1 class="text-headline-xl font-headline-xl text-primary-container uppercase tracking-widest title-chromatic">
+        VAULT BREACHED
+      </h1>
+<p class="mt-2 text-headline-sm font-headline-sm tracking-widest text-secondary-fixed uppercase">
+        PHYSICAL CORE RECEPTACLE UNLOCKED // AIRGAP COMPROMISED
+      </p>
+<div class="mt-3 flex items-center justify-center gap-3 text-label-sm font-label-sm text-outline">
+<span>SECURITY LEVEL: ZERO-NULL</span>
+<span>//</span>
+<span class="text-tertiary-fixed-dim">GATE CLEARANCE: LEVEL 04 GRANTED</span>
+<span>//</span>
+<span>HASH: SHA-512-VERIFIED</span>
+</div>
+</section>
+<!-- CENTER SECTION: BENTO VIEWPORT (VAULT APERTURE + DOSSIER DEBRIEF) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+<!-- ================= LEFT BENTO: ANIMATED VAULT DOOR APERTURE (7 Cols) ================= -->
+<div class="lg:col-span-7 bg-surface-container-low border border-outline-variant relative overflow-hidden flex flex-col justify-between p-6">
+<!-- Corner Tech Brackets -->
+<div class="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-secondary-container pointer-events-none"></div>
+<div class="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-secondary-container pointer-events-none"></div>
+<div class="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-secondary-container pointer-events-none"></div>
+<div class="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-secondary-container pointer-events-none"></div>
+<!-- Section Topbar Metadata -->
+<div class="flex justify-between items-center border-b border-outline-variant pb-3 mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-lg">lock_open</span>
+<span class="text-label-md font-label-md tracking-wider text-secondary uppercase">
+              ACTUATOR APERTURE // RECEPTACLE 0x7E9
+            </span>
+</div>
+<span class="text-label-sm font-label-sm text-tertiary-fixed-dim border border-tertiary-fixed-dim/40 px-2 py-0.5 bg-surface-container-lowest">
+            HYDRAULICS: DISENGAGED
+          </span>
+</div>
+<!-- VAULT DOOR APERTURE GRAPHIC CANVAS -->
+<div class="relative w-full h-[400px] flex items-center justify-center bg-surface-container-lowest border border-outline-variant/60 overflow-hidden">
+<!-- Golden Radial Core Bloom Behind Aperture -->
+<div class="absolute w-72 h-72 rounded-full bg-gradient-to-r from-amber-400/35 via-yellow-300/40 to-transparent blur-3xl animate-core-pulse pointer-events-none"></div>
+<!-- Vault Core Chamber Rays -->
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,215,158,0.25)_0%,rgba(16,20,26,0.95)_70%)] pointer-events-none"></div>
+<!-- Digital Binary Confetti Falling Layer -->
+<div class="absolute inset-0 z-20 pointer-events-none overflow-hidden text-xs font-label-sm">
+<span class="absolute left-[15%] text-primary-container font-bold bin-particle-1">01100101</span>
+<span class="absolute left-[28%] text-tertiary-fixed-dim font-bold bin-particle-2">1010</span>
+<span class="absolute left-[42%] text-secondary-container font-bold bin-particle-3">11001</span>
+<span class="absolute left-[58%] text-primary-container font-bold bin-particle-4">01010101</span>
+<span class="absolute left-[70%] text-tertiary-fixed-dim font-bold bin-particle-5">1110</span>
+<span class="absolute left-[84%] text-secondary-container font-bold bin-particle-6">00101</span>
+<span class="absolute left-[50%] text-primary-container font-bold bin-particle-7">10110111</span>
+</div>
+<!-- SVG VAULT MECHANICAL ASSEMBLY -->
+<svg class="relative z-10 w-[360px] h-[360px]" fill="none" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<!-- Core Golden Radiant Gradient -->
+<radialGradient cx="50%" cy="50%" id="goldenCore" r="50%">
+<stop offset="0%" stop-color="#fff8f4"></stop>
+<stop offset="35%" stop-color="#ffd79e"></stop>
+<stop offset="70%" stop-color="#ffba43" stop-opacity="0.9"></stop>
+<stop offset="100%" stop-color="#614000" stop-opacity="0.3"></stop>
+</radialGradient>
+<!-- Steel Gear Gradient -->
+<linearGradient id="titaniumRing" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#31353c"></stop>
+<stop offset="50%" stop-color="#181c22"></stop>
+<stop offset="100%" stop-color="#0a0e14"></stop>
+</linearGradient>
+</defs>
+<!-- Outer Fixed Mechanical Vault Housing (Heavy Ring) -->
+<circle cx="200" cy="200" r="180" stroke="#1F2E3D" stroke-dasharray="14 6" stroke-width="8"></circle>
+<circle cx="200" cy="200" r="165" stroke="#3c4b35" stroke-width="2"></circle>
+<!-- Rotating Heavy Outer Gear Ring (Counter Clockwise) -->
+<g class="animate-gear-ccw" style="transform-origin: 200px 200px;">
+<circle cx="200" cy="200" r="148" stroke="#31353c" stroke-dasharray="8 12" stroke-width="12"></circle>
+<!-- Bolted Retaining Nodes -->
+<circle cx="200" cy="55" fill="#00e3fd" r="4"></circle>
+<circle cx="200" cy="345" fill="#00e3fd" r="4"></circle>
+<circle cx="55" cy="200" fill="#00e3fd" r="4"></circle>
+<circle cx="345" cy="200" fill="#00e3fd" r="4"></circle>
+</g>
+<!-- Exposed Golden Inner Vault Receptacle (Glowing Interior) -->
+<circle cx="200" cy="200" fill="url(#goldenCore)" r="110"></circle>
+<circle cx="200" cy="200" opacity="0.8" r="95" stroke="#fff8f4" stroke-dasharray="5 5" stroke-width="1.5"></circle>
+<!-- Central Golden Data Crystal (Breached Core Object) -->
+<polygon class="animate-pulse" fill="#ffffff" fill-opacity="0.9" points="200,140 245,175 230,235 170,235 155,175" stroke="#ffddaf" stroke-width="2"></polygon>
+<circle cx="200" cy="195" fill="#ffd79e" r="12"></circle>
+<!-- Swung Open Titanium Vault Door Half (Rendered in Perspective Opening Angle) -->
+<g class="animate-piston-retract" transform="matrix(0.55 0 -0.45 1 150 0)">
+<!-- Vault Door Segment Outer Rim -->
+<path d="M 200,40 A 160,160 0 0,1 360,200 L 200,200 Z" fill="url(#titaniumRing)" stroke="#00e3fd" stroke-width="3"></path>
+<line stroke="#39ff14" stroke-width="2" x1="200" x2="350" y1="200" y2="120"></line>
+<!-- Mechanical Locking Spoke Teeth pulled clear -->
+<rect fill="#39ff14" height="10" width="24" x="290" y="80"></rect>
+<rect fill="#39ff14" height="10" width="24" x="340" y="140"></rect>
+<circle cx="260" cy="140" fill="#181c22" r="8" stroke="#39ff14" stroke-width="2"></circle>
+</g>
+<!-- Hydraulic Locking Cylinders (Pistons pulled back) -->
+<g>
+<rect fill="#181c22" height="16" stroke="#3c4b35" stroke-width="2" width="60" x="20" y="192"></rect>
+<rect fill="#39ff14" height="8" opacity="0.8" width="35" x="50" y="196"></rect>
+<rect fill="#181c22" height="16" stroke="#3c4b35" stroke-width="2" width="60" x="320" y="192"></rect>
+<rect fill="#39ff14" height="8" opacity="0.8" width="35" x="315" y="196"></rect>
+</g>
+<!-- Inner Phosphor Crosshairs & HUD Targeting Rings -->
+<line opacity="0.6" stroke="#39ff14" stroke-dasharray="4 6" stroke-width="1" x1="130" x2="270" y1="200" y2="200"></line>
+<line opacity="0.6" stroke="#39ff14" stroke-dasharray="4 6" stroke-width="1" x1="200" x2="200" y1="130" y2="270"></line>
+</svg>
+<!-- Core HUD Floating Metrics -->
+<div class="absolute bottom-3 left-4 text-label-sm font-label-sm text-primary-container bg-surface-container-lowest/90 px-2.5 py-1 border border-outline-variant">
+            CORE TEMP: <span class="text-on-surface">314.2 K [STABLE]</span>
+</div>
+<div class="absolute bottom-3 right-4 text-label-sm font-label-sm text-tertiary-fixed-dim bg-surface-container-lowest/90 px-2.5 py-1 border border-outline-variant">
+            PAYLOAD: <span class="text-tertiary">ENCRYPTED SEED EXTRACTED</span>
+</div>
+</div>
+<!-- Hardware DIP Switches array & Status LEDs bottom telemetry -->
+<div class="mt-4 pt-3 border-t border-outline-variant flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<span class="text-label-sm font-label-sm text-outline">CYLINDER ARRAYS:</span>
+<!-- 4-Bit Hardware State Toggles -->
+<div class="flex items-center gap-1.5 bg-surface-container-lowest p-1.5 border border-outline-variant">
+<span class="px-1.5 py-0.5 bg-primary-container text-surface-container-lowest text-label-sm font-bold">1</span>
+<span class="px-1.5 py-0.5 bg-primary-container text-surface-container-lowest text-label-sm font-bold">1</span>
+<span class="px-1.5 py-0.5 bg-primary-container text-surface-container-lowest text-label-sm font-bold">1</span>
+<span class="px-1.5 py-0.5 bg-primary-container text-surface-container-lowest text-label-sm font-bold">1</span>
+</div>
+<span class="text-label-sm font-label-sm text-primary-container">HEX 0xF [ALL DISENGAGED]</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-outline">INTEGRITY LOCK:</span>
+<div class="flex gap-1">
+<span class="w-2.5 h-2.5 bg-primary-container rounded-sm shadow-[0_0_6px_#39ff14]"></span>
+<span class="w-2.5 h-2.5 bg-primary-container rounded-sm shadow-[0_0_6px_#39ff14]"></span>
+<span class="w-2.5 h-2.5 bg-primary-container rounded-sm shadow-[0_0_6px_#39ff14]"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= RIGHT BENTO: RESULT & DEBRIEF DOSSIER CARD (5 Cols) ================= -->
+<div class="lg:col-span-5 bg-surface-container-low border border-outline-variant relative flex flex-col justify-between p-6">
+<!-- Corner Tech Brackets -->
+<div class="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-primary-container pointer-events-none"></div>
+<div class="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-primary-container pointer-events-none"></div>
+<div class="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-primary-container pointer-events-none"></div>
+<div class="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-primary-container pointer-events-none"></div>
+<!-- Watermark Confirmed Stamp Overlay -->
+<div class="absolute top-8 right-6 pointer-events-none select-none -rotate-12 border-2 border-primary-container/40 px-3 py-1 text-primary-container/40 text-label-lg font-headline-sm uppercase tracking-widest">
+          CASE RESOLVED // EVIDENCE SECURED
+        </div>
+<div>
+<!-- Header of Dossier -->
+<div class="border-b border-outline-variant pb-3 mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">receipt_long</span>
+<h2 class="text-headline-md font-headline-md text-on-surface uppercase tracking-wider">
+                DEBRIEF DOSSIER
+              </h2>
+</div>
+<p class="text-label-sm font-label-sm text-outline mt-1">
+              SUBJECT: CIPHER RESISTANCE MATRIX // NODE 0101-B
+            </p>
+</div>
+<!-- CORE MISSION METRICS GRID -->
+<div class="grid grid-cols-2 gap-3 mb-5">
+<!-- Metric 1: Time Taken -->
+<div class="bg-surface-container-lowest border border-outline-variant p-3">
+<span class="text-label-sm font-label-sm text-outline block">TIME ELAPSED</span>
+<div class="text-headline-md font-headline-md text-tertiary-fixed-dim mt-0.5 tracking-wider font-mono">
+                03:42.18
+<div id="final-time" class="text-headline-md font-headline-md text-tertiary-fixed-dim mt-0.5 tracking-wider font-mono">
+  --:--
+</div>
+<span class="text-label-sm font-label-sm text-primary-container flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-xs">speed</span> GOLD PARITY (SUB-04:00)
+              </span>
+</div>
+<!-- Metric 2: CRC Hearts / Lives -->
+<div class="bg-surface-container-lowest border border-outline-variant p-3">
+<span class="text-label-sm font-label-sm text-outline block">LIVES REMAINING</span>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant ml-2 font-mono">
+  [<span id="final-lives">--</span> / 3]
+</span>
+</div>
+<span class="text-label-sm font-label-sm text-primary-container mt-1 block">
+                FULL CRC INTEGRITY (100%)
+              </span>
+</div>
+<!-- Metric 3: Mission Score -->
+<div class="bg-surface-container-lowest border border-outline-variant p-3">
+<span class="text-label-sm font-label-sm text-outline block">TOTAL MISSION SCORE</span>
+<div class="text-headline-md font-headline-md text-primary tracking-wider font-mono">
+               <span id="final-score">0</span>
+<span class="text-label-sm text-outline">PTS</span>
+</div>
+<span class="text-label-sm font-label-sm text-primary-container mt-0.5 block">
+                +2,500 FLAWLESS BONUS
+              </span>
+</div>
+<!-- Metric 4: XP Earned -->
+<div class="bg-surface-container-lowest border border-outline-variant p-3">
+<span class="text-label-sm font-label-sm text-outline block">XP ACCUMULATED</span>
+<div class="text-headline-md font-headline-md text-secondary-fixed tracking-wider font-mono">
+                +1,200 <span class="text-label-sm text-outline">XP</span>
+</div>
+<span class="text-label-sm font-label-sm text-secondary-container mt-0.5 block">
+                CYBERNETIC MASTERY L4
+              </span>
+</div>
+</div>
+<!-- XP Progression Bar -->
+<div class="bg-surface-container-lowest border border-outline-variant p-3 mb-5">
+<div class="flex justify-between items-center text-label-sm font-label-sm mb-1.5">
+<span class="text-outline">STAGE EXP CONVERGENCE</span>
+<span class="text-primary-container font-mono">3,600 / 3,600 XP (LEVEL MAX)</span>
+</div>
+<!-- Progress Bar Shell -->
+<div class="w-full h-3 bg-surface-container-high border border-outline-variant relative overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary-container via-secondary-container to-tertiary-fixed-dim animate-xp-fill"></div>
+</div>
+</div>
+<!-- PROMOTED RANK UNLOCKED BADGE -->
+<div class="bg-surface-container-lowest border-2 border-tertiary-fixed-dim/60 p-3.5 mb-5 relative flex items-center gap-4">
+<!-- Rank Insignia Hologram -->
+<div class="w-14 h-14 bg-surface-container-high border border-tertiary-fixed-dim flex items-center justify-center relative flex-shrink-0">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-3xl" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<div class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-primary-container rounded-full"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-tertiary-fixed-dim tracking-widest uppercase">
+                ★ PROMOTION GRANTED // PROTOCOL ELEVATED
+              </span>
+<span class="text-headline-sm font-headline-sm text-tertiary tracking-wider font-bold">
+                CHIEF FORENSIC CRYPTOGRAPHER
+              </span>
+<span class="text-label-sm font-label-sm text-outline mt-0.5">
+                PREVIOUS: SENIOR INSPECTOR (AUTHORITY LEVEL +1)
+              </span>
+</div>
+</div>
+<!-- ACHIEVEMENTS UNLOCKED (3 Badges) -->
+<div>
+<span class="text-label-sm font-label-sm text-outline tracking-wider block mb-2 uppercase">
+              ACHIEVEMENTS SYNCHRONIZED [3 NEW]
+            </span>
+<div class="grid grid-cols-3 gap-2">
+<!-- Achievement 1 -->
+<div class="bg-surface-container-lowest border border-primary-container/40 p-2 text-center flex flex-col items-center">
+<span class="material-symbols-outlined text-primary-container text-xl" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="text-label-sm font-label-sm text-primary font-bold mt-1 uppercase">NO LIVES LOST</span>
+<span class="text-[9px] text-outline mt-0.5 leading-tight">3/3 CRC Hearts Intact</span>
+</div>
+<!-- Achievement 2 -->
+<div class="bg-surface-container-lowest border border-secondary-container/40 p-2 text-center flex flex-col items-center">
+<span class="material-symbols-outlined text-secondary-container text-xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-label-sm font-label-sm text-secondary font-bold mt-1 uppercase">SPEED CRACKER</span>
+<span class="text-[9px] text-outline mt-0.5 leading-tight">Sub-4-minute latch</span>
+</div>
+<!-- Achievement 3 -->
+<div class="bg-surface-container-lowest border border-tertiary-fixed-dim/40 p-2 text-center flex flex-col items-center">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-xl" style="font-variation-settings: 'FILL' 1;">alt_route</span>
+<span class="text-label-sm font-label-sm text-tertiary font-bold mt-1 uppercase">XOR MASTER</span>
+<span class="text-[9px] text-outline mt-0.5 leading-tight">1st Probe Cycle Hit</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= ACTION DECK / CTA CONTROLS ================= -->
+<section class="bg-surface-container-low border border-outline-variant p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+<!-- Utility Action: Replay -->
+<button class="w-full md:w-auto px-5 py-3 border border-outline-variant hover:border-outline text-on-surface hover:text-white bg-transparent text-label-md font-label-md tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95 duration-100">
+<span class="material-symbols-outlined text-base">restart_alt</span>
+        [ ⟳ REPLAY CASE ]
+      </button>
+<!-- Center Secondary: View Leaderboard -->
+<button class="w-full md:w-auto px-6 py-3 border border-secondary-container text-secondary-container hover:bg-secondary-container/10 text-label-md font-label-md tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95 duration-100">
+<span class="material-symbols-outlined text-base">leaderboard</span>
+        [ VIEW LEADERBOARD ]
+      </button>
+<!-- Primary High-Voltage Hero Button: Next Case -->
+<button class="w-full md:w-auto flex-1 md:max-w-md px-8 py-3.5 bg-primary-container text-surface-container-lowest font-headline-sm text-headline-sm uppercase tracking-widest font-bold phosphor-glow-primary hover:bg-primary-fixed transition-all active:scale-95 duration-100 flex items-center justify-center gap-3">
+<span>[ NEXT CASE: THE STOLEN CORE // CASE 0102 → ]</span>
+</button>
+</section>
+<!-- FOOTER TELEMETRY & FORENSIC LOG CONSOLE -->
+<footer class="border-t border-outline-variant/60 pt-4 flex flex-col md:flex-row justify-between items-center text-label-sm font-label-sm text-outline gap-2 mb-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>MAINFRAME TERMINAL v4.81-REV09 // FORENSIC LOG REPOSITORY #9901-X</span>
+</div>
+<div class="flex items-center gap-4">
+<span>SECURITY KEY: 0x88F7A10B</span>
+<span>NODE: AIRGAP-DEFEATED</span>
+<span class="text-on-surface-variant">SESSION: TERMINATED WITH SUCCESS</span>
+</div>
+</footer>
+</main>
+<script src="js/heist-api.js"></script>
+<script src="js/victory.js"></script>
+</body></html>

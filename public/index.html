@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Binary Heist | Case 0101</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+:root{--bg:#090909;--panel:#151515;--card:#1b1b1b;--red:#d71920;--bright:#ff3030;--white:#f5f5f5;--muted:#a0a0a0;--gold:#ffb000;--green:#39ff14;--line:#333;--cyan:#43d9ff;--pink:#ff4da6}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#3a080b 0%,#120708 34%,var(--bg) 70%);color:var(--white);font-family:Arial,sans-serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer;border:0}.hidden{display:none!important}.mono{font-family:'JetBrains Mono',monospace}.display{font-family:Orbitron,sans-serif;letter-spacing:1.4px}.muted{color:var(--muted)}.red{color:var(--bright)}.gold{color:var(--gold)}.green{color:var(--green)}
+#app{min-height:100vh}.screen{display:none;min-height:100vh;padding:28px;animation:fade .25s ease}.screen.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.login-wrap{max-width:460px;margin:7vh auto;padding:38px;background:rgba(21,21,21,.94);border:1px solid #5a171a;box-shadow:0 0 55px #d719201c;border-radius:12px}.brand{text-align:center;margin-bottom:30px}.brand h1{font:800 34px Orbitron;margin:0;letter-spacing:3px}.brand .case{font:600 13px 'JetBrains Mono';color:var(--bright);letter-spacing:5px;margin-top:9px}.terminal-intro{background:#080808;border-left:3px solid var(--red);padding:13px 15px;color:#bcbcbc;font:11px/1.9 'JetBrains Mono';margin:22px 0}
+.field{display:block;margin:15px 0}.field span{display:block;font:11px 'JetBrains Mono';color:var(--muted);margin-bottom:8px;text-transform:uppercase}.field input{width:100%;background:#090909;color:white;border:1px solid #383838;border-radius:6px;padding:13px;outline:none}.field input:focus{border-color:var(--bright);box-shadow:0 0 0 2px #d7192020}
+.btn{padding:12px 18px;border-radius:5px;background:var(--red);color:white;font:700 12px Orbitron;letter-spacing:1px;transition:.2s}.btn:hover{background:var(--bright);box-shadow:0 0 20px #d7192050;transform:translateY(-1px)}.btn.secondary{background:#252525;border:1px solid #444}.btn.secondary:hover{border-color:var(--bright)}.btn.ghost{background:transparent;border:1px solid #444}.btn.goldbtn{background:#8d5e00;color:#fff}.btn:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}.full{width:100%}.linkbtn{background:none;color:var(--bright);font:600 12px 'JetBrains Mono';padding:12px 0}.notice{font:11px/1.6 'JetBrains Mono';color:#d6b6b6;background:#260e10;border:1px solid #632126;padding:11px;border-radius:5px;margin-top:14px}
+.topbar{max-width:1400px;margin:0 auto 26px;display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:1px solid #3b1a1c;padding:0 0 17px}.mini-brand{font:700 18px Orbitron;letter-spacing:2px}.mini-brand small{display:block;font:10px 'JetBrains Mono';color:var(--bright);letter-spacing:3px;margin-top:5px}.agent{display:flex;align-items:center;gap:13px;font:11px 'JetBrains Mono';color:var(--muted)}.agent strong{color:white}.wrap{max-width:1400px;margin:auto}.eyebrow{font:11px 'JetBrains Mono';letter-spacing:3px;color:var(--bright);text-transform:uppercase}.page-title{font:700 clamp(24px,3vw,36px) Orbitron;margin:8px 0 25px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:linear-gradient(145deg,#1d1d1d,#121212);border:1px solid #343434;border-radius:9px;padding:21px;box-shadow:0 12px 28px #0003}.card.accent{border-color:#642126}.card h3{font:600 16px Orbitron;margin:8px 0}.card p{font-size:13px;line-height:1.6;color:var(--muted);min-height:40px}.symbol{font:24px Orbitron;color:var(--bright)}.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}.case-card{padding:17px;border:1px solid #333;border-radius:7px;background:#121212}.case-card h4{font:600 13px Orbitron;margin:8px 0}.case-card p{font-size:12px;color:var(--muted);line-height:1.5}.tag{font:10px 'JetBrains Mono';color:var(--gold);letter-spacing:1px}.section-head{display:flex;align-items:center;justify-content:space-between;margin:28px 0 12px}
+.hud{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr auto;gap:12px;align-items:center;background:#111;border:1px solid #4b1b1f;border-radius:8px;padding:14px;margin-bottom:16px}.hud-item small{display:block;font:10px 'JetBrains Mono';color:var(--muted);margin-bottom:6px}.hud-item strong{font:600 17px Orbitron}.lives{color:var(--bright);letter-spacing:4px}.timer{font:700 22px 'JetBrains Mono'!important}.timer.warning{color:var(--bright);animation:pulse 1s infinite}@keyframes pulse{50%{opacity:.45}}
+.progress{display:flex;gap:7px;margin:0 0 16px}.step{flex:1;padding:9px 6px;text-align:center;border:1px solid #333;background:#141414;color:#777;border-radius:4px;font:10px 'JetBrains Mono'}.step.current{border-color:var(--bright);color:white;background:#3a1012}.step.done{border-color:#246d20;color:var(--green)}
+.game-layout{display:grid;grid-template-columns:230px minmax(380px,1fr) 220px;gap:15px}.panel{background:#151515;border:1px solid #333;border-radius:8px;padding:18px;min-width:0}.panel h3{font:600 12px Orbitron;letter-spacing:1px;margin:0 0 15px}.clue{font-size:14px;line-height:1.7;color:#ddd}.tiny{font:10px/1.7 'JetBrains Mono';color:var(--muted)}.puzzle{min-height:380px}.puzzle h2{font:600 20px Orbitron;margin:3px 0 12px}.bit-row{display:flex;justify-content:center;gap:10px;margin:28px 0}.bit{width:65px;height:75px;border:1px solid #555;border-radius:7px;background:#090909;color:#777;font:700 25px 'JetBrains Mono';}.bit.on{background:#3a0d10;border-color:var(--bright);color:white;box-shadow:0 0 18px #d7192030}.readouts{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:15px 0 24px}.readout{background:#090909;border:1px solid #333;padding:12px 18px;border-radius:5px;min-width:120px;text-align:center}.readout small{display:block;color:var(--muted);font:10px 'JetBrains Mono';margin-bottom:7px}.readout strong{font:600 20px 'JetBrains Mono';color:var(--gold)}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:20px 0}.option{padding:15px;background:#090909;color:white;border:1px solid #444;border-radius:5px;font:600 13px 'JetBrains Mono'}.option:hover,.option.selected{border-color:var(--bright);background:#351012}.option.correct{border-color:var(--green)}.option.wrong{border-color:var(--bright)}
+.truth{border-collapse:collapse;width:100%;margin:18px 0;font:13px 'JetBrains Mono';text-align:center}.truth th,.truth td{border:1px solid #444;padding:10px}.truth th{background:#290e10;color:#fff}.truth td{background:#0b0b0b}.truth .missing{color:var(--gold);font-weight:bold}
+.status-list{font:10px/2 'JetBrains Mono';color:var(--muted)}.status-list strong{color:white}.bits-status{display:flex;gap:6px;margin:10px 0}.bit-dot{width:28px;height:28px;border:1px solid #555;border-radius:4px;display:grid;place-items:center;font:12px 'JetBrains Mono';color:#666}.bit-dot.filled{border-color:var(--green);color:var(--green);background:#0b1a09}
+.terminal{margin-top:15px;background:#070707;border:1px solid #292929;border-radius:7px;padding:12px 15px;height:112px;overflow:auto;font:10px/1.8 'JetBrains Mono';color:#999}.log-good{color:var(--green)}.log-bad{color:var(--bright)}.log-warn{color:var(--gold)}
+.feedback{padding:11px;border-radius:5px;margin:12px 0;font:11px 'JetBrains Mono';display:none}.feedback.show{display:block}.feedback.good{background:#10200d;border:1px solid #286b20;color:var(--green)}.feedback.bad{background:#280e10;border:1px solid #702329;color:#ff7777}
+.notes{max-width:760px;margin:8vh auto;padding:34px}.notes h2{font:700 25px Orbitron}.explain{background:#0b0b0b;border-left:3px solid var(--green);padding:18px;line-height:1.7;color:#ddd;margin:20px 0}.big-code{font:700 32px 'JetBrains Mono';letter-spacing:10px;color:var(--gold);text-align:center;padding:18px}
+.center-screen{max-width:780px;margin:8vh auto;text-align:center;padding:35px}.center-screen h1{font:800 clamp(28px,5vw,48px) Orbitron}.vault{font-size:64px;color:var(--gold);margin:18px}.stats{display:flex;justify-content:center;gap:25px;flex-wrap:wrap;margin:25px 0}.stats div{min-width:100px}.stats small{display:block;color:var(--muted);font:10px 'JetBrains Mono';margin-bottom:7px}.stats strong{font:600 20px Orbitron}
+.versus-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.player{padding:22px;border:1px solid var(--cyan);background:#0d171a;border-radius:8px}.player.p2{border-color:var(--pink);background:#1a1017}.player h3{font:600 15px Orbitron}.disabled-note{border:1px dashed #704044;padding:18px;color:#d4a5a5;font:11px/1.8 'JetBrains Mono';margin-top:20px}
+table.board{width:100%;border-collapse:collapse;text-align:left;font:12px 'JetBrains Mono'}table.board th,table.board td{padding:13px;border-bottom:1px solid #333}table.board th{color:var(--gold)}
+@media(max-width:950px){.game-layout{grid-template-columns:1fr 1fr}.game-layout .puzzle{grid-column:1/-1;grid-row:1}.hud{grid-template-columns:repeat(3,1fr)}.grid3,.case-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.screen{padding:15px}.login-wrap{margin:4vh auto;padding:25px 20px}.topbar{align-items:flex-start;flex-direction:column}.grid3,.case-grid,.game-layout,.versus-grid{grid-template-columns:1fr}.game-layout .puzzle{grid-column:auto}.hud{grid-template-columns:repeat(2,1fr)}.bit{width:55px;height:65px}.bit-row{gap:6px}.step{font-size:8px;padding:8px 2px}.page-title{margin-bottom:18px}.stats{gap:15px}}
+</style>
+</head>
+<body>
+<div id="app">
+<section id="auth" class="screen active">
+ <div class="login-wrap">
+  <div class="brand"><h1>BINARY HEIST</h1><div class="case">CASE 0101</div></div>
+  <div class="terminal-intro">&gt; SECURITY SYSTEM INITIALIZED<br>&gt; AGENT AUTHENTICATION REQUIRED<br>&gt; FRONTEND DEMONSTRATION BUILD</div>
+  <div id="loginForm">
+   <label class="field"><span>Agent ID / Username</span><input id="agentId" placeholder="Enter agent ID" autocomplete="username"></label>
+   <label class="field"><span>Password</span><input id="password" type="password" placeholder="Enter password" autocomplete="current-password"></label>
+   <button class="btn full" id="loginBtn">LOGIN</button>
+   <button class="linkbtn" id="showRegister">CREATE ACCOUNT →</button>
+  </div>
+  <div id="registerForm" class="hidden">
+   <label class="field"><span>Agent Name</span><input id="regName" placeholder="Your display name"></label>
+   <label class="field"><span>Agent ID / Username</span><input id="regId" placeholder="Choose an agent ID"></label>
+   <label class="field"><span>Password</span><input id="regPass" type="password" placeholder="Create password"></label>
+   <label class="field"><span>Confirm Password</span><input id="regConfirm" type="password" placeholder="Repeat password"></label>
+   <button class="btn full" id="registerBtn">CREATE ACCOUNT</button>
+   <button class="linkbtn" id="showLogin">← BACK TO LOGIN</button>
+  </div>
+  <div class="notice">Create an account once, then log in with your Agent ID and password.</div>
+  
+ </div>
+</section>
+
+<section id="menu" class="screen">
+ <div class="topbar"><div class="mini-brand">BINARY HEIST <small>CASE 0101 / OPERATIONS</small></div><div class="agent"><span>AGENT: <strong id="agentName">DEMO AGENT</strong><br>ID: <strong id="agentCode">LOCAL-01</strong></span><button class="btn ghost" id="logoutBtn">LOG OUT</button></div></div>
+ <div class="wrap">
+  <div class="eyebrow">Operation control</div><h1 class="page-title">SELECT YOUR MISSION</h1>
+  <div class="grid3">
+   <div class="card accent"><div class="symbol">◉</div><h3>SOLO MISSION</h3><p>Solve five digital logic challenges individually and crack the vault.</p><button class="btn full" id="playSolo">PLAY SOLO</button></div>
+   <div class="card"><div class="symbol" style="color:var(--cyan)">⇄</div><h3>VERSUS MODE</h3><p>Challenge another agent in a real-time race to the vault.</p><button class="btn secondary full" id="playVersus">OPEN VERSUS</button></div>
+   <div class="card"><div class="symbol gold">♜</div><h3>LEADERBOARD</h3><p>Review verified agent rankings and completion records.</p><button class="btn secondary full" id="openBoard">VIEW LEADERBOARD</button></div>
+  </div>
+  <div class="section-head"><h3 class="display">AVAILABLE CASE FILES</h3><span class="tiny">ALL CASE FILES AVAILABLE</span></div>
+  <div class="case-grid" id="caseGrid"></div>
+ </div>
+</section>
+
+<section id="game" class="screen">
+ <div class="wrap">
+  <div class="topbar"><div class="mini-brand">BINARY HEIST <small id="gameTitle">SOLO MISSION / THE STOLEN CORE</small></div><button class="btn ghost" id="exitGame">EXIT MISSION</button></div>
+  <div class="hud">
+   <div class="hud-item"><small>ACTIVE STAGE</small><strong id="hudStage">01 / 05</strong></div>
+   <div class="hud-item"><small>REMAINING LIVES</small><strong class="lives" id="hudLives">♥ ♥ ♥</strong></div>
+   <div class="hud-item"><small>COUNTDOWN</small><strong class="timer" id="hudTimer">05:00</strong></div>
+   <div class="hud-item"><small>CURRENT SCORE</small><strong id="hudScore">0000</strong></div>
+   
+  </div>
+  <div class="progress" id="progress"></div>
+  <div class="game-layout">
+   <aside class="panel"><h3>▣ CASE CLUE</h3><div id="clueText" class="clue"></div><p class="tiny" id="instructionText"></p><button class="btn secondary full" id="hintBtn">HINT (-30 SEC)</button><div class="tiny" style="margin-top:15px">REFERENCE<br>8 4 2 1<br>Each binary position represents a power of two.</div></aside>
+   <main class="panel puzzle"><div class="eyebrow" id="stageEyebrow">STAGE 01 / BINARY CLUE</div><h2 id="puzzleTitle">Decode the signal</h2><div id="puzzleBody"></div><div id="feedback" class="feedback"></div><button class="btn full" id="submitBtn">SUBMIT ANSWER</button></main>
+   <aside class="panel"><h3>◈ MISSION STATUS</h3><div class="status-list">AGENT<br><strong id="sideAgent">DEMO AGENT</strong><br><br>FSM STATE<br><strong id="fsmState">INVESTIGATING</strong><br><br>CODE FRAGMENTS</div><div class="bits-status" id="codeBits"></div><div class="status-list">PROGRESS<br><strong id="sideProgress">0 / 5 STAGES</strong><br><br>STATUS<br><strong id="gameStatus">ACTIVE</strong></div></aside>
+  </div>
+  <div class="terminal" id="terminal"><div>&gt; SYSTEM READY</div><div>&gt; CASE LOADED: THE STOLEN CORE</div></div>
+ </div>
+</section>
+
+<section id="notes" class="screen"><div class="card notes"><div class="eyebrow">Evidence verified / stage cleared</div><h2>CASE NOTES</h2><p class="muted" id="noteQuestion"></p><div class="explain" id="noteExplanation"></div><div class="tiny" id="noteAnswer"></div><div class="big-code" id="noteBit"></div><button class="btn full" id="nextStage">NEXT STAGE</button></div></section>
+
+<section id="versus" class="screen"><div class="wrap"><div class="topbar"><div class="mini-brand">BINARY HEIST <small>VERSUS OPERATIONS</small></div><button class="btn ghost" id="versusBack">MAIN MENU</button></div><div class="eyebrow">Competitive operation</div><h1 class="page-title">VERSUS MODE</h1><div class="card"><div class="versus-grid"><div class="player"><h3>PLAYER 01</h3><p id="vsP1">Awaiting match</p></div><div class="player p2"><h3>PLAYER 02</h3><p id="vsP2" class="muted">Awaiting opponent</p></div></div><div class="disabled-note" id="vsNote">Asynchronous race: <b>CREATE MATCH</b> to play first and get a match code. Another agent then uses <b>JOIN MATCH</b> with that code to play the same case. Higher score wins; ties go to the most time left.</div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><select id="vsCase" class="field" style="background:#090909;color:#fff;border:1px solid #383838;border-radius:5px;padding:11px"></select><button class="btn" id="createMatch">CREATE MATCH</button><button class="btn secondary" id="joinMatch">JOIN MATCH</button><button class="btn goldbtn hidden" id="playMatch">PLAY MY RUN</button><button class="btn ghost" id="refreshMatch">REFRESH</button></div></div></div></section>
+
+<section id="leaderboard" class="screen"><div class="wrap"><div class="topbar"><div class="mini-brand">BINARY HEIST <small>AGENT RECORDS</small></div><button class="btn ghost" id="boardBack">MAIN MENU</button></div><div class="eyebrow">Verified records only</div><h1 class="page-title">LEADERBOARD</h1><div class="card"><div style="display:flex;gap:8px;margin-bottom:12px"><button class="btn secondary" data-p="today">TODAY</button><button class="btn secondary" data-p="week">THIS WEEK</button><button class="btn" data-p="all">ALL TIME</button></div><table class="board"><thead><tr><th>RANK</th><th>AGENT</th><th>SCORE</th><th>BEST TIME</th></tr></thead><tbody id="boardBody"></tbody></table></div></div></section>
+
+<section id="victory" class="screen"><div class="center-screen card"><div class="eyebrow gold">Mission accomplished</div><div class="vault">◉</div><h1>VAULT BREACHED</h1><p class="muted" id="victoryMsg">The five-stage case has been completed.</p><div class="stats"><div><small>FINAL SCORE</small><strong id="finalScore">0000</strong></div><div><small>TIME LEFT</small><strong id="finalTime">00:00</strong></div><div><small>LIVES LEFT</small><strong id="finalLives">3</strong></div></div><div class="big-code" id="finalCode">1011</div><button class="btn full" id="replayBtn">REPLAY CASE</button><button class="btn secondary full" id="victoryMenu" style="margin-top:9px">MAIN MENU</button></div></section>
+<section id="failure" class="screen"><div class="center-screen card"><div class="eyebrow red">Operation terminated</div><h1>MISSION FAILED</h1><p id="failureReason" class="muted">OUT OF LIVES</p><div class="stats"><div><small>FINAL SCORE</small><strong id="failedScore">0000</strong></div><div><small>STAGE REACHED</small><strong id="failedStage">01 / 05</strong></div></div><button class="btn full" id="retryBtn">RETRY CASE</button><button class="btn secondary full" id="failureMenu" style="margin-top:9px">MAIN MENU</button></div></section>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const api=async(m,u,b)=>{const tk=(player&&player.token)||'';const r=await fetch(u,{method:m,headers:{'content-type':'application/json',...(tk?{authorization:'Bearer '+tk}:{})},body:b?JSON.stringify(b):undefined});let d={};try{d=await r.json()}catch(e){}if(r.status===401&&tk&&u!=='/api/login'){clearInterval(timer);sessionStorage.clear();player=null;show('auth');alert('Your session expired. Please log in again.')}if(!r.ok)throw Object.assign(new Error(d.error||'Request failed'),{data:d,status:r.status});return d};
+const stageNames=['BINARY CLUE','LOGIC LOCK','TRUTH TABLE','ADDER BOSS','FINAL CODE'],titles=['Decode the signal','Break the logic lock','Identify the hidden gate','Defeat the firewall boss','Open the vault'];
+let player=null,sess=null,cases=[],cur=null,snap=null,timeLeft=0,timer=null,selected=null,bits=[0,0,0,0],curPuz=null,lastSummary=null,lastAnswer='',match=null,vsCode=null,vsPoll=null,busy=false;
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');clearInterval(vsPoll);if(id==='versus'&&vsCode)vsPoll=setInterval(renderVersus,4000)}
+function log(msg,type=''){let d=document.createElement('div');d.textContent='> '+msg;if(type)d.className='log-'+type;$('terminal').appendChild(d);$('terminal').scrollTop=$('terminal').scrollHeight}
+const fmt=t=>String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');
+const pname=p=>p.display_name||p.agent_name;
+function feedback(msg,type){$('feedback').textContent=msg;$('feedback').className='feedback show '+type}
+/* ---------- auth ---------- */
+function enter(p){player=p;sessionStorage.setItem('player',JSON.stringify(p));['agentName','sideAgent'].forEach(i=>$(i).textContent=pname(p).toUpperCase());$('agentCode').textContent=p.agent_name;['agentId','password','regName','regId','regPass','regConfirm'].forEach(i=>$(i).value='');loadCases().then(()=>show('menu'))}
+$('loginBtn').onclick=async()=>{const id=$('agentId').value.trim(),pw=$('password').value;if(!id||!pw){alert('Enter your agent ID and password.');return}try{enter(await api('POST','/api/login',{agent_name:id,password:pw}))}catch(e){alert(e.message)}};
+$('registerBtn').onclick=async()=>{const n=$('regName').value.trim(),id=$('regId').value.trim(),p=$('regPass').value,c=$('regConfirm').value;if(!n||!id||!p||!c){alert('Please complete every field.');return}if(p!==c){alert('Password confirmation does not match.');return}try{enter(await api('POST','/api/login',{agent_name:id,password:p,display_name:n,register:true}))}catch(e){alert(e.message)}};
+['agentId','password'].forEach(i=>$(i).addEventListener('keydown',e=>{if(e.key==='Enter')$('loginBtn').click()}));
+$('showRegister').onclick=()=>{$('loginForm').classList.add('hidden');$('registerForm').classList.remove('hidden')};
+$('showLogin').onclick=()=>{$('registerForm').classList.add('hidden');$('loginForm').classList.remove('hidden')};
+$('logoutBtn').onclick=()=>{clearInterval(timer);sessionStorage.clear();player=null;vsCode=null;show('auth')};
+/* ---------- cases / menu ---------- */
+async function loadCases(){try{cases=await api('GET','/api/cases')}catch(e){cases=[]}
+ $('caseGrid').innerHTML=cases.map(c=>`<div class="case-card"><span class="tag">CASE 010${c.case_id} / ${esc(c.difficulty.toUpperCase())}</span><h4>${esc(c.title.toUpperCase())}</h4><p>${esc(c.story)}</p><p class="tiny">${fmt(c.time_limit_sec)} · ${c.lives} LIVES</p><button class="btn full" data-case="${c.case_id}">START CASE</button></div>`).join('')||'<p class="muted">Could not load cases.</p>';
+ $('caseGrid').querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>startCase(cases.find(c=>c.case_id==b.dataset.case)));
+ $('vsCase').innerHTML=cases.map(c=>`<option value="${c.case_id}">${esc(c.title)} (${c.difficulty})</option>`).join('')}
+$('playSolo').onclick=()=>cases[0]?startCase(cases[0]):alert('No cases available.');
+$('replayBtn').onclick=$('retryBtn').onclick=()=>startCase(cur);
+$('victoryMenu').onclick=$('failureMenu').onclick=()=>show('menu');
+/* ---------- game ---------- */
+async function startCase(c,m){try{const s=await api('POST','/api/sessions',{player_id:player.player_id,case_id:c.case_id});sess=s.session_id;cur=c;match=m||null;if(m)await api('POST',`/api/matches/${m}/session`,{player_id:player.player_id,session_id:sess});
+ $('terminal').innerHTML='';log('SYSTEM READY');log('CASE LOADED: '+c.title.toUpperCase());$('gameTitle').textContent=(m?'VERSUS '+m:'SOLO MISSION')+' / '+c.title.toUpperCase();apply(s);show('game');renderStage();clearInterval(timer);timer=setInterval(()=>{if(!snap||snap.status!=='active')return;timeLeft--;updateHud();if(timeLeft<=0){clearInterval(timer);sync()}},1000)}catch(e){alert(e.message)}}
+function apply(s){snap=s;timeLeft=s.time_left;updateHud()}
+async function sync(){try{const s=await api('GET','/api/sessions/'+sess);if(s.status!=='active')return finish(s);apply(s)}catch(e){}}
+function updateHud(){if(!snap)return;const done=snap.status==='win'?5:snap.stage-1;$('hudStage').textContent=String(snap.stage).padStart(2,'0')+' / 05';$('hudLives').textContent=Array.from({length:snap.max_lives},(_,i)=>i<snap.lives_left?'♥':'♡').join(' ');$('hudScore').textContent=String(snap.score).padStart(4,'0');$('hudTimer').textContent=fmt(Math.max(0,timeLeft));$('hudTimer').classList.toggle('warning',timeLeft<60);$('sideProgress').textContent=done+' / 5 STAGES';$('fsmState').textContent=snap.fsm_state;$('gameStatus').textContent=snap.status.toUpperCase();
+ $('codeBits').innerHTML=[1,2,3,4].map(n=>{const b=snap.bits_collected.find(x=>x.stage_no===n);return `<div class="bit-dot ${b?'filled':''}">${b?b.bit:'?'}</div>`}).join('');
+ $('progress').innerHTML=stageNames.map((n,i)=>`<div class="step ${i<done?'done':i===done?'current':''}">${i<done?'✓':i===done?'●':'🔒'}<br>${n}</div>`).join('')}
+function drawOptions(arr){let wrap=document.createElement('div');wrap.className='options';arr.forEach(a=>{let b=document.createElement('button');b.className='option';b.textContent=a;b.onclick=()=>{wrap.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');selected=a};wrap.appendChild(b)});$('puzzleBody').appendChild(wrap)}
+function renderStage(){const p=curPuz=snap.puzzle;if(!p)return;selected=null;const n=p.stage_no;$('stageEyebrow').textContent=`STAGE 0${n} / ${stageNames[n-1]}`;$('puzzleTitle').textContent=titles[n-1];$('clueText').textContent=p.question;
+ $('instructionText').textContent={bits4:'Toggle each bit to build the 4-bit answer.',bits1:'Select the output bit.',bits2:'Select CARRY then SUM as a 2-bit pair.',gate:'Select the gate that matches the table.'}[p.input_mode]||'';
+ $('feedback').className='feedback';$('feedback').textContent='';$('submitBtn').disabled=false;
+ const body=$('puzzleBody');body.innerHTML='';
+ if(p.input_mode==='bits4'){bits=[0,0,0,0];body.innerHTML=`<div class="tiny" style="text-align:center">BINARY INPUT / 4-BIT REGISTER</div><div class="bit-row">${bits.map((b,i)=>`<button class="bit" data-bit="${i}">${b}</button>`).join('')}</div><div class="readouts"><div class="readout"><small>BINARY</small><strong id="liveBin">0000</strong></div><div class="readout"><small>DECIMAL</small><strong id="liveDec">0</strong></div><div class="readout"><small>HEXADECIMAL</small><strong id="liveHex">0</strong></div></div>`;
+  body.querySelectorAll('.bit').forEach(b=>b.onclick=()=>{let i=+b.dataset.bit;bits[i]=bits[i]?0:1;b.classList.toggle('on',!!bits[i]);b.textContent=bits[i];let v=parseInt(bits.join(''),2);$('liveBin').textContent=bits.join('');$('liveDec').textContent=v;$('liveHex').textContent=v.toString(16).toUpperCase()})}
+ else if(p.input_mode==='bits1')drawOptions(['0','1']);
+ else if(p.input_mode==='bits2'){body.innerHTML='<div class="tiny" style="text-align:center">ADDER OUTPUT / CARRY SUM</div>';drawOptions(['00','01','10','11'])}
+ else if(p.input_mode==='gate'){const t=p.data.table,o=p.data.outputs;body.innerHTML=`<table class="truth"><tr><th>A</th><th>B</th><th>OUTPUT</th></tr>${t.map((r,i)=>`<tr><td>${r.A}</td><td>${r.B}</td><td class="missing">${o[i]}</td></tr>`).join('')}</table>`;drawOptions(p.data.options)}
+ $('submitBtn').onclick=submitAnswer}
+async function submitAnswer(){if(busy||!snap||snap.status!=='active')return;const p=curPuz;let a=p.input_mode==='bits4'?bits.join(''):selected;if(!a){feedback('Select or enter an answer first.','bad');return}
+ busy=true;try{const r=await api('POST',`/api/sessions/${sess}/answer`,{answer:a});lastAnswer=a;if(r.summary)lastSummary=r.summary;apply(r);
+  if(r.correct){log(r.stage-1>=0&&p.stage_no<5?`STAGE ${p.stage_no} CLEARED / CODE FRAGMENT ${r.revealed_bit}`:'FINAL CODE ACCEPTED / VAULT UNLOCKED','good');$('submitBtn').disabled=true;feedback('ACCESS GRANTED. PUZZLE SOLVED.','good');setTimeout(()=>showNotes(r,p,a),650)}
+  else{log('INCORRECT ATTEMPT / LIFE LOST','bad');feedback('ACCESS DENIED. Incorrect answer. One life and 50 points deducted.','bad');if(r.status!=='active')setTimeout(()=>finish(r),700)}}
+ catch(e){if(e.data&&e.data.summary)finish(e.data);else feedback(e.message,'bad')}finally{busy=false}}
+function showNotes(r,p,a){$('noteQuestion').textContent=p.question;$('noteExplanation').textContent=r.explanation||'';$('noteAnswer').textContent='VERIFIED ANSWER: '+a+(r.gain_popup?'  /  +'+r.gain_popup+' PTS':'');$('noteBit').textContent=p.stage_no<5?'CODE FRAGMENT: '+r.revealed_bit:'ACCESS CODE: '+a;$('nextStage').textContent=r.status==='win'?(match?'VIEW RESULT':'VIEW VICTORY'):'NEXT STAGE';show('notes')}
+$('nextStage').onclick=()=>{if(snap.status==='win'){finish({...snap,summary:lastSummary});return}renderStage();show('game')};
+async function finish(s){clearInterval(timer);if(!s.summary){try{s=await api('GET','/api/sessions/'+sess)}catch(e){}}const sm=s.summary||lastSummary;if(!sm){show('menu');return}
+ if(match){const m=match;match=null;vsCode=m;renderVersus();show('versus');return}
+ if(sm.result==='win'){$('finalScore').textContent=sm.score;$('finalTime').textContent=fmt(Math.max(0,cur.time_limit_sec-sm.time_taken_sec));$('finalLives').textContent=sm.lives_left;$('finalCode').textContent=(sm.answers[4]||{}).correct_answer||'';$('victoryMsg').textContent='+'+sm.xp_earned+' XP'+(sm.achievements.length?' · NEW: '+sm.achievements.map(a=>a.name).join(', '):'');show('victory')}
+ else{$('failureReason').textContent=({out_of_lives:'OUT OF LIVES',time_expired:'TIME EXPIRED',player_quit:'MISSION ABANDONED'}[sm.reason]||'MISSION FAILED');$('failedScore').textContent=sm.score;$('failedStage').textContent=String(snap?snap.stage:1).padStart(2,'0')+' / 05';show('failure')}}
+$('hintBtn').onclick=async()=>{if(!snap||snap.status!=='active')return;try{const d=await api('POST',`/api/sessions/${sess}/hint`);apply(d);feedback('HINT: '+d.hint+(d.cost_sec?` (${d.cost_sec} seconds deducted)`:' (already used on this stage)'),'good');if(d.cost_sec)log('HINT USED / '+d.cost_sec+' SECONDS DEDUCTED','warn');if(d.status!=='active')finish(d)}catch(e){feedback(e.message,'bad')}};
+$('exitGame').onclick=async()=>{clearInterval(timer);try{await api('POST',`/api/sessions/${sess}/abandon`)}catch(e){}if(match){vsCode=match;match=null;renderVersus();show('versus')}else show('menu')};
+/* ---------- leaderboard ---------- */
+async function renderBoard(period='all'){document.querySelectorAll('[data-p]').forEach(b=>b.className='btn '+(b.dataset.p===period?'':'secondary'));let rows=[];try{rows=await api('GET','/api/leaderboard?period='+period)}catch(e){}
+ $('boardBody').innerHTML=rows.length?rows.map(r=>`<tr><td>#${r.position}</td><td>${esc(pname(r))} <span class="muted">(${esc(r.rank_title)})</span></td><td>${r.best_score}</td><td>${fmt(r.best_time)}</td></tr>`).join(''):'<tr><td colspan="4" class="muted">No completed missions yet for this period.</td></tr>'}
+document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>renderBoard(b.dataset.p));
+$('openBoard').onclick=()=>{renderBoard();show('leaderboard')};$('boardBack').onclick=$('versusBack').onclick=()=>show('menu');
+/* ---------- versus (server-backed async race) ---------- */
+const sideTxt=s=>!s?'Awaiting opponent':`${esc(s.name)}<br><span class="tiny">${!s.session?'NOT STARTED':s.session.result==='active'?'RUN IN PROGRESS':`SCORE ${s.session.score} · ${s.session.result==='win'?'VAULT BREACHED':'MISSION FAILED'} · TIME ${fmt(s.session.time_taken_sec)}`}</span>`;
+async function renderVersus(){if(!vsCode){$('vsP1').textContent=pname(player);$('vsP2').textContent='Awaiting opponent';$('playMatch').classList.add('hidden');return}
+ try{const m=await api('GET','/api/matches/'+vsCode);$('vsP1').innerHTML=sideTxt(m.a);$('vsP2').innerHTML=sideTxt(m.b);const mine=m.a.player_id===player.player_id?m.a:(m.b&&m.b.player_id===player.player_id?m.b:null);
+  let n='MATCH CODE: <b class="gold">'+m.code+'</b> · '+esc((cases.find(c=>c.case_id===m.case_id)||{}).title||'')+'<br>';
+  n+=m.winner?(m.winner==='draw'?'RESULT: <b class="gold">DRAW</b>':'WINNER: <b class="green">'+esc(m[m.winner].name)+'</b>'):(!m.b?'Share this code. Player 02 uses JOIN MATCH to enter it.':'Match in progress. Higher result wins; ties go to the faster time.');
+  $('vsNote').innerHTML=n;$('playMatch').classList.toggle('hidden',!(mine&&!mine.session));$('playMatch').onclick=()=>startCase(cases.find(c=>c.case_id===m.case_id),m.code)}catch(e){$('vsNote').textContent=e.message}}
+$('playVersus').onclick=()=>{renderVersus();show('versus')};
+$('refreshMatch').onclick=renderVersus;
+$('createMatch').onclick=async()=>{const c=cases.find(x=>x.case_id==$('vsCase').value);if(!c)return;try{const m=await api('POST','/api/matches',{player_id:player.player_id,case_id:c.case_id});vsCode=m.code;await startCase(c,m.code)}catch(e){alert(e.message)}};
+$('joinMatch').onclick=async()=>{const code=(prompt('Enter match code:')||'').trim().toUpperCase();if(!code)return;try{const m=await api('POST',`/api/matches/${code}/join`,{player_id:player.player_id});vsCode=code;const mine=m.a.player_id===player.player_id?m.a:m.b;if(mine&&mine.session){renderVersus();show('versus')}else await startCase(cases.find(c=>c.case_id===m.case_id),code)}catch(e){alert(e.message)}};
+/* ---------- boot ---------- */
+try{const saved=JSON.parse(sessionStorage.getItem('player'));if(saved&&saved.token){player=saved;api('GET','/api/players/'+saved.player_id).then(p=>enter({...p,token:saved.token}),()=>{player=null})}}catch(e){}
+</script>
+</body>
+</html>

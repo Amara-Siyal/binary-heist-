@@ -1,0 +1,760 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>BINARY HEIST // OPERATIVE PERFORMANCE ANALYTICS // DOSSIER #0101</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline": "#85967c",
+            "on-secondary-container": "#00616d",
+            "surface-bright": "#353940",
+            "on-background": "#dfe2eb",
+            "inverse-on-surface": "#2d3137",
+            "primary-fixed": "#79ff5b",
+            "on-surface": "#dfe2eb",
+            "primary-container": "#39ff14",
+            "on-surface-variant": "#baccb0",
+            "surface-container": "#1c2026",
+            "secondary": "#bdf4ff",
+            "inverse-surface": "#dfe2eb",
+            "on-primary": "#053900",
+            "surface-container-lowest": "#0a0e14",
+            "on-primary-fixed-variant": "#095300",
+            "on-secondary-fixed": "#001f24",
+            "on-tertiary": "#432c00",
+            "on-tertiary-fixed-variant": "#614000",
+            "secondary-fixed": "#9cf0ff",
+            "on-primary-container": "#107100",
+            "secondary-fixed-dim": "#00daf3",
+            "primary-fixed-dim": "#2ae500",
+            "surface-tint": "#2ae500",
+            "primary": "#efffe3",
+            "on-error": "#690005",
+            "outline-variant": "#3c4b35",
+            "surface-container-highest": "#31353c",
+            "surface-container-low": "#181c22",
+            "on-tertiary-container": "#835900",
+            "on-tertiary-fixed": "#281800",
+            "tertiary-fixed": "#ffddaf",
+            "error-container": "#93000a",
+            "background": "#10141a",
+            "error": "#ffb4ab",
+            "surface-container-high": "#262a31",
+            "inverse-primary": "#106e00",
+            "tertiary-fixed-dim": "#ffba43",
+            "on-primary-fixed": "#022100",
+            "on-error-container": "#ffdad6",
+            "surface": "#10141a",
+            "secondary-container": "#00e3fd",
+            "tertiary-container": "#ffd79e",
+            "surface-dim": "#10141a",
+            "on-secondary": "#00363d",
+            "tertiary": "#fff8f4",
+            "on-secondary-fixed-variant": "#004f58",
+            "surface-variant": "#31353c"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "gutter-tablet": "1.25rem",
+            "space-xs": "0.25rem",
+            "margin-tablet": "1.5rem",
+            "margin": "1rem",
+            "gutter": "1rem",
+            "margin-desktop": "2.5rem",
+            "gutter-desktop": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "headline-md": ["Space Grotesk"],
+            "label-lg": ["JetBrains Mono"],
+            "headline-lg-mobile": ["Space Grotesk"],
+            "body-md": ["JetBrains Mono"],
+            "label-md": ["JetBrains Mono"],
+            "body-lg": ["JetBrains Mono"],
+            "headline-xl": ["Space Grotesk"],
+            "headline-sm": ["Space Grotesk"],
+            "headline-lg": ["Space Grotesk"],
+            "headline-xl-mobile": ["Space Grotesk"],
+            "label-sm": ["JetBrains Mono"],
+            "body-sm": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.14em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "28px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.12em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "headline-xl": ["48px", { "lineHeight": "52px", "letterSpacing": "0.12em", "fontWeight": "700" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.16em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Phosphor bloom & CRT micro-scanline substrate */
+    .crt-scanlines {
+      background: linear-gradient(rgba(18, 24, 32, 0) 50%, rgba(0, 0, 0, 0.45) 50%);
+      background-size: 100% 3px;
+    }
+    .glow-green {
+      box-shadow: 0 0 8px rgba(57, 255, 20, 0.35), inset 0 0 4px rgba(57, 255, 20, 0.15);
+    }
+    .glow-cyan {
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.35), inset 0 0 4px rgba(0, 229, 255, 0.12);
+    }
+    .glow-red {
+      box-shadow: 0 0 10px rgba(255, 46, 76, 0.45), inset 0 0 4px rgba(255, 46, 76, 0.15);
+    }
+    .glow-amber {
+      box-shadow: 0 0 10px rgba(255, 176, 0, 0.4), inset 0 0 4px rgba(255, 176, 0, 0.12);
+    }
+    .bracket-corner {
+      position: relative;
+    }
+    .bracket-corner::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      width: 6px;
+      height: 6px;
+      border-top: 2px solid #39ff14;
+      border-left: 2px solid #39ff14;
+    }
+    .bracket-corner::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 6px;
+      height: 6px;
+      border-bottom: 2px solid #39ff14;
+      border-right: 2px solid #39ff14;
+    }
+    .bracket-corner-cyan::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      width: 6px;
+      height: 6px;
+      border-top: 2px solid #00e3fd;
+      border-left: 2px solid #00e3fd;
+    }
+    .bracket-corner-cyan::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 6px;
+      height: 6px;
+      border-bottom: 2px solid #00e3fd;
+      border-right: 2px solid #00e3fd;
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md min-h-screen relative selection:bg-primary-container selection:text-surface-container-lowest crt-scanlines">
+<!-- ========================================== -->
+<!-- TOP APP BAR (Shared Component Anchor)       -->
+<!-- ========================================== -->
+<header class="bg-surface-container-lowest flex justify-between items-center w-full px-4 py-2 border-b border-outline-variant relative z-50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">terminal</span>
+<span class="text-headline-sm font-headline-sm tracking-widest text-primary-container uppercase">BINARY HEIST: CASE 0101</span>
+<span class="hidden md:inline-flex items-center px-2 py-0.5 text-label-sm font-label-sm bg-surface-container-low text-secondary-container border border-outline-variant">[SEC_NET // OPERATIVE_NODE]</span>
+</div>
+<!-- Web Navigation Links Cluster -->
+<div class="hidden md:flex items-center gap-6">
+<div class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-150 px-2 py-1 cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">memory</span> DECK
+      </div>
+<div class="flex items-center gap-1 text-label-sm font-label-sm text-primary-container font-bold px-2 py-1 border-b-2 border-primary-container cursor-pointer">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">folder_open</span> DOSSIER
+      </div>
+<div class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-150 px-2 py-1 cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span> LOGS
+      </div>
+<div class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-150 px-2 py-1 cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">lock_open</span> DECRYPT
+      </div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 px-2 py-0.5 border border-outline-variant bg-surface-container text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="text-primary-container font-bold">STAGE 01/05</span>
+</div>
+</div>
+</header>
+<!-- ========================================== -->
+<!-- MAIN TELEMETRY DASHBOARD CANVAS (1440px)    -->
+<!-- ========================================== -->
+<main class="max-w-[1440px] mx-auto px-4 md:px-8 py-6 pb-24 md:pb-8 flex flex-col gap-6">
+<!-- 1. TOP HUD / BREADCRUMB & AGENT DOSSIER BANNER -->
+<section class="bg-surface-container-low border border-outline-variant p-5 md:p-8 relative bracket-corner">
+<!-- Watermark Stamp -->
+<div class="absolute right-8 top-1/2 -translate-y-1/2 select-none pointer-events-none opacity-10 hidden lg:block">
+<span class="text-headline-xl font-headline-xl tracking-widest text-primary-container border-4 border-primary-container px-6 py-2 rotate-[-12deg] inline-block">CLASSIFIED // EYES ONLY</span>
+</div>
+<!-- Breadcrumbs & Status Row -->
+<div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-outline-variant/60">
+<div class="flex items-center gap-2 text-sm font-label-sm text-on-surface-variant">
+<span class="text-secondary-container">ROOT</span>
+<span>//</span>
+<span>OPERATIVE_PERFORMANCE</span>
+<span>//</span>
+<span class="text-primary-container font-bold">DOSSIER #0101</span>
+</div>
+<div class="flex items-center gap-3 text-sm font-label-sm">
+<span class="text-outline">SYSTEM CLOCK:</span>
+<span class="text-secondary font-mono tracking-widest">00:14:29:08</span>
+<span class="inline-block w-2 h-2 bg-secondary-container animate-ping"></span>
+</div>
+</div>
+<!-- Agent Profile Summary & Telemetry Chips -->
+<div class="mt-5 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6">
+<!-- Agent Bio Module -->
+<div class="flex items-start gap-4">
+<div class="w-14 h-14 bg-surface-container border border-primary-container flex items-center justify-center glow-green shrink-0 relative">
+<span class="material-symbols-outlined text-primary-container text-3xl">fingerprint</span>
+<div class="absolute -bottom-1 -right-1 bg-primary-container text-surface-container-lowest font-label-sm text-[10px] px-1.5 py-0.2 font-bold">L-4</div>
+</div>
+<div>
+<div class="flex items-center gap-3">
+<h1 class="text-headline-md font-headline-md tracking-wider text-primary">AGENT_C_0101</h1>
+<span class="px-2 py-0.5 text-xs font-label-sm bg-primary-container/10 border border-primary-container text-primary-container uppercase font-bold">[ACTIVE OPERATIVE]</span>
+</div>
+<p class="text-body-md font-body-sm text-on-surface-variant mt-1.5">
+              Syndicate Clearance: <span class="text-secondary-container font-semibold">Level 4</span> &nbsp;|&nbsp; 
+              Rank: <span class="text-primary font-semibold">Chief Forensic Cryptographer</span> &nbsp;|&nbsp; 
+              Sector: <span class="text-outline">SUB-CIPHER DIVISION 9</span>
+</p>
+</div>
+</div>
+<!-- Telemetry Chips Cluster -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 w-full xl:w-auto">
+<!-- Chip 1 -->
+<div class="bg-surface-container p-4 border border-outline-variant flex flex-col justify-between">
+<span class="text-xs font-label-sm text-outline uppercase tracking-wide">Sessions Logged</span>
+<div class="flex items-baseline justify-between mt-1.5">
+<span class="text-headline-sm font-headline-sm text-primary">24</span>
+<span class="text-xs font-label-sm text-on-surface-variant font-bold">RUNS</span>
+</div>
+</div>
+<!-- Chip 2 -->
+<div class="bg-surface-container p-4 border border-outline-variant flex flex-col justify-between">
+<span class="text-xs font-label-sm text-outline uppercase tracking-wide">Overall Accuracy</span>
+<div class="flex items-baseline justify-between mt-1.5">
+<span class="text-headline-sm font-headline-sm text-primary-container">91.4%</span>
+<span class="material-symbols-outlined text-base text-primary-container">trending_up</span>
+</div>
+</div>
+<!-- Chip 3 -->
+<div class="bg-surface-container p-4 border border-outline-variant flex flex-col justify-between">
+<span class="text-xs font-label-sm text-outline uppercase tracking-wide">Total Bounties</span>
+<div class="flex items-baseline justify-between mt-1.5">
+<span class="text-headline-sm font-headline-sm text-secondary-container">14,850</span>
+<span class="text-xs font-label-sm text-secondary font-bold">PTS</span>
+</div>
+</div>
+<!-- Chip 4 -->
+<div class="bg-surface-container p-4 border border-outline-variant flex flex-col justify-between">
+<span class="text-xs font-label-sm text-outline uppercase tracking-wide">Decryption Velocity</span>
+<div class="flex items-baseline justify-between mt-1.5">
+<span class="text-headline-sm font-headline-sm text-primary">0.42</span>
+<span class="text-xs font-label-sm text-outline font-bold">G/SEC</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. MAIN VISUAL ANALYTICS GRID -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- LEFT: SKILL RADAR CHART (5-Concept Hexagon) -->
+<section class="lg:col-span-5 bg-surface-container-low border border-outline-variant p-6 flex flex-col justify-between bracket-corner">
+<div class="flex items-center justify-between pb-3.5 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-base">hub</span>
+<h2 class="text-label-lg font-label-lg text-primary uppercase tracking-wider">Concept Competency Radar</h2>
+</div>
+<span class="text-xs font-label-sm text-outline font-semibold">POLY-VECTOR // 5-AXIS</span>
+</div>
+<!-- Radar SVG Visualization Container -->
+<div class="py-5 flex flex-col items-center justify-center relative">
+<svg class="w-full max-w-[340px] overflow-visible" viewBox="0 0 400 360">
+<defs>
+<radialGradient cx="50%" cy="50%" id="radarGlow" r="50%">
+<stop offset="0%" stop-color="#39ff14" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#39ff14" stop-opacity="0.05"></stop>
+</radialGradient>
+<filter height="140%" id="neonBlur" width="140%" x="-20%" y="-20%">
+<feGaussianBlur result="blur" stdDeviation="3"></feGaussianBlur>
+<feMerge>
+<feMergeNode in="blur"></feMergeNode>
+<feMergeNode in="SourceGraphic"></feMergeNode>
+</feMerge>
+</filter>
+</defs>
+<polygon fill="none" points="200,50 323,140 276,285 124,285 77,140" stroke="#1f2e3d" stroke-width="1.5"></polygon>
+<polygon fill="none" points="200,76 298,148 261,264 139,264 102,148" stroke="#1f2e3d" stroke-dasharray="2 2" stroke-width="1"></polygon>
+<polygon fill="none" points="200,102 274,156 246,243 154,243 126,156" stroke="#1f2e3d" stroke-width="1"></polygon>
+<polygon fill="none" points="200,128 249,164 230,222 170,222 151,164" stroke="#1f2e3d" stroke-dasharray="2 2" stroke-width="1"></polygon>
+<polygon fill="none" points="200,154 225,172 215,201 185,201 175,172" stroke="#1f2e3d" stroke-width="1"></polygon>
+<line stroke="#1f2e3d" stroke-width="1.2" x1="200" x2="200" y1="180" y2="50"></line>
+<line stroke="#1f2e3d" stroke-width="1.2" x1="200" x2="323" y1="180" y2="140"></line>
+<line stroke="#1f2e3d" stroke-width="1.2" x1="200" x2="276" y1="180" y2="285"></line>
+<line stroke="#1f2e3d" stroke-width="1.2" x1="200" x2="124" y1="180" y2="285"></line>
+<line stroke="#1f2e3d" stroke-width="1.2" x1="200" x2="77" y1="180" y2="140"></line>
+<polygon fill="url(#radarGlow)" points="200,56.5 313,143 248.6,247.2 133.1,272.4 112.7,151.6" stroke="#39ff14" stroke-width="2.5" filter="url(#neonBlur)"></polygon>
+<circle cx="200" cy="56.5" fill="#39ff14" r="4"></circle>
+<circle cx="313" cy="143" fill="#39ff14" r="4"></circle>
+<circle cx="248.6" cy="247.2" fill="#ff2e4c" r="5" stroke="#ffffff" stroke-width="1.5"></circle>
+<circle cx="133.1" cy="272.4" fill="#39ff14" r="4"></circle>
+<circle cx="112.7" cy="151.6" fill="#39ff14" r="4"></circle>
+<text fill="#efffe3" font-family="'JetBrains Mono'" font-size="12" font-weight="600" text-anchor="middle" x="200" y="28">BINARY</text>
+<text fill="#39ff14" font-family="'JetBrains Mono'" font-size="11" font-weight="700" text-anchor="middle" x="200" y="42">95%</text>
+<text fill="#efffe3" font-family="'JetBrains Mono'" font-size="12" font-weight="600" text-anchor="start" x="335" y="134">AND / OR</text>
+<text fill="#39ff14" font-family="'JetBrains Mono'" font-size="11" font-weight="700" text-anchor="start" x="335" y="148">92%</text>
+<text fill="#ffb4ab" font-family="'JetBrains Mono'" font-size="12" font-weight="700" text-anchor="start" x="286" y="300">XOR [64%]</text>
+<text fill="#ff2e4c" font-family="'JetBrains Mono'" font-size="10" font-weight="600" text-anchor="start" x="286" y="314">DEFICIT ALERT</text>
+<text fill="#efffe3" font-family="'JetBrains Mono'" font-size="12" font-weight="600" text-anchor="end" x="114" y="300">TRUTH TABLES</text>
+<text fill="#39ff14" font-family="'JetBrains Mono'" font-size="11" font-weight="700" text-anchor="end" x="114" y="314">88%</text>
+<text fill="#efffe3" font-family="'JetBrains Mono'" font-size="12" font-weight="600" text-anchor="end" x="65" y="134">ADDERS</text>
+<text fill="#00e3fd" font-family="'JetBrains Mono'" font-size="11" font-weight="700" text-anchor="end" x="65" y="148">71%</text>
+</svg>
+</div>
+<!-- Metric Footnotes -->
+<div class="grid grid-cols-2 gap-3 pt-3.5 border-t border-outline-variant/60 text-xs font-label-sm">
+<div class="flex items-center gap-2 text-on-surface-variant font-medium">
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+<span>OPTIMAL CONVERGENCE: BINARY</span>
+</div>
+<div class="flex items-center gap-2 text-error font-medium">
+<span class="w-2 h-2 bg-error-container inline-block"></span>
+<span>WEAKEST LINK: XOR GATES</span>
+</div>
+</div>
+</section>
+<!-- RIGHT: SCORE PROGRESSION OVER 10 SESSIONS + WEAKEST CONCEPT CALLOUT -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<!-- Line Chart: Score Over Sessions (1-10) -->
+<section class="bg-surface-container-low border border-outline-variant p-6 bracket-corner-cyan flex flex-col justify-between">
+<div class="flex items-center justify-between pb-3.5 border-b border-outline-variant/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-base">ssid_chart</span>
+<h2 class="text-label-lg font-label-lg text-secondary uppercase tracking-wider">Score Progression Trajectory</h2>
+</div>
+<div class="flex items-center gap-3 text-xs font-label-sm">
+<span class="text-outline font-semibold">SAMPLE: LAST 10 SESSIONS</span>
+<span class="px-2.5 py-1 bg-secondary-container/10 border border-secondary-container text-secondary font-bold text-xs">PB: 14,850 PTS</span>
+</div>
+</div>
+<!-- SVG Line Chart Canvas -->
+<div class="py-4">
+<svg class="w-full h-auto overflow-visible" viewBox="0 0 620 200">
+<defs>
+<linearGradient id="lineGrad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#00daf3"></stop>
+<stop offset="60%" stop-color="#39ff14"></stop>
+<stop offset="100%" stop-color="#00e3fd"></stop>
+</linearGradient>
+<linearGradient id="areaFill" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#00daf3" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#00daf3" stop-opacity="0.0"></stop>
+</linearGradient>
+<filter height="140%" id="cyanGlow" width="140%" x="-20%" y="-20%">
+<feGaussianBlur result="blur" stdDeviation="2.5"></feGaussianBlur>
+<feMerge>
+<feMergeNode in="blur"></feMergeNode>
+<feMergeNode in="SourceGraphic"></feMergeNode>
+</feMerge>
+</filter>
+</defs>
+<g stroke="#1c2026" stroke-width="1">
+<line x1="50" x2="600" y1="20" y2="20"></line>
+<line x1="50" x2="600" y1="55" y2="55"></line>
+<line x1="50" x2="600" y1="90" y2="90"></line>
+<line x1="50" x2="600" y1="125" y2="125"></line>
+<line stroke="#31353c" stroke-width="1.5" x1="50" x2="600" y1="160" y2="160"></line>
+</g>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="11" font-weight="600" text-anchor="end" x="42" y="24">20K</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="11" font-weight="600" text-anchor="end" x="42" y="59">15K</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="11" font-weight="600" text-anchor="end" x="42" y="94">10K</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="11" text-anchor="end" x="42" y="129" font-weight="600">5K</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="11" text-anchor="end" x="42" y="164" font-weight="600">0</text>
+<path d="M60,130.6 L120,112.4 L180,118.7 L240,101.2 L300,95.6 L360,79.5 L420,84.4 L480,69.7 L540,66.2 L600,56.05 L600,160 L60,160 Z" fill="url(#areaFill)"></path>
+<path d="M60,130.6 L120,112.4 L180,118.7 L240,101.2 L300,95.6 L360,79.5 L420,84.4 L480,69.7 L540,66.2 L600,56.05" fill="none" filter="url(#cyanGlow)" stroke="url(#lineGrad)" stroke-width="2.5"></path>
+<circle cx="60" cy="130.6" fill="#00daf3" r="3.5"></circle>
+<circle cx="120" cy="112.4" fill="#00daf3" r="3.5"></circle>
+<circle cx="180" cy="118.7" fill="#00daf3" r="3.5"></circle>
+<circle cx="240" cy="101.2" fill="#39ff14" r="3.5"></circle>
+<circle cx="300" cy="95.6" fill="#39ff14" r="3.5"></circle>
+<circle cx="360" cy="79.5" fill="#39ff14" r="3.5"></circle>
+<circle cx="420" cy="84.4" fill="#39ff14" r="3.5"></circle>
+<circle cx="480" cy="69.7" fill="#39ff14" r="3.5"></circle>
+<circle cx="540" cy="66.2" fill="#39ff14" r="3.5"></circle>
+<circle cx="600" cy="56.05" fill="#39ff14" r="5.5" stroke="#ffffff" stroke-width="2"></circle>
+<text fill="#39ff14" font-family="'JetBrains Mono'" font-size="11" font-weight="700" text-anchor="end" x="595" y="42">14,850 [PB]</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="10" font-weight="500" text-anchor="middle" x="60" y="178">RUN 15</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="10" font-weight="500" text-anchor="middle" x="120" y="178">RUN 16</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="10" font-weight="500" text-anchor="middle" x="180" y="178">RUN 17</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="10" font-weight="500" text-anchor="middle" x="240" y="178">RUN 18</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="10" font-weight="500" text-anchor="middle" x="300" y="178">RUN 19</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="10" font-weight="500" text-anchor="middle" x="360" y="178">RUN 20</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="10" font-weight="500" text-anchor="middle" x="420" y="178">RUN 21</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="10" text-anchor="middle" x="480" y="178" font-weight="500">RUN 22</text>
+<text fill="#85967c" font-family="'JetBrains Mono'" font-size="10" text-anchor="middle" x="540" y="178" font-weight="500">RUN 23</text>
+<text fill="#39ff14" font-family="'JetBrains Mono'" font-size="11" text-anchor="middle" x="600" y="178" font-weight="700">RUN 24</text>
+</svg>
+</div>
+</section>
+<!-- "Weakest Concept" Callout Diagnostic Card -->
+<section class="bg-surface-container-low border border-error-container p-6 glow-red flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+<div class="flex items-start gap-4">
+<div class="p-3 bg-error-container/30 border border-error text-error shrink-0">
+<span class="material-symbols-outlined text-2xl">warning</span>
+</div>
+<div>
+<div class="flex items-center gap-2.5">
+<span class="px-2 py-0.5 bg-error text-surface-container-lowest text-xs font-label-sm font-bold uppercase tracking-wide">CRITICAL DEFICIT</span>
+<span class="text-sm font-label-sm text-error font-bold">XOR GATE PARITY / DISCRIMINATOR CIRCUITS</span>
+</div>
+<p class="text-body-md font-body-sm text-on-surface mt-1.5">
+                Accuracy rating <span class="text-error font-bold underline">64%</span> (Threshold nominal: 85%). Operative exhibits high latency when decoding inverted multi-bit carry chains.
+              </p>
+<p class="text-sm font-label-sm text-outline mt-1.5 font-mono">
+                RECOMMENDATION: Review SN-74LS86 Quad XOR truth table pinouts &amp; odd-parity vector routing.
+              </p>
+</div>
+</div>
+<!-- Action CTA -->
+<button class="shrink-0 w-full md:w-auto px-5 py-3 bg-error text-surface-container-lowest font-headline-sm text-headline-sm uppercase font-bold tracking-wider hover:bg-white hover:text-black transition-colors duration-150 active:scale-95 flex items-center justify-center gap-2">
+</button></section></div>
+</div>
+<!-- 3. HARDEST PUZZLES DEBRIEF LIST -->
+<section class="bg-surface-container-low border border-outline-variant p-6 md:p-7 bracket-corner">
+<div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-outline-variant/60">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-lg">bug_report</span>
+<h2 class="text-label-lg font-label-lg text-primary uppercase tracking-wider">High-Friction Puzzles Debrief // Incident Vector Log</h2>
+</div>
+<span class="text-xs font-label-sm text-outline font-semibold">SORTED BY ATTEMPT FRICTION INDEX</span>
+</div>
+<!-- Puzzle Rows -->
+<div class="mt-5 flex flex-col gap-4">
+<!-- Puzzle 1 -->
+<div class="bg-surface-container p-5 border border-outline-variant/70 hover:border-primary-container/80 transition-colors duration-150 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<span class="px-2.5 py-1 bg-surface-container-highest text-primary-container font-mono text-xs font-bold border border-outline-variant">STAGE 05</span>
+<div>
+<div class="flex flex-wrap items-center gap-2.5">
+<h3 class="text-headline-sm font-headline-sm text-primary tracking-wide">Titan Firewall Full-Adder Synthesis</h3>
+<span class="px-2 py-0.5 bg-error-container/40 text-error border border-error/50 text-xs font-label-sm uppercase font-bold">SEVERITY: HIGH</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-outline text-xs font-label-sm uppercase">CARRY-OUT INVERSION</span>
+</div>
+<div class="flex flex-wrap items-center gap-4 text-sm font-label-sm text-on-surface-variant mt-2">
+<span>Avg Attempts: <strong class="text-error">3.2 runs</strong></span>
+<span class="text-outline-variant">•</span>
+<span>Failure Rate: <strong class="text-error">42%</strong></span>
+<span class="text-outline-variant">•</span>
+<span>Mean Clearance: <strong class="text-secondary font-mono">01:48</strong></span>
+</div>
+</div>
+</div>
+<button class="w-full md:w-auto px-4 py-2 border border-primary-container text-primary-container hover:bg-primary-container/10 text-xs font-label-sm uppercase font-bold tracking-wider transition-colors duration-150 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-base">replay</span>
+            REPLAY DRILL
+          </button>
+</div>
+<!-- Puzzle 2 -->
+<div class="bg-surface-container p-5 border border-outline-variant/70 hover:border-secondary-container/80 transition-colors duration-150 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<span class="px-2.5 py-1 bg-surface-container-highest text-secondary-container font-mono text-xs font-bold border border-outline-variant">STAGE 03</span>
+<div>
+<div class="flex flex-wrap items-center gap-2.5">
+<h3 class="text-headline-sm font-headline-sm text-primary tracking-wide">Odd-Parity XOR Latch Bypass</h3>
+<span class="px-2 py-0.5 bg-tertiary-container/20 text-tertiary-fixed-dim border border-tertiary-fixed-dim/40 text-xs font-label-sm uppercase font-bold">SEVERITY: MED</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-outline text-xs font-label-sm uppercase">TIMING JITTER</span>
+</div>
+<div class="flex flex-wrap items-center gap-4 text-sm font-label-sm text-on-surface-variant mt-2">
+<span>Avg Attempts: <strong class="text-tertiary-fixed-dim">2.8 runs</strong></span>
+<span class="text-outline-variant">•</span>
+<span>Failure Rate: <strong class="text-tertiary-fixed-dim">36%</strong></span>
+<span class="text-outline-variant">•</span>
+<span>Mean Clearance: <strong class="text-secondary font-mono">01:14</strong></span>
+</div>
+</div>
+</div>
+<button class="w-full md:w-auto px-4 py-2 border border-secondary-container text-secondary-container hover:bg-secondary-container/10 text-xs font-label-sm uppercase font-bold tracking-wider transition-colors duration-150 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-base">replay</span>
+            REPLAY DRILL
+          </button>
+</div>
+<!-- Puzzle 3 -->
+<div class="bg-surface-container p-5 border border-outline-variant/70 hover:border-primary-container/80 transition-colors duration-150 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<span class="px-2.5 py-1 bg-surface-container-highest text-primary-container font-mono text-xs font-bold border border-outline-variant">STAGE 02</span>
+<div>
+<div class="flex flex-wrap items-center gap-2.5">
+<h3 class="text-headline-sm font-headline-sm text-primary tracking-wide">Truth Table Vector (1,1) Inversion</h3>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface-variant border border-outline text-xs font-label-sm uppercase font-bold">SEVERITY: LOW</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-outline text-xs font-label-sm uppercase">NAND CONFLATION</span>
+</div>
+<div class="flex flex-wrap items-center gap-4 text-sm font-label-sm text-on-surface-variant mt-2">
+<span>Avg Attempts: <strong class="text-primary-container">1.9 runs</strong></span>
+<span class="text-outline-variant">•</span>
+<span>Failure Rate: <strong class="text-primary-container">18%</strong></span>
+<span class="text-outline-variant">•</span>
+<span>Mean Clearance: <strong class="text-secondary font-mono">00:45</strong></span>
+</div>
+</div>
+</div>
+<button class="w-full md:w-auto px-4 py-2 border border-outline text-outline hover:text-primary hover:border-primary text-xs font-label-sm uppercase font-bold tracking-wider transition-colors duration-150 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-base">replay</span>
+            REPLAY DRILL
+          </button>
+</div>
+</div>
+</section>
+<!-- 4. ACHIEVEMENTS GRID (LOCKED & UNLOCKED BADGES) -->
+<section class="bg-surface-container-low border border-outline-variant p-6 md:p-7 bracket-corner-cyan">
+<div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-outline-variant/60">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary-container text-lg">military_tech</span>
+<h2 class="text-label-lg font-label-lg text-secondary uppercase tracking-wider">Syndicate Accreditations &amp; Commendation Badges</h2>
+</div>
+<div class="flex items-center gap-2 text-xs font-label-sm">
+<span class="text-primary-container font-bold">4 UNLOCKED</span>
+<span class="text-outline">/</span>
+<span class="text-outline">4 ENCRYPTED</span>
+</div>
+</div>
+<!-- 8-Card Modular Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+<!-- Unlocked 1: No Lives Lost -->
+<div class="bg-surface-container p-5 border border-tertiary-fixed-dim/80 glow-amber flex flex-col justify-between relative group">
+<div class="flex items-center justify-between mb-3.5">
+<div class="w-10 h-10 bg-tertiary-fixed-dim/10 border border-tertiary-fixed-dim flex items-center justify-center text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<span class="text-xs font-label-sm font-bold px-2 py-0.5 bg-tertiary-fixed-dim text-surface-container-lowest uppercase">UNLOCKED</span>
+</div>
+<div>
+<h4 class="text-headline-sm font-headline-sm text-primary tracking-wide">No Lives Lost</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1.5 text-xs leading-normal">3/3 CRC Hearts preserved throughout mainframe probe cycle.</p>
+</div>
+<div class="mt-4 pt-2.5 border-t border-outline-variant/40 flex justify-between text-xs font-label-sm text-tertiary-fixed-dim font-semibold">
+<span>BOUNTY</span>
+<span>+1,500 PTS</span>
+</div>
+</div>
+<!-- Unlocked 2: Speed Cracker -->
+<div class="bg-surface-container p-5 border border-secondary-container/80 glow-cyan flex flex-col justify-between relative group">
+<div class="flex items-center justify-between mb-3.5">
+<div class="w-10 h-10 bg-secondary-container/10 border border-secondary-container flex items-center justify-center text-secondary-container">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<span class="text-xs font-label-sm font-bold px-2 py-0.5 bg-secondary-container text-surface-container-lowest uppercase">UNLOCKED</span>
+</div>
+<div>
+<h4 class="text-headline-sm font-headline-sm text-primary tracking-wide">Speed Cracker</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1.5 text-xs leading-normal">Sub-4-minute clear across all five stage logic sectors.</p>
+</div>
+<div class="mt-4 pt-2.5 border-t border-outline-variant/40 flex justify-between text-xs font-label-sm text-secondary-container font-semibold">
+<span>VELOCITY</span>
+<span>03:42 TOTAL</span>
+</div>
+</div>
+<!-- Unlocked 3: XOR Master -->
+<div class="bg-surface-container p-5 border border-primary-container/80 glow-green flex flex-col justify-between relative group">
+<div class="flex items-center justify-between mb-3.5">
+<div class="w-10 h-10 bg-primary-container/10 border border-primary-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">schema</span>
+</div>
+<span class="text-xs font-label-sm font-bold px-2 py-0.5 bg-primary-container text-surface-container-lowest uppercase">UNLOCKED</span>
+</div>
+<div>
+<h4 class="text-headline-sm font-headline-sm text-primary tracking-wide">XOR Master</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1.5 text-xs leading-normal">First probe cycle match achieved on 8-bit quad XOR array.</p>
+</div>
+<div class="mt-4 pt-2.5 border-t border-outline-variant/40 flex justify-between text-xs font-label-sm text-primary-container font-semibold">
+<span>CIRCUIT</span>
+<span>QUAD-MATCH</span>
+</div>
+</div>
+<!-- Unlocked 4: Zero Parity Error -->
+<div class="bg-surface-container p-5 border border-primary-container/80 glow-green flex flex-col justify-between relative group">
+<div class="flex items-center justify-between mb-3.5">
+<div class="w-10 h-10 bg-primary-container/10 border border-primary-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="text-xs font-label-sm font-bold px-2 py-0.5 bg-primary-container text-surface-container-lowest uppercase">UNLOCKED</span>
+</div>
+<div>
+<h4 class="text-headline-sm font-headline-sm text-primary tracking-wide">Zero Parity Error</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1.5 text-xs leading-normal">Flawless 128-byte packet stream transmission without retry.</p>
+</div>
+<div class="mt-4 pt-2.5 border-t border-outline-variant/40 flex justify-between text-xs font-label-sm text-primary-container font-semibold">
+<span>INTEGRITY</span>
+<span>100% CLEAN</span>
+</div>
+</div>
+<!-- Locked 1: Core Overclock -->
+<div class="bg-surface-container-lowest/80 p-5 border border-outline-variant/40 flex flex-col justify-between relative opacity-70 hover:opacity-100 transition-opacity">
+<div class="flex items-center justify-between mb-3.5">
+<div class="w-10 h-10 bg-surface-container-high border border-outline flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-xl">lock</span>
+</div>
+<span class="text-xs font-label-sm font-bold px-2 py-0.5 bg-surface-container-high text-outline uppercase">LOCKED</span>
+</div>
+<div>
+<h4 class="text-headline-sm font-headline-sm text-on-surface-variant tracking-wide">Core Overclock</h4>
+<p class="text-body-sm font-body-sm text-outline mt-1.5 text-xs leading-normal">Sub-2:00 full-case speed run requirement.</p>
+</div>
+<div class="mt-4 pt-2.5 border-t border-outline-variant/30 flex flex-col gap-1.5">
+<div class="flex justify-between text-xs font-label-sm text-outline font-semibold">
+<span>PROGRESS</span>
+<span>62%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest">
+<div class="h-full bg-secondary-container" style="width: 62%;"></div>
+</div>
+</div>
+</div>
+<!-- Locked 2: Quantum Sleuth -->
+<div class="bg-surface-container-lowest/80 p-5 border border-outline-variant/40 flex flex-col justify-between relative opacity-70 hover:opacity-100 transition-opacity">
+<div class="flex items-center justify-between mb-3.5">
+<div class="w-10 h-10 bg-surface-container-high border border-outline flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-xl">lock</span>
+</div>
+<span class="text-xs font-label-sm font-bold px-2 py-0.5 bg-surface-container-high text-outline uppercase">LOCKED</span>
+</div>
+<div>
+<h4 class="text-headline-sm font-headline-sm text-on-surface-variant tracking-wide">Quantum Sleuth</h4>
+<p class="text-body-sm font-body-sm text-outline mt-1.5 text-xs leading-normal">Clear 5 distinct cases without using hint buffers.</p>
+</div>
+<div class="mt-4 pt-2.5 border-t border-outline-variant/30 flex flex-col gap-1.5">
+<div class="flex justify-between text-xs font-label-sm text-outline font-semibold">
+<span>PROGRESS</span>
+<span>3 / 5 CASES</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest">
+<div class="h-full bg-primary-container" style="width: 60%;"></div>
+</div>
+</div>
+</div>
+<!-- Locked 3: Titan Slayer -->
+<div class="bg-surface-container-lowest/80 p-5 border border-outline-variant/40 flex flex-col justify-between relative opacity-70 hover:opacity-100 transition-opacity">
+<div class="flex items-center justify-between mb-3.5">
+<div class="w-10 h-10 bg-surface-container-high border border-outline flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-xl">lock</span>
+</div>
+<span class="text-xs font-label-sm font-bold px-2 py-0.5 bg-surface-container-high text-outline uppercase">LOCKED</span>
+</div>
+<div>
+<h4 class="text-headline-sm font-headline-sm text-on-surface-variant tracking-wide">Titan Slayer</h4>
+<p class="text-body-sm font-body-sm text-outline mt-1.5 text-xs leading-normal">Defeat Case 0101 Titan Firewall Boss taking zero logic damage.</p>
+</div>
+<div class="mt-4 pt-2.5 border-t border-outline-variant/30 flex justify-between text-xs font-label-sm text-outline font-semibold">
+<span>REQUIREMENT</span>
+<span>UNMET</span>
+</div>
+</div>
+<!-- Locked 4: Logic Grandmaster -->
+<div class="bg-surface-container-lowest/80 p-5 border border-outline-variant/40 flex flex-col justify-between relative opacity-70 hover:opacity-100 transition-opacity">
+<div class="flex items-center justify-between mb-3.5">
+<div class="w-10 h-10 bg-surface-container-high border border-outline flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-xl">lock</span>
+</div>
+<span class="text-xs font-label-sm font-bold px-2 py-0.5 bg-surface-container-high text-outline uppercase">LOCKED</span>
+</div>
+<div>
+<h4 class="text-headline-sm font-headline-sm text-on-surface-variant tracking-wide">Logic Grandmaster</h4>
+<p class="text-body-sm font-body-sm text-outline mt-1.5 text-xs leading-normal">Maintain 100% accuracy ratings across all 5 concept vectors.</p>
+</div>
+<div class="mt-4 pt-2.5 border-t border-outline-variant/30 flex justify-between text-xs font-label-sm text-outline font-semibold">
+<span>STATUS</span>
+<span>DEFICIT IN XOR</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. ACTION DECK FOOTER PANEL -->
+<footer class="bg-surface-container-low border border-outline-variant p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex flex-wrap items-center gap-3.5 w-full md:w-auto">
+<button class="px-4 py-2.5 bg-surface-container border border-outline hover:border-primary hover:text-primary text-on-surface-variant text-xs font-label-sm uppercase font-bold tracking-wider transition-colors duration-150 active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-base">download</span>
+          [ EXPORT TELEMETRY REPORT ]
+        </button>
+<button class="px-4 py-2.5 bg-surface-container border border-outline hover:border-error hover:text-error text-on-surface-variant text-xs font-label-sm uppercase font-bold tracking-wider transition-colors duration-150 active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-base">restart_alt</span>
+          [ RESET SESSION DRILLS ]
+        </button>
+<button class="px-4 py-2.5 bg-surface-container border border-outline hover:border-secondary hover:text-secondary text-on-surface-variant text-xs font-label-sm uppercase font-bold tracking-wider transition-colors duration-150 active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-base">keyboard_return</span>
+          [ RETURN TO COMMAND DECK ]
+        </button>
+</div>
+<!-- High Priority Advance Action Button -->
+<button class="w-full md:w-auto px-6 py-3 bg-primary-container text-surface-container-lowest font-headline-sm text-headline-sm font-bold uppercase tracking-wider glow-green hover:bg-white hover:text-black transition-all duration-150 active:scale-95 flex items-center justify-center gap-2">
+<span>[ PROCEED TO NEXT MISSION // CASE 0102</span>
+<span class="material-symbols-outlined text-base font-bold">arrow_forward</span>
+<span>]</span>
+</button>
+</footer>
+</main>
+<!-- ========================================== -->
+<!-- BOTTOM NAV BAR (Shared Component Anchor)   -->
+<!-- Responsive Pivot: Visible on mobile only   -->
+<!-- ========================================== -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center px-2 bg-surface-container-lowest border-t border-outline-variant">
+<!-- Item 1: DECK (Inactive) -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined text-xl">memory</span>
+<span class="text-label-sm font-label-sm mt-0.5">DECK</span>
+</a>
+<!-- Item 2: DOSSIER (ACTIVE - Matches page intent) -->
+<a class="flex flex-col items-center justify-center text-primary-container dark:text-primary-container font-bold border-t-2 border-primary-container p-2 active:scale-95" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+<span class="text-label-sm font-label-sm mt-0.5">DOSSIER</span>
+</a>
+<!-- Item 3: LOGS (Inactive) -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined text-xl">receipt_long</span>
+<span class="text-label-sm font-label-sm mt-0.5">LOGS</span>
+</a>
+<!-- Item 4: DECRYPT (Inactive) -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined text-xl">lock_open</span>
+<span class="text-label-sm font-label-sm mt-0.5">DECRYPT</span>
+</a>
+</nav>
+
+<script src="/js/heist-api.js"></script>
+<script src="/js/analytics.js"></script>
+</body></html>

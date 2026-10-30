@@ -1,0 +1,217 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>BINARY HEIST // DUAL INTRUSION: VERSUS PROTOCOL</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#10141a",
+            "tertiary-fixed": "#ffddaf",
+            "on-tertiary-fixed-variant": "#614000",
+            "surface": "#10141a",
+            "secondary-fixed": "#9cf0ff",
+            "secondary-container": "#00e3fd",
+            "on-secondary": "#00363d",
+            "inverse-surface": "#dfe2eb",
+            "tertiary-container": "#ffd79e",
+            "on-secondary-fixed-variant": "#004f58",
+            "primary-container": "#39ff14",
+            "on-error-container": "#ffdad6",
+            "surface-tint": "#2ae500",
+            "secondary-fixed-dim": "#00daf3",
+            "surface-container": "#1c2026",
+            "surface-container-high": "#262a31",
+            "on-tertiary": "#432c00",
+            "primary": "#efffe3",
+            "on-primary-container": "#107100",
+            "on-background": "#dfe2eb",
+            "tertiary-fixed-dim": "#ffba43",
+            "primary-fixed": "#79ff5b",
+            "on-surface-variant": "#baccb0",
+            "tertiary": "#fff8f4",
+            "on-secondary-container": "#00616d",
+            "surface-variant": "#31353c",
+            "inverse-on-surface": "#2d3137",
+            "on-surface": "#dfe2eb",
+            "surface-container-lowest": "#0a0e14",
+            "on-primary-fixed-variant": "#095300",
+            "surface-container-low": "#181c22",
+            "surface-bright": "#353940",
+            "inverse-primary": "#106e00",
+            "on-tertiary-container": "#835900",
+            "surface-dim": "#10141a",
+            "outline-variant": "#3c4b35",
+            "error": "#ffb4ab",
+            "on-tertiary-fixed": "#281800",
+            "on-secondary-fixed": "#001f24",
+            "error-container": "#93000a",
+            "surface-container-highest": "#31353c",
+            "on-primary-fixed": "#022100",
+            "on-primary": "#053900",
+            "secondary": "#bdf4ff",
+            "primary-fixed-dim": "#2ae500",
+            "on-error": "#690005",
+            "outline": "#85967c"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "label-lg": ["JetBrains Mono"],
+            "label-md": ["JetBrains Mono"],
+            "headline-lg-mobile": ["Space Grotesk"],
+            "body-lg": ["JetBrains Mono"],
+            "body-md": ["JetBrains Mono"],
+            "headline-md": ["Space Grotesk"],
+            "headline-sm": ["Space Grotesk"],
+            "headline-xl-mobile": ["Space Grotesk"],
+            "headline-xl": ["Space Grotesk"],
+            "body-sm": ["JetBrains Mono"],
+            "headline-lg": ["Space Grotesk"],
+            "label-sm": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.14em", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.12em", "fontWeight": "500" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "28px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "headline-xl": ["48px", { "lineHeight": "52px", "letterSpacing": "0.12em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.16em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Retro CRT Scanline & Grain Substrate */
+    .crt-overlay {
+      background: linear-gradient(rgba(18, 24, 32, 0) 50%, rgba(0, 0, 0, 0.45) 50%);
+      background-size: 100% 3px;
+      pointer-events: none;
+    }
+    .crt-vignette {
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85);
+      pointer-events: none;
+    }
+    .neon-cyan-glow {
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.35), inset 0 0 6px rgba(0, 229, 255, 0.15);
+    }
+    .neon-magenta-glow {
+      box-shadow: 0 0 12px rgba(255, 46, 76, 0.45), inset 0 0 6px rgba(255, 46, 76, 0.2);
+    }
+    .neon-amber-glow {
+      box-shadow: 0 0 14px rgba(255, 176, 0, 0.4), inset 0 0 6px rgba(255, 176, 0, 0.15);
+    }
+    .hazard-stripes {
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 176, 0, 0.15),
+        rgba(255, 176, 0, 0.15) 8px,
+        rgba(10, 14, 20, 0.9) 8px,
+        rgba(10, 14, 20, 0.9) 16px
+      );
+    }
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .animate-pulse-slow {
+      animation: pulse-slow 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes crt-flicker {
+      0% { opacity: 0.98; }
+      50% { opacity: 1; }
+      52% { opacity: 0.94; }
+      54% { opacity: 1; }
+      80% { opacity: 0.97; }
+      100% { opacity: 1; }
+    }
+    .terminal-flicker {
+      animation: crt-flicker 0.15s infinite;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased font-body-md text-body-md select-none overflow-x-hidden min-h-screen relative flex flex-col justify-between">
+<!-- Atmospheric Background Scanlines & Corner Glare -->
+<div class="fixed inset-0 crt-overlay z-40"></div>
+<div class="fixed inset-0 crt-vignette z-40"></div>
+<!-- Shared Component: TopAppBar with Shared Components Spec Mapping -->
+<header class="bg-surface-container-lowest text-primary-container docked full-width top border-b border-outline-variant flat no shadows flex justify-between items-center w-full px-4 py-2 z-50 relative">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-primary-container text-xl" data-icon="terminal">terminal</span>
+<div class="flex flex-col">
+<span class="text-headline-sm font-headline-sm tracking-widest text-primary-container uppercase">BINARY HEIST: CASE 0101</span>
+<span class="text-body-sm font-body-sm text-outline tracking-wider">DUAL INTRUSION PROTOCOL</span>
+</div>
+</div>
+<!-- Central Global Telemetry Cluster -->
+<div class="hidden lg:flex items-center space-x-6 bg-surface-container-low px-4 py-1.5 border border-outline-variant rounded"><div class="flex items-center space-x-2"><span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-pulse"></span><span class="text-body-sm font-semibold text-on-surface">SYNAPSE: 4.88 GHz</span></div><div class="h-3 w-px bg-outline-variant"></div><div class="flex items-center space-x-2"><span class="text-body-sm font-semibold text-secondary-container">RTT: 14ms</span></div><div class="h-3 w-px bg-outline-variant"></div><div class="flex items-center space-x-2"><span class="text-body-sm font-semibold text-tertiary-fixed-dim">BUS: CH-01 ⟷ CH-02</span></div></div>
+<!-- Trailing Action -->
+<div class="flex items-center space-x-3"><span class="text-body-sm font-bold bg-surface-container-high px-3 py-1 text-primary-container border border-outline-variant">STAGE 01/05</span><span class="text-body-sm text-error bg-error-container/30 px-3 py-1 border border-error/40 font-bold tracking-widest uppercase">CONVERGENCE ACTIVE</span></div>
+</header>
+<!-- Main Canvas: Split-Screen Versus Arena (1440px target container) -->
+<main class="w-full max-w-[1440px] mx-auto px-4 py-3 flex-1 flex flex-col justify-between relative z-10">
+<!-- Top Match Context Sub-Bar -->
+<div class="grid grid-cols-12 gap-4 mb-4 items-center bg-surface-container-low p-3 border border-outline-variant"><div class="col-span-4 flex items-center space-x-2 text-secondary-container px-2"><span class="material-symbols-outlined text-base" data-icon="terminal">terminal</span><span class="text-body-sm font-semibold tracking-wider">SUB-VAULT // ALPHA</span></div><div class="col-span-4 text-center text-outline text-body-sm tracking-widest font-semibold"><span class="">INTERCEPT CRACK PROTOCOL</span></div><div class="col-span-4 flex items-center justify-end space-x-2 text-tertiary-fixed-dim px-2"><span class="text-body-sm font-semibold tracking-wider">SUB-VAULT // BETA</span><span class="material-symbols-outlined text-base" data-icon="memory">memory</span></div></div>
+<!-- Arena Core: Left (Cyan) - Center (Tactical Dispute) - Right (Magenta) -->
+<div class="grid grid-cols-12 gap-4 flex-1 items-stretch">
+<!-- ================= LEFT PANEL: AGENT 1 (CYAN) ================= -->
+<section class="col-span-12 lg:col-span-5 bg-surface-container-lowest border border-secondary-container/40 flex flex-col justify-between p-5 neon-cyan-glow relative overflow-hidden"><div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-secondary-container"></div><div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-secondary-container"></div><div class="space-y-4"><div class="flex items-start justify-between border-b border-outline-variant pb-3 mb-1"><div class="flex items-center space-x-3"><div class="w-12 h-12 bg-surface-container-high border-2 border-secondary-container flex items-center justify-center relative"><span class="material-symbols-outlined text-2xl text-secondary-container" data-icon="fingerprint">fingerprint</span><span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-secondary-container text-surface-container-lowest text-[10px] font-bold flex items-center justify-center">1</span></div><div><div class="flex items-center space-x-2"><h2 class="text-headline-sm font-headline-sm text-secondary-container">0xNEO_RONIN</h2><span class="bg-surface-container text-body-sm font-semibold text-secondary-fixed-dim px-2 py-0.5 border border-secondary-container/30">MASTER CRACKER</span></div><p class="text-body-sm text-outline tracking-wider mt-0.5">CALLSIGN: CIPHER_STRIKE</p></div></div><div class="flex flex-col items-end"><span class="text-body-sm font-semibold text-outline mb-1.5">CRC INTEGRITY</span><div class="flex space-x-1.5"><span class="material-symbols-outlined text-secondary-container text-xl" data-icon="verified_user" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified_user</span><span class="material-symbols-outlined text-secondary-container text-xl" data-icon="verified_user" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified_user</span><span class="material-symbols-outlined text-secondary-container text-xl" data-icon="verified_user" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified_user</span></div></div></div><div class="grid grid-cols-2 gap-3"><div class="bg-surface-container-low border border-outline-variant p-3 flex flex-col"><span class="text-body-sm font-semibold text-outline mb-1">SCORE BOUNTY</span><span class="text-headline-md font-headline-md text-secondary-fixed tracking-wider">8,420 <span class="text-body-sm text-outline">PTS</span></span></div><div class="bg-surface-container-low border border-outline-variant p-3 flex flex-col"><span class="text-body-sm font-semibold text-outline mb-1">LOGIC ACCURACY</span><span class="text-headline-md font-headline-md text-primary-container tracking-wider">94.2% <span class="text-body-sm text-outline">SYNC</span></span></div></div><div class="bg-surface-container-low border border-outline-variant p-3"><div class="flex justify-between items-center text-body-sm font-semibold mb-2"><span class="text-secondary-fixed">SECTOR 03 / 05: XOR BYPASS</span><span class="text-outline">STAGE #702</span></div><div class="grid grid-cols-5 gap-2"><div class="h-2 bg-secondary-container"></div><div class="h-2 bg-secondary-container"></div><div class="h-2 bg-secondary-container animate-pulse"></div><div class="h-2 bg-surface-container-high border border-outline-variant"></div><div class="h-2 bg-surface-container-high border border-outline-variant"></div></div></div><div class="bg-surface-container-low border border-outline-variant p-3"><div class="flex justify-between items-center text-body-sm mb-1.5"><span class="text-on-surface font-semibold">VAULT BREACH VECTOR</span><span class="text-secondary-container font-bold">68% PENETRATION</span></div><div class="h-3.5 w-full bg-surface-container-lowest p-0.5 border border-outline-variant flex gap-0.5"><div class="h-full bg-secondary-container w-[68%] transition-all duration-300"></div><div class="h-full bg-secondary-container/20 flex-1"></div></div></div><div class="bg-surface-container-low border border-secondary-container/30 p-3.5"><div class="flex justify-between items-center border-b border-outline-variant pb-2 mb-3"><span class="text-body-md font-semibold text-secondary-fixed flex items-center space-x-2"><span class="material-symbols-outlined text-base" data-icon="memory">memory</span><span class="">CIRCUIT WORKBENCH</span></span><span class="text-body-sm font-bold text-primary-container bg-surface-container-high px-2 py-0.5 border border-primary-container/40">TARGET: Q=1</span></div><div class="bg-surface-container-lowest p-3 border border-outline-variant flex items-center justify-between mb-3"><div class="flex flex-col space-y-3"><div class="flex items-center space-x-2"><span class="text-body-sm font-semibold text-outline">PIN A</span><span class="px-2.5 py-1 bg-secondary-container/20 text-secondary-container border border-secondary-container text-body-sm font-bold">1 (HIGH)</span></div><div class="flex items-center space-x-2"><span class="text-body-sm font-semibold text-outline">PIN B</span><span class="px-2.5 py-1 bg-surface-container-high text-outline border border-outline-variant text-body-sm font-bold">0 (LOW)</span></div></div><div class="flex-1 px-4 flex flex-col justify-center space-y-4"><div class="h-0.5 bg-secondary-container/70 relative"><span class="absolute -top-1.5 right-0 w-2 h-2 rounded-full bg-secondary-container"></span></div><div class="h-0.5 bg-outline-variant relative"><span class="absolute -top-1.5 right-0 w-2 h-2 rounded-full bg-outline"></span></div></div><div class="border-2 border-secondary-container bg-secondary-container/10 px-4 py-2 flex flex-col items-center"><span class="text-body-sm text-secondary-fixed">ASSIGNED</span><span class="text-headline-sm font-headline-sm text-secondary-container tracking-widest font-bold">XOR</span></div><div class="flex-1 px-4 flex items-center"><div class="h-0.5 bg-primary-container w-full relative"><span class="absolute -top-1.5 right-0 w-2.5 h-2.5 rounded-full bg-primary-container animate-ping"></span><span class="absolute -top-1.5 right-0 w-2.5 h-2.5 rounded-full bg-primary-container"></span></div></div><div class="p-2.5 border border-primary-container bg-primary-container/10 text-center"><span class="text-body-sm font-bold text-primary-container block">STATE Q</span><span class="text-headline-sm font-headline-sm text-primary-container font-bold">1 [OK]</span></div></div><div class="grid grid-cols-4 gap-2.5 text-body-sm font-semibold"><button class="py-2 border border-outline-variant text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">AND</button><button class="py-2 border border-outline-variant text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">OR</button><button class="py-2 border-2 border-secondary-container text-secondary-container bg-secondary-container/15 font-bold">XOR [ACT]</button><button class="py-2 border border-outline-variant text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">NAND</button></div></div></div><div class="bg-surface-container-lowest border border-outline-variant p-3 font-body-sm text-body-sm h-28 overflow-hidden flex flex-col justify-end mt-3"><div class="text-outline text-body-sm font-semibold border-b border-outline-variant pb-1 mb-1.5 flex justify-between"><span class="">TERMINAL STREAM</span><span class="text-secondary-container">EXEC: LIVE</span></div><div class="space-y-1 text-body-sm font-mono"><div class="text-secondary-container">&gt; GATE LATCHED [XOR]: TABLE VALIDATED</div><div class="text-primary-container">&gt; [OK] SECTOR 03 CRACK RATIO +12%</div><div class="text-outline">&gt; SYNAPSE CYCLES: 1,842 ACTIVE</div></div></div></section>
+<!-- ================= CENTER CONFLICT COLUMN: SABOTAGE & SHARED TELEMETRY ================= -->
+<section class="col-span-12 lg:col-span-2 bg-surface-container-low border border-outline-variant p-4 flex flex-col justify-between items-center text-center"><div class="w-full border-b border-outline-variant pb-2.5"><div class="inline-flex items-center justify-center px-4 py-1.5 bg-surface-container-highest border border-outline text-headline-sm font-headline-sm font-bold tracking-widest text-on-surface terminal-flicker"><span class="text-secondary-container">V</span><span class="text-outline mx-1">/</span><span class="text-error">S</span></div><div class="text-body-sm font-semibold text-outline mt-1.5 tracking-widest">DUAL SYNCHRONOUS</div></div><div class="my-4 w-full bg-surface-container-lowest p-3 border border-tertiary-fixed-dim/40 neon-amber-glow"><span class="text-body-sm font-semibold text-tertiary-fixed-dim block tracking-widest">DECAY WINDOW</span><div class="text-headline-lg font-headline-lg text-tertiary-fixed-dim font-mono tracking-tighter my-1">01:39<span class="text-headline-md font-headline-md text-error">.95</span></div><span class="text-body-sm text-outline font-mono">AUTOCLOSE 00:00</span></div><div class="w-full bg-surface-container p-3 border border-error/50 flex flex-col items-center"><span class="text-body-sm text-error font-bold tracking-widest flex items-center space-x-1.5 mb-2"><span class="material-symbols-outlined text-base" data-icon="warning">warning</span><span class="">DISRUPTION DECK</span></span><button class="w-full py-3.5 px-3 hazard-stripes border-2 border-error text-on-surface hover:border-tertiary-fixed-dim active:scale-95 transition-transform flex flex-col items-center justify-center group mb-3 neon-magenta-glow"><span class="text-headline-sm font-headline-sm font-bold text-error group-hover:text-tertiary-fixed tracking-wider">INJECT CORRUPTION</span><span class="text-body-sm font-mono text-on-surface mt-1">TARGET BUS INVERSION</span></button><div class="text-left w-full bg-surface-container-lowest p-2 border border-outline-variant mb-3"><div class="text-body-sm font-mono text-outline leading-normal mb-1"><span class="text-tertiary-fixed font-bold">COST:</span> 500 BOUNTY PTS</div><div class="text-body-sm font-mono text-error leading-normal"><span class="text-error font-bold">PENALTY:</span> +15s JITTER INVERSION</div></div><div class="w-full bg-surface-container-high p-2 border border-outline-variant flex items-center justify-between"><span class="text-body-sm font-semibold text-outline">STRIKE BUS</span><span class="text-body-sm font-bold text-primary-container flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-ping"></span><span class="">READY</span></span></div></div><div class="w-full mt-3 bg-surface-container-lowest p-2.5 border border-outline-variant text-left"><div class="text-body-sm font-semibold text-outline border-b border-outline-variant pb-1.5 mb-1.5">INCIDENT TELEMETRY</div><div class="space-y-1.5 text-body-sm font-mono"><div class="text-error leading-tight">&gt; AGENT 02: CLOCK JITTER</div><div class="text-secondary-container leading-tight">&gt; AGENT 01: PARITY INVERT</div></div></div></section>
+<!-- ================= RIGHT PANEL: AGENT 2 (MAGENTA) ================= -->
+<section class="col-span-12 lg:col-span-5 bg-surface-container-lowest border border-error/40 flex flex-col justify-between p-5 neon-magenta-glow relative overflow-hidden"><div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-error"></div><div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-error"></div><div class="space-y-4"><div class="flex items-start justify-between border-b border-outline-variant pb-3 mb-1"><div class="flex items-center space-x-3"><div class="w-12 h-12 bg-surface-container-high border-2 border-error flex items-center justify-center relative"><span class="material-symbols-outlined text-2xl text-error" data-icon="terminal">terminal</span><span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-error text-surface-container-lowest text-[10px] font-bold flex items-center justify-center">2</span></div><div><div class="flex items-center space-x-2"><h2 class="text-headline-sm font-headline-sm text-error">GLITCH_RUNNER</h2><span class="bg-surface-container text-body-sm font-semibold text-error px-2 py-0.5 border border-error/30">VANGUARD</span></div><p class="text-body-sm text-outline tracking-wider mt-0.5">CALLSIGN: SILICON_PHANTOM</p></div></div><div class="flex flex-col items-end"><span class="text-body-sm font-semibold text-outline mb-1.5">CRC INTEGRITY</span><div class="flex space-x-1.5"><span class="material-symbols-outlined text-error text-xl" data-icon="verified_user" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified_user</span><span class="material-symbols-outlined text-error text-xl" data-icon="verified_user" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified_user</span><span class="material-symbols-outlined text-outline-variant text-xl" data-icon="shield">shield</span></div></div></div><div class="grid grid-cols-2 gap-3"><div class="bg-surface-container-low border border-outline-variant p-3 flex flex-col"><span class="text-body-sm font-semibold text-outline mb-1">SCORE BOUNTY</span><span class="text-headline-md font-headline-md text-error tracking-wider">7,950 <span class="text-body-sm text-outline">PTS</span></span></div><div class="bg-surface-container-low border border-outline-variant p-3 flex flex-col"><span class="text-body-sm font-semibold text-outline mb-1">LOGIC ACCURACY</span><span class="text-headline-md font-headline-md text-tertiary-fixed-dim tracking-wider">89.8% <span class="text-body-sm text-outline">SYNC</span></span></div></div><div class="bg-surface-container-low border border-outline-variant p-3"><div class="flex justify-between items-center text-body-sm font-semibold mb-2"><span class="text-error">SECTOR 03 / 05: XOR BYPASS</span><span class="text-outline">STAGE #702</span></div><div class="grid grid-cols-5 gap-2"><div class="h-2 bg-error"></div><div class="h-2 bg-error"></div><div class="h-2 bg-error animate-pulse"></div><div class="h-2 bg-surface-container-high border border-outline-variant"></div><div class="h-2 bg-surface-container-high border border-outline-variant"></div></div></div><div class="bg-surface-container-low border border-outline-variant p-3"><div class="flex justify-between items-center text-body-sm mb-1.5"><span class="text-on-surface font-semibold">VAULT BREACH VECTOR</span><span class="text-error font-bold">54% PENETRATION</span></div><div class="h-3.5 w-full bg-surface-container-lowest p-0.5 border border-outline-variant flex gap-0.5"><div class="h-full bg-error w-[54%] transition-all duration-300"></div><div class="h-full bg-error/20 flex-1"></div></div></div><div class="bg-surface-container-low border border-error/30 p-3.5"><div class="flex justify-between items-center border-b border-outline-variant pb-2 mb-3"><span class="text-body-md font-semibold text-error flex items-center space-x-2"><span class="material-symbols-outlined text-base" data-icon="memory">memory</span><span class="">CIRCUIT WORKBENCH // MIRROR</span></span><span class="text-body-sm font-bold text-tertiary-fixed-dim bg-surface-container-high px-2 py-0.5 border border-tertiary-fixed-dim/40">TARGET: Q=0</span></div><div class="bg-surface-container-lowest p-3 border border-outline-variant flex items-center justify-between mb-3"><div class="flex flex-col space-y-3"><div class="flex items-center space-x-2"><span class="text-body-sm font-semibold text-outline">PIN A</span><span class="px-2.5 py-1 bg-error/20 text-error border border-error text-body-sm font-bold">1 (HIGH)</span></div><div class="flex items-center space-x-2"><span class="text-body-sm font-semibold text-outline">PIN B</span><span class="px-2.5 py-1 bg-error/20 text-error border border-error text-body-sm font-bold">1 (HIGH)</span></div></div><div class="flex-1 px-4 flex flex-col justify-center space-y-4"><div class="h-0.5 bg-error/70 relative"><span class="absolute -top-1.5 right-0 w-2 h-2 rounded-full bg-error"></span></div><div class="h-0.5 bg-error/70 relative"><span class="absolute -top-1.5 right-0 w-2 h-2 rounded-full bg-error"></span></div></div><div class="border-2 border-error bg-error/10 px-4 py-2 flex flex-col items-center"><span class="text-body-sm text-error">ASSIGNED</span><span class="text-headline-sm font-headline-sm text-error tracking-widest font-bold">NAND</span></div><div class="flex-1 px-4 flex items-center"><div class="h-0.5 bg-tertiary-fixed-dim w-full relative"><span class="absolute -top-1.5 right-0 w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim animate-pulse"></span></div></div><div class="p-2.5 border border-tertiary-fixed-dim bg-tertiary-fixed-dim/10 text-center"><span class="text-body-sm font-bold text-tertiary-fixed-dim block">STATE Q</span><span class="text-headline-sm font-headline-sm text-tertiary-fixed-dim font-bold">0 [PASS]</span></div></div><div class="grid grid-cols-4 gap-2.5 text-body-sm font-semibold"><button class="py-2 border border-outline-variant text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">AND</button><button class="py-2 border border-outline-variant text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">NOR</button><button class="py-2 border border-outline-variant text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">XOR</button><button class="py-2 border-2 border-error text-error bg-error/15 font-bold">NAND [ACT]</button></div></div></div><div class="bg-surface-container-lowest border border-outline-variant p-3 font-body-sm text-body-sm h-28 overflow-hidden flex flex-col justify-end mt-3"><div class="text-outline text-body-sm font-semibold border-b border-outline-variant pb-1 mb-1.5 flex justify-between"><span class="">TERMINAL STREAM</span><span class="text-error">EXEC: LIVE</span></div><div class="space-y-1 text-body-sm font-mono"><div class="text-error">&gt; LATCH WARNING: BUFFER DISRUPTED</div><div class="text-tertiary-fixed-dim">&gt; ADAPTED: NAND CONFLICT SOLVED</div><div class="text-outline">&gt; TRANSMIT REGISTER SECURED</div></div></div></section>
+</div>
+<!-- Bottom Tactical Control Bar -->
+<div class="mt-4 bg-surface-container-low border border-outline-variant p-3 flex flex-wrap justify-between items-center gap-3"><div class="flex items-center space-x-2"><span class="material-symbols-outlined text-primary-container text-lg" data-icon="lock_open">lock_open</span><span class="text-body-sm font-semibold text-outline">SESSION TOKEN: 0x98A_D9981</span></div><div class="flex items-center space-x-3"><button class="px-3.5 py-2 bg-surface-container-high border border-outline-variant text-outline hover:text-on-surface text-body-sm font-semibold transition-colors active:scale-95">SPECTATOR LOGS</button><button class="px-3.5 py-2 bg-surface-container-high border border-outline-variant text-outline hover:text-on-surface text-body-sm font-semibold transition-colors active:scale-95">AUDIO FREQUENCY</button><button class="px-3.5 py-2 bg-surface-container border border-error/50 text-error hover:bg-error/10 text-body-sm font-semibold transition-colors active:scale-95">SURRENDER PROTOCOL</button><button class="px-4 py-2 bg-error text-surface-container-lowest font-headline-sm text-body-sm font-bold tracking-wider hover:bg-error-container hover:text-on-error-container transition-colors active:scale-95">ABORT LINK</button></div></div>
+</main>
+<!-- Shared Component: BottomNavBar with Shared Components Spec Mapping -->
+<!-- Note: Destination count = 4, labels = ["DECK", "DOSSIER", "LOGS", "DECRYPT"], active item is DECK (versus arena) -->
+<nav class="docked full-width bottom-0 border-t border-outline-variant flat no shadows fixed bottom-0 w-full z-50 flex justify-around items-center px-2 bg-surface-container-lowest"><button class="flex flex-col items-center justify-center text-primary-container font-bold border-t-2 border-primary-container py-2.5 px-4 active:scale-95 transition-transform"><span class="material-symbols-outlined text-xl" data-icon="memory">memory</span><span class="text-body-sm font-bold tracking-wider">DECK</span></button><button class="flex flex-col items-center justify-center text-outline py-2.5 px-4 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95"><span class="material-symbols-outlined text-xl" data-icon="folder_open">folder_open</span><span class="text-body-sm font-semibold tracking-wider">DOSSIER</span></button><button class="flex flex-col items-center justify-center text-outline py-2.5 px-4 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95"><span class="material-symbols-outlined text-xl" data-icon="receipt_long">receipt_long</span><span class="text-body-sm font-semibold tracking-wider">LOGS</span></button><button class="flex flex-col items-center justify-center text-outline py-2.5 px-4 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95"><span class="material-symbols-outlined text-xl" data-icon="lock_open">lock_open</span><span class="text-body-sm font-semibold tracking-wider">DECRYPT</span></button></nav>
+<!-- Inline Micro-interaction Script for Live Match Atmosphere -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Dynamic ticking countdown ms micro-effect
+      const countdownTimer = document.querySelector('.my-3 .text-headline-lg');
+      if (countdownTimer) {
+        let seconds = 102;
+        let ms = 85;
+        setInterval(() => {
+          ms -= 4;
+          if (ms <= 0) {
+            ms = 99;
+            seconds -= 1;
+          }
+          if (seconds < 0) {
+            seconds = 0;
+            ms = 0;
+          }
+          const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+          const s = String(seconds % 60).padStart(2, '0');
+          const msec = String(ms).padStart(2, '0');
+          countdownTimer.innerHTML = `${m}:${s}<span class="text-headline-md font-headline-md text-error">.${msec}</span>`;
+        }, 40);
+      }
+    });
+  </script>
+   <script src="/js/heist-api.js"></script>
+   <script src="/js/versus.js"></script>
+</body></html>

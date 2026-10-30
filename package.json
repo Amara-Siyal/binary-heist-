@@ -1,0 +1,20 @@
+{
+  "name": "binary-heist-backend",
+  "version": "1.0.0",
+  "description": "Backend for Binary Heist: Case 0101 (DLD CEP game), Vercel + Turso",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test/smoke.js",
+    "db:init": "node scripts/init-db.js"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

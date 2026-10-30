@@ -1,0 +1,468 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>BINARY HEIST // DOSSIER ARCHIVE</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts: Space Grotesk & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#10141a",
+            "inverse-on-surface": "#2d3137",
+            "surface-variant": "#31353c",
+            "primary-fixed": "#79ff5b",
+            "secondary-fixed": "#9cf0ff",
+            "surface-dim": "#10141a",
+            "outline-variant": "#3c4b35",
+            "on-primary": "#053900",
+            "on-secondary-container": "#00616d",
+            "secondary-fixed-dim": "#00daf3",
+            "on-surface-variant": "#baccb0",
+            "surface-bright": "#353940",
+            "background": "#10141a",
+            "on-surface": "#dfe2eb",
+            "tertiary-fixed": "#ffddaf",
+            "surface-container": "#1c2026",
+            "surface-container-high": "#262a31",
+            "surface-container-lowest": "#0a0e14",
+            "on-tertiary": "#432c00",
+            "on-error-container": "#ffdad6",
+            "on-primary-container": "#107100",
+            "primary-container": "#39ff14",
+            "on-error": "#690005",
+            "error": "#ffb4ab",
+            "inverse-surface": "#dfe2eb",
+            "on-secondary-fixed-variant": "#004f58",
+            "surface-container-highest": "#31353c",
+            "on-tertiary-fixed-variant": "#614000",
+            "tertiary-container": "#ffd79e",
+            "on-secondary-fixed": "#001f24",
+            "outline": "#85967c",
+            "secondary": "#bdf4ff",
+            "primary": "#efffe3",
+            "error-container": "#93000a",
+            "tertiary": "#fff8f4",
+            "secondary-container": "#00e3fd",
+            "inverse-primary": "#106e00",
+            "on-background": "#dfe2eb",
+            "on-secondary": "#00363d",
+            "on-tertiary-container": "#835900",
+            "primary-fixed-dim": "#2ae500",
+            "on-tertiary-fixed": "#281800",
+            "on-primary-fixed": "#022100",
+            "surface-tint": "#2ae500",
+            "on-primary-fixed-variant": "#095300",
+            "surface-container-low": "#181c22",
+            "tertiary-fixed-dim": "#ffba43"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "body-sm": ["JetBrains Mono"],
+            "body-md": ["JetBrains Mono"],
+            "headline-xl-mobile": ["Space Grotesk"],
+            "body-lg": ["JetBrains Mono"],
+            "headline-lg-mobile": ["Space Grotesk"],
+            "headline-xl": ["Space Grotesk"],
+            "headline-md": ["Space Grotesk"],
+            "label-sm": ["JetBrains Mono"],
+            "headline-sm": ["Space Grotesk"],
+            "label-lg": ["JetBrains Mono"],
+            "headline-lg": ["Space Grotesk"],
+            "label-md": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-xl-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "28px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "headline-xl": ["48px", { "lineHeight": "52px", "letterSpacing": "0.12em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.16em", "fontWeight": "600" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.14em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.12em", "fontWeight": "500" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Phosphor bloom & CRT micro-scanline substrate */
+    .crt-scanlines {
+      background: linear-gradient(rgba(18, 24, 32, 0) 50%, rgba(0, 0, 0, 0.45) 50%);
+      background-size: 100% 4px;
+    }
+    .phosphor-glow-green {
+      box-shadow: 0 0 8px rgba(57, 255, 20, 0.35), inset 0 0 4px rgba(57, 255, 20, 0.15);
+    }
+    .phosphor-glow-cyan {
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.35), inset 0 0 4px rgba(0, 229, 255, 0.12);
+    }
+    .phosphor-glow-red {
+      box-shadow: 0 0 10px rgba(255, 46, 76, 0.45);
+    }
+    .flare-action:hover {
+      box-shadow: 0 0 16px rgba(57, 255, 20, 0.7);
+    }
+    /* Chamfer cut corners */
+    .clip-chamfer-sm {
+      clip-path: polygon(6px 0%, calc(100% - 6px) 0%, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0% calc(100% - 6px), 0% 6px);
+    }
+    .clip-chamfer-tab {
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface antialiased min-h-screen relative selection:bg-primary-container selection:text-surface-container-lowest font-body-sm pb-24 crt-scanlines">
+<!-- ================= TOP APP BAR (Shared Components JSON Anchor) ================= -->
+<header class="sticky top-0 z-40 bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center w-full px-4 py-2">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary-container text-lg" data-icon="terminal">terminal</span>
+<span class="font-headline-sm-mobile text-headline-sm-mobile tracking-widest text-primary-container uppercase font-bold">
+        BINARY HEIST: CASE 0101
+      </span>
+</div>
+<div class="flex items-center space-x-3">
+<!-- Status hardware LEDs -->
+<div class="flex items-center space-x-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse phosphor-glow-green"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container phosphor-glow-cyan"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-surface-variant"></span>
+</div>
+<div class="font-label-sm text-label-sm border border-outline-variant px-1.5 py-0.5 text-primary-container bg-surface-container-low tracking-widest">
+        STAGE 01/05
+      </div>
+</div>
+</header>
+<!-- ================= SUB-HEADER TELEMETRY STRIP ================= -->
+<div class="w-full bg-surface-container-low px-4 py-1.5 border-b border-outline-variant flex items-center justify-between text-outline">
+<div class="flex items-center space-x-2 font-label-sm text-label-sm">
+<span class="text-secondary-container">[SYS: ENCRYPTED]</span>
+<span>//</span>
+<span class="text-on-surface-variant">SYS_CLK: 23:41:09</span>
+</div>
+<div class="font-label-sm text-label-sm text-tertiary-fixed-dim">
+      CLR_LVL: OMNI-ALPHA
+    </div>
+</div>
+<!-- ================= MAIN VIEWPORT CONTAINER ================= -->
+<main class="w-full max-w-lg mx-auto px-3.5 pt-3 space-y-3.5">
+<!-- 1. AGENT MINI-DOSSIER / STATUS BANNER -->
+<section class="bg-surface-container border border-outline-variant p-3 relative clip-chamfer-sm">
+<!-- Corner Hardware brackets -->
+<div class="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-primary-container"></div>
+<div class="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-secondary-container"></div>
+<div class="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-outline-variant"></div>
+<div class="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-outline-variant"></div>
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-2.5">
+<div class="flex items-center space-x-2.5">
+<div class="w-8 h-8 bg-surface-container-lowest border border-outline-variant flex items-center justify-center text-primary-container font-bold">
+<span class="material-symbols-outlined text-base" data-icon="badge">badge</span>
+</div>
+<div>
+<div class="font-headline-sm-mobile text-headline-sm-mobile text-primary tracking-wide">AGENT_7709 // K. VANCE</div>
+<div class="flex items-center space-x-2 font-label-sm text-label-sm">
+<span class="text-secondary-container">INSPECTOR (LVL 12)</span>
+<span class="text-outline">|</span>
+<span class="text-on-surface-variant">DIV: FORENSICS</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-label-sm text-label-sm text-outline">SOLVED STATS</div>
+<div class="font-label-sm text-label-sm text-primary-container font-semibold">3 SOLVED / 2 VAULTS</div>
+</div>
+</div>
+<!-- XP Bar Segments -->
+<div class="space-y-1">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>EXPERIENCE TELEMETRY</span>
+<span class="text-secondary-container font-bold">8,450 / 10,000 XP [84%]</span>
+</div>
+<!-- Segmented 10-block bar -->
+<div class="grid grid-cols-10 gap-1 h-2 bg-surface-container-lowest p-0.5 border border-outline-variant">
+<div class="bg-secondary-container phosphor-glow-cyan h-full"></div>
+<div class="bg-secondary-container phosphor-glow-cyan h-full"></div>
+<div class="bg-secondary-container phosphor-glow-cyan h-full"></div>
+<div class="bg-secondary-container phosphor-glow-cyan h-full"></div>
+<div class="bg-secondary-container phosphor-glow-cyan h-full"></div>
+<div class="bg-secondary-container phosphor-glow-cyan h-full"></div>
+<div class="bg-secondary-container phosphor-glow-cyan h-full"></div>
+<div class="bg-secondary-container phosphor-glow-cyan h-full"></div>
+<div class="bg-surface-variant h-full"></div>
+<div class="bg-surface-variant h-full"></div>
+</div>
+</div>
+</section>
+<!-- SECTION TITLE: ARCHIVE MATRIX -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center space-x-1.5 font-headline-sm-mobile text-headline-sm-mobile text-on-surface uppercase">
+<span class="text-primary-container font-bold">&gt;</span>
+<span>INVESTIGATION BOARD // DOSSIERS</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">3 CASES TOTAL</span>
+</div>
+<!-- ================= CASE FILE FOLDERS SELECTOR MATRIX ================= -->
+<div class="space-y-3">
+<!-- CASE 1: THE STOLEN CORE (ACTIVE / SELECTED STATE) -->
+<article class="bg-surface-container-low border-2 border-primary-container p-3 relative clip-chamfer-sm phosphor-glow-green transition-all">
+<!-- Manila File Tab Top Tag -->
+<div class="absolute -top-3 left-4 bg-primary-container text-surface-container-lowest font-label-sm text-label-sm font-bold px-2 py-0.5 clip-chamfer-tab flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs" data-icon="attach_file">attach_file</span>
+<span>SEC-A01 // DOSSIER ACTIVE</span>
+</div>
+<div class="flex justify-between items-start pt-1.5 mb-2">
+<div>
+<div class="flex items-center space-x-2">
+<h2 class="font-headline-md text-headline-md text-primary font-bold tracking-tight">THE STOLEN CORE</h2>
+<!-- Rubber Stamp Ink Badge -->
+<span class="inline-block border border-tertiary-fixed-dim text-tertiary-fixed-dim font-label-sm text-label-sm px-1.5 py-0.2 rotate-[-4deg] tracking-widest font-bold">
+                NEW
+              </span>
+</div>
+<div class="flex items-center space-x-2 mt-1">
+<span class="bg-surface-container-lowest border border-outline-variant text-primary-container font-label-sm text-label-sm px-2 py-0.5">
+                EASY // TIER 1
+              </span>
+<span class="font-label-sm text-label-sm text-outline">TARGET: NEO-SHINJUKU</span>
+</div>
+</div>
+<!-- Selection Radio Reticle -->
+<div class="w-5 h-5 border border-primary-container bg-surface-container-lowest flex items-center justify-center text-primary-container">
+<span class="text-xs">■</span>
+</div>
+</div>
+<!-- Telemetry Stats Grid -->
+<div class="grid grid-cols-3 gap-1.5 bg-surface-container-lowest border border-outline-variant p-2 mb-3">
+<div class="text-center border-r border-outline-variant">
+<div class="font-label-sm text-label-sm text-outline">TIME ALLOTTED</div>
+<div class="font-label-md text-label-md text-on-surface font-semibold">03:00 MIN</div>
+</div>
+<div class="text-center border-r border-outline-variant">
+<div class="font-label-sm text-label-sm text-outline">HEART CRCS</div>
+<div class="font-label-md text-label-md text-primary-container font-semibold">3 LIVES</div>
+</div>
+<div class="text-center">
+<div class="font-label-sm text-label-sm text-outline">CREDIT PAYOUT</div>
+<div class="font-label-md text-label-md text-secondary-container font-semibold">+1,500 PTS</div>
+</div>
+</div>
+<!-- EXPANDED DOSSIER VIEWPORT (FOR SELECTED CASE) -->
+<div class="border-t border-dashed border-outline-variant pt-3 space-y-3">
+<!-- Typewriter Incident Report Briefing -->
+<div class="bg-surface-container-lowest p-2.5 border border-outline-variant relative">
+<div class="font-label-sm text-label-sm text-secondary-container mb-1 tracking-wider flex items-center justify-between">
+<span>CASE BRIEFING // INCIDENT_0101</span>
+<span class="text-tertiary-fixed-dim">CONFIDENTIAL</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+              INCIDENT REPORT: An encrypted quantum cryptographic core was extracted from Neo-Shinjuku sub-vault B4. Security logs show bypass signatures matching the phantom syndicate. Logic circuits must be aligned before data purge.
+            </p>
+</div>
+<!-- Redacted Schematic / Vault Photo Mockup -->
+<div class="bg-surface-container-lowest border border-outline-variant p-2.5 relative overflow-hidden">
+<!-- Surveillance Schematic Grid Graphic -->
+<div class="w-full h-24 bg-surface-container-low border border-outline-variant relative flex flex-col justify-center px-3 space-y-2">
+<!-- Background blueprint grid line simulation -->
+<div class="absolute inset-0 opacity-15 bg-[radial-gradient(#00daf3_1px,transparent_1px)] [background-size:10px_10px]"></div>
+<!-- Top Secret Red Ink Watermark Stamp -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="border-2 border-error-container text-error font-headline-sm uppercase px-3 py-1 rotate-[-12deg] tracking-widest font-bold opacity-80">
+                  TOP SECRET // CLASSIFIED
+                </span>
+</div>
+<!-- Redacted Blueprint Details -->
+<div class="z-10 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">CIRCUIT BUS ID: 0x88F-B4</span>
+<span class="bg-surface-container-lowest text-surface-container-lowest font-label-sm text-label-sm select-none px-4">
+                  REDACTED DATA BLOCK
+                </span>
+</div>
+<div class="z-10 flex items-center space-x-2">
+<span class="font-label-sm text-label-sm text-outline">RELAY:</span>
+<div class="h-3 bg-surface-container-lowest w-36"></div>
+<span class="font-label-sm text-label-sm text-secondary-container">[SYNCED]</span>
+</div>
+<div class="z-10 flex items-center space-x-2">
+<span class="font-label-sm text-label-sm text-outline">GATE PROTOCOL:</span>
+<span class="text-primary-container font-label-sm text-label-sm font-semibold">AND // XOR // NOT</span>
+</div>
+</div>
+</div>
+<!-- Gate Switches Breakdown (DIP Switch Telemetry) -->
+<div class="bg-surface-container p-2 border border-outline-variant flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">REQ LOGIC GATES:</span>
+<div class="flex items-center space-x-1.5 font-label-sm text-label-sm">
+<span class="px-1.5 py-0.5 bg-surface-container-lowest border border-outline-variant text-primary-container font-bold">AND</span>
+<span class="px-1.5 py-0.5 bg-surface-container-lowest border border-outline-variant text-secondary-container font-bold">XOR</span>
+<span class="px-1.5 py-0.5 bg-surface-container-lowest border border-outline-variant text-tertiary-fixed-dim font-bold">NOT</span>
+</div>
+</div>
+<!-- Actions / CTAs -->
+<div class="space-y-2 pt-1">
+<!-- Primary Tactical CTA -->
+<button class="w-full py-2.5 bg-primary-container text-surface-container-lowest font-headline-sm-mobile text-headline-sm-mobile font-bold tracking-wider uppercase flare-action transition-all flex items-center justify-center space-x-2 active:scale-95">
+<span class="material-symbols-outlined text-lg" data-icon="terminal">terminal</span>
+<span>[ ACCEPT CASE &amp; INITIALIZE ]</span>
+</button>
+<!-- Secondary Outlined Button -->
+<button class="w-full py-2 bg-transparent border border-secondary-container text-secondary-container font-label-lg text-label-lg tracking-wider hover:bg-surface-container transition-all flex items-center justify-center space-x-1.5 active:scale-95">
+<span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+<span>[ PREVIEW SCHEMATICS ]</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CASE 2: THE MIDNIGHT SERVER ROOM (LOCKED STATE) -->
+<article class="bg-surface-container border border-outline-variant p-3 relative clip-chamfer-sm opacity-85 hover:opacity-100 transition-opacity">
+<!-- Folder Top Tab -->
+<div class="absolute -top-3 left-4 bg-surface-variant text-on-surface font-label-sm text-label-sm px-2 py-0.5 clip-chamfer-tab flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs" data-icon="lock">lock</span>
+<span>SEC-B02 // ARCHIVE</span>
+</div>
+<div class="flex justify-between items-start pt-1.5 mb-2">
+<div>
+<div class="flex items-center space-x-2">
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">THE MIDNIGHT SERVER ROOM</h2>
+<!-- Stamped Tag -->
+<span class="border border-secondary-container text-secondary-container font-label-sm text-label-sm px-1.5 py-0.2 tracking-wider">
+                STAGE 2 REQ
+              </span>
+</div>
+<div class="flex items-center space-x-2 mt-1">
+<span class="bg-surface-container-lowest border border-outline-variant text-secondary-container font-label-sm text-label-sm px-2 py-0.5">
+                MEDIUM // TIER 2
+              </span>
+<span class="font-label-sm text-label-sm text-outline">TARGET: GINKO TOWER 14F</span>
+</div>
+</div>
+<!-- Padlock Status Icon -->
+<div class="w-5 h-5 border border-outline-variant bg-surface-container-lowest flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-xs" data-icon="lock">lock</span>
+</div>
+</div>
+<!-- Telemetry Stats Row -->
+<div class="grid grid-cols-3 gap-1.5 bg-surface-container-lowest border border-outline-variant p-2 mb-2">
+<div class="text-center border-r border-outline-variant">
+<div class="font-label-sm text-label-sm text-outline">TIME: 02:15</div>
+</div>
+<div class="text-center border-r border-outline-variant">
+<div class="font-label-sm text-label-sm text-outline">LIVES: 2 CRCS</div>
+</div>
+<div class="text-center">
+<div class="font-label-sm text-label-sm text-secondary-container">REWARD: +3,200 PTS</div>
+</div>
+</div>
+<!-- Lock Warning Notice -->
+<div class="flex items-center justify-between text-outline font-label-sm text-label-sm px-1 pt-1">
+<span class="flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs" data-icon="key_off">key_off</span>
+<span>BUS CIPHER KEY REQ // COMPLETE CASE 01</span>
+</span>
+<span class="text-secondary-container">[AUTHORIZATION: PENDING]</span>
+</div>
+</article>
+<!-- CASE 3: OPERATION ZERO DAY (HARD / HIGH SECURITY STATE) -->
+<article class="bg-surface-container border border-outline-variant p-3 relative clip-chamfer-sm opacity-75 hover:opacity-100 transition-opacity">
+<!-- Folder Top Tab -->
+<div class="absolute -top-3 left-4 bg-error-container text-error font-label-sm text-label-sm px-2 py-0.5 clip-chamfer-tab flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs" data-icon="warning">warning</span>
+<span>SEC-X99 // STRICT CLEARANCE</span>
+</div>
+<div class="flex justify-between items-start pt-1.5 mb-2">
+<div>
+<div class="flex items-center space-x-2">
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">OPERATION ZERO DAY</h2>
+<!-- High threat badge -->
+<span class="border border-error-container text-error font-label-sm text-label-sm px-1.5 py-0.2 tracking-wider">
+                LOCKED [RESTRICTED]
+              </span>
+</div>
+<div class="flex items-center space-x-2 mt-1">
+<span class="bg-surface-container-lowest border border-outline-variant text-error font-label-sm text-label-sm px-2 py-0.5">
+                HARD // TIER 3
+              </span>
+<span class="font-label-sm text-label-sm text-outline">TARGET: CENTRAL CITADEL GRID</span>
+</div>
+</div>
+<!-- Padlock Status Icon -->
+<div class="w-5 h-5 border border-outline-variant bg-surface-container-lowest flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-xs" data-icon="lock">lock</span>
+</div>
+</div>
+<!-- Telemetry Stats Row -->
+<div class="grid grid-cols-3 gap-1.5 bg-surface-container-lowest border border-outline-variant p-2 mb-2">
+<div class="text-center border-r border-outline-variant">
+<div class="font-label-sm text-label-sm text-outline">TIME: 01:30</div>
+</div>
+<div class="text-center border-r border-outline-variant">
+<div class="font-label-sm text-label-sm text-outline">LIVES: 1 CRC</div>
+</div>
+<div class="text-center">
+<div class="font-label-sm text-label-sm text-tertiary-fixed-dim">REWARD: +7,500 PTS</div>
+</div>
+</div>
+<!-- Lock Warning Notice -->
+<div class="flex items-center justify-between text-outline font-label-sm text-label-sm px-1 pt-1">
+<span class="flex items-center space-x-1 text-error">
+<span class="material-symbols-outlined text-xs" data-icon="shield">shield</span>
+<span>HIGH VOLTAGE PROTOCOL // CLEARANCE OMNI-2</span>
+</span>
+<span class="text-outline">[BLOCKED]</span>
+</div>
+</article>
+</div>
+<!-- TERMINAL DEBUG PROMPT FOOTER -->
+<div class="bg-surface-container-lowest border border-outline-variant p-2.5 flex items-center justify-between text-outline font-body-sm text-body-sm">
+<div class="flex items-center space-x-2">
+<span class="text-primary-container font-bold">&gt;</span>
+<span class="text-on-surface-variant">READY_FOR_ENGAGEMENT</span>
+<span class="inline-block w-2 h-3 bg-primary-container animate-ping"></span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">PORT: 8084</span>
+</div>
+</main>
+<!-- ================= BOTTOM NAVIGATION BAR (Shared Components JSON Anchor) ================= -->
+<!-- Contextual lock: Current page is Case Selection / Dossier Archive -> Active Item: DOSSIER -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-2 bg-surface-container-lowest border-t border-outline-variant">
+<!-- Item 1: DECK (Inactive) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95 transition-transform duration-75">
+<span class="material-symbols-outlined" data-icon="memory">memory</span>
+<span class="font-label-sm text-label-sm">DECK</span>
+</button>
+<!-- Item 2: DOSSIER (ACTIVE MATCH - EXACT JSON STYLING) -->
+<button class="flex flex-col items-center justify-center text-primary-container dark:text-primary-container font-bold border-t-2 border-primary-container p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95 transition-transform duration-75">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="font-label-sm text-label-sm">DOSSIER</span>
+</button>
+<!-- Item 3: LOGS (Inactive) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95 transition-transform duration-75">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-label-sm">LOGS</span>
+</button>
+<!-- Item 4: DECRYPT (Inactive) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95 transition-transform duration-75">
+<span class="material-symbols-outlined" data-icon="lock_open">lock_open</span>
+<span class="font-label-sm text-label-sm">DECRYPT</span>
+</button>
+</nav>
+   <script src="/js/heist-api.js"></script>
+   <script src="/js/case-select.js"></script>
+</body></html>

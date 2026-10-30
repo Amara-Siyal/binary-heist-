@@ -1,0 +1,690 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>BINARY HEIST: CASE 0101 // BOSS ENCOUNTER</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts: Space Grotesk & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&amp;family=Space+Grotesk:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-error-container": "#ffdad6",
+            "on-primary-fixed": "#022100",
+            "error-container": "#93000a",
+            "surface-bright": "#353940",
+            "on-secondary-container": "#00616d",
+            "secondary-container": "#00e3fd",
+            "secondary-fixed": "#9cf0ff",
+            "on-primary-fixed-variant": "#095300",
+            "tertiary-fixed-dim": "#ffba43",
+            "inverse-on-surface": "#2d3137",
+            "on-surface-variant": "#baccb0",
+            "on-primary-container": "#107100",
+            "inverse-primary": "#106e00",
+            "primary-container": "#39ff14",
+            "on-primary": "#053900",
+            "primary-fixed-dim": "#2ae500",
+            "on-background": "#dfe2eb",
+            "tertiary-fixed": "#ffddaf",
+            "on-tertiary-container": "#835900",
+            "surface-container": "#1c2026",
+            "on-secondary": "#00363d",
+            "on-secondary-fixed-variant": "#004f58",
+            "outline-variant": "#3c4b35",
+            "on-error": "#690005",
+            "primary": "#efffe3",
+            "tertiary-container": "#ffd79e",
+            "primary-fixed": "#79ff5b",
+            "background": "#10141a",
+            "on-secondary-fixed": "#001f24",
+            "on-surface": "#dfe2eb",
+            "on-tertiary": "#432c00",
+            "on-tertiary-fixed": "#281800",
+            "surface-variant": "#31353c",
+            "surface-dim": "#10141a",
+            "error": "#ffb4ab",
+            "surface-tint": "#2ae500",
+            "surface-container-highest": "#31353c",
+            "surface-container-low": "#181c22",
+            "on-tertiary-fixed-variant": "#614000",
+            "outline": "#85967c",
+            "surface-container-lowest": "#0a0e14",
+            "secondary-fixed-dim": "#00daf3",
+            "surface-container-high": "#262a31",
+            "surface": "#10141a",
+            "tertiary": "#fff8f4",
+            "inverse-surface": "#dfe2eb",
+            "secondary": "#bdf4ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-desktop": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin-tablet": "1.5rem",
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "space-xl": "2.5rem",
+            "space-xs": "0.25rem",
+            "gutter-tablet": "1.25rem",
+            "gutter-desktop": "1.5rem",
+            "space-lg": "1.5rem",
+            "margin": "1rem"
+          },
+          "fontFamily": {
+            "headline-xl-mobile": ["Space Grotesk"],
+            "headline-lg": ["Space Grotesk"],
+            "body-md": ["JetBrains Mono"],
+            "label-sm": ["JetBrains Mono"],
+            "headline-sm": ["Space Grotesk"],
+            "headline-lg-mobile": ["Space Grotesk"],
+            "headline-xl": ["Space Grotesk"],
+            "body-lg": ["JetBrains Mono"],
+            "body-sm": ["JetBrains Mono"],
+            "headline-md": ["Space Grotesk"],
+            "label-lg": ["JetBrains Mono"],
+            "label-md": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "headline-xl-mobile": ["32px", {"lineHeight": "36px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+            "headline-lg": ["32px", {"lineHeight": "38px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+            "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "label-sm": ["10px", {"lineHeight": "12px", "letterSpacing": "0.16em", "fontWeight": "600"}],
+            "headline-sm": ["16px", {"lineHeight": "22px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "28px", "letterSpacing": "0.06em", "fontWeight": "700"}],
+            "headline-xl": ["48px", {"lineHeight": "52px", "letterSpacing": "0.12em", "fontWeight": "700"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+            "body-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+            "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+            "label-lg": ["14px", {"lineHeight": "18px", "letterSpacing": "0.14em", "fontWeight": "600"}],
+            "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.12em", "fontWeight": "500"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Custom Atmospheric Scanlines & Phosphor Glow */
+    .crt-scanlines {
+      background: linear-gradient(rgba(18, 24, 32, 0) 50%, rgba(0, 0, 0, 0.45) 50%);
+      background-size: 100% 3px;
+    }
+    .danger-border-pulse {
+      box-shadow: 0 0 14px rgba(255, 46, 76, 0.35), inset 0 0 8px rgba(255, 46, 76, 0.15);
+      animation: alertPulse 2s infinite ease-in-out;
+    }
+    @keyframes alertPulse {
+      0%, 100% { border-color: #93000a; box-shadow: 0 0 10px rgba(147, 0, 10, 0.4); }
+      50% { border-color: #ffb4ab; box-shadow: 0 0 18px rgba(255, 180, 171, 0.6); }
+    }
+    .hazard-stripe {
+      background: repeating-linear-gradient(
+        -45deg,
+        #1c2026,
+        #1c2026 12px,
+        #93000a 12px,
+        #93000a 24px
+      );
+    }
+    .threat-text-glow {
+      text-shadow: 0 0 8px rgba(255, 46, 76, 0.7), 0 0 18px rgba(255, 46, 76, 0.3);
+    }
+    .pulse-glow-green {
+      box-shadow: 0 0 8px rgba(57, 255, 20, 0.5), inset 0 0 4px rgba(57, 255, 20, 0.2);
+    }
+    .wire-active {
+      stroke-dasharray: 6, 6;
+      animation: flowWire 1.2s linear infinite;
+    }
+    @keyframes flowWire {
+      to { stroke-dashoffset: -24; }
+    }
+    .stamp-restricted {
+      transform: rotate(-12deg);
+      border: 2px dashed #93000a;
+      letter-spacing: 0.25em;
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md text-body-md antialiased min-h-screen crt-scanlines selection:bg-error-container selection:text-on-error-container relative flex flex-col justify-between overflow-x-hidden">
+<!-- ================= TOP APP BAR (Shared Components JSON Anchor) ================= -->
+<header class="bg-surface-container-lowest text-primary-container docked full-width top border-b border-outline-variant flat no shadows flex justify-between items-center w-full px-4 py-2 border-b border-outline-variant z-50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-headline-sm" data-icon="terminal">terminal</span>
+<span class="font-headline-sm text-headline-sm tracking-widest text-primary-container uppercase">BINARY HEIST: CASE 0101</span>
+<span class="ml-2 px-2 py-0.5 bg-error-container text-on-error-container text-label-sm font-label-sm border border-error uppercase animate-pulse">
+        CRITICAL OVERHEAT
+      </span>
+</div>
+<!-- Center Hazard Flag -->
+<div class="hidden lg:flex items-center gap-2 px-3 py-1 bg-surface-container-low border border-error-container">
+<span class="inline-block w-2 h-2 rounded-full bg-error animate-ping"></span>
+<span class="text-label-sm font-label-sm text-error uppercase tracking-widest">DEFCON 1 // PROTOCOL EMERGENCY</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right">
+<span class="text-label-sm font-label-sm block text-on-surface-variant">NODE TELEMETRY</span>
+<span class="text-label-sm font-label-sm text-error font-bold tracking-widest">LATENCY: 48ms [JITTER: HIGH]</span>
+</div>
+<div class="px-3 py-1 border border-outline-variant bg-surface-container-low">
+<span class="text-label-sm font-label-sm text-primary-container font-bold tracking-wider">STAGE 01/05</span>
+</div>
+</div>
+</header>
+<!-- ================= BOSS HEADER & HIGH-VOLTAGE EMERGENCY BANNER ================= -->
+<section class="w-full bg-surface-container-low border-b border-outline-variant relative overflow-hidden">
+<!-- Hazard Stripes Banner Top Strip -->
+<div class="w-full h-3 hazard-stripe border-b border-error-container opacity-90"></div>
+<div class="max-w-[1440px] mx-auto px-4 lg:px-8 py-3 lg:py-4">
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+<!-- Left: Boss Title and Alert Stamp -->
+<div class="flex flex-wrap items-center gap-4">
+<div class="p-2.5 bg-error-container border border-error flex items-center justify-center">
+<span class="material-symbols-outlined text-on-error text-2xl" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-error tracking-widest uppercase">CRITICAL ALERT // FIREWALL GUARDIAN ENGAGED</span>
+<span class="text-label-sm font-label-sm px-1.5 py-0.2 bg-surface-container-highest text-tertiary-fixed-dim border border-outline-variant">STAGE 05/05</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase text-on-error-container threat-text-glow tracking-wider">
+              FIREWALL BOSS: MAINFRAME TITAN // PROTOCOL OVERHEAT
+            </h1>
+</div>
+<div class="hidden sm:inline-block px-3 py-1 bg-surface-container-lowest text-error font-label-sm text-label-sm stamp-restricted uppercase select-none">
+            DEFENSE CORE // RETALIATION ACTIVE
+          </div>
+</div>
+<!-- Right: Telemetry Hub (Clock, Lives, Volts) -->
+<div class="flex flex-wrap items-center gap-3 sm:gap-6 bg-surface-container-lowest p-2.5 border border-outline-variant">
+<!-- 7-Segment Countdown Clock -->
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="alarm">alarm</span> TIME DECAY
+            </span>
+<div class="flex items-center gap-1 font-body-lg text-body-lg text-error bg-surface-container px-2 py-0.5 border border-error-container">
+<span class="animate-pulse tracking-widest font-bold threat-text-glow">00:48:12</span>
+</div>
+</div>
+<!-- Operative Lives / CRC Integrity -->
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant">CRC INTEGRITY</span>
+<div class="flex items-center gap-1.5 py-1">
+<!-- Life 1 -->
+<span class="material-symbols-outlined text-error text-lg animate-pulse" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<!-- Life 2 -->
+<span class="material-symbols-outlined text-error text-lg animate-pulse" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<!-- Depleted Heart -->
+<span class="material-symbols-outlined text-outline-variant text-lg" data-icon="heart_broken">heart_broken</span>
+<span class="text-label-sm font-label-sm text-error ml-1 font-bold">[2/3]</span>
+</div>
+</div>
+<!-- Voltage Monitor Mini -->
+<div class="hidden md:flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant">VCC RAIL</span>
+<span class="text-label-sm font-label-sm text-tertiary-fixed-dim font-bold bg-surface-container px-2 py-1 border border-outline-variant">
+              5.20V [OVERVOLT]
+            </span>
+</div>
+</div>
+</div>
+<!-- Boss Health / Firewall Aegis Segmented Bar -->
+<div class="mt-4 pt-3 border-t border-outline-variant flex flex-col md:flex-row md:items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-base" data-icon="shield" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="text-label-sm font-label-sm text-on-surface font-bold tracking-widest uppercase">
+            FIREWALL INTEGRITY // AEGIS-DAEMON CORE
+          </span>
+<span class="text-label-sm font-label-sm text-error">[65% REMAINING]</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-label-sm font-label-sm text-tertiary-fixed-dim">3/5 GATE LOCKS COMPROMISED</span>
+<!-- Health Segments (10 units: 6 lit crimson, 4 drained) -->
+<div class="flex gap-1">
+<span class="w-4 h-3 bg-error shadow-[0_0_8px_#ff2a55]"></span>
+<span class="w-4 h-3 bg-error shadow-[0_0_8px_#ff2a55]"></span>
+<span class="w-4 h-3 bg-error shadow-[0_0_8px_#ff2a55]"></span>
+<span class="w-4 h-3 bg-error shadow-[0_0_8px_#ff2a55]"></span>
+<span class="w-4 h-3 bg-error shadow-[0_0_8px_#ff2a55]"></span>
+<span class="w-4 h-3 bg-error shadow-[0_0_8px_#ff2a55]"></span>
+<span class="w-4 h-3 bg-surface-container-highest border border-outline-variant"></span>
+<span class="w-4 h-3 bg-surface-container-highest border border-outline-variant"></span>
+<span class="w-4 h-3 bg-surface-container-highest border border-outline-variant"></span>
+<span class="w-4 h-3 bg-surface-container-highest border border-outline-variant"></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= MAIN TACTICAL WORKSPACE (BENTO GRID: LEFT, CENTER, RIGHT) ================= -->
+<main class="max-w-[1440px] w-full mx-auto px-3 sm:px-6 py-4 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-4">
+<!-- ========== LEFT PANEL: BREACH DOSSIER & RETALIATION TELEMETRY (Col 1 to 3) ========== -->
+<aside class="lg:col-span-3 flex flex-col gap-4">
+<!-- Incident Diagnostic Deck -->
+<div class="bg-surface-container-low border border-outline-variant p-3.5 relative flex flex-col">
+<!-- Top HUD corner markings -->
+<div class="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-error"></div>
+<div class="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-error"></div>
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-error" data-icon="bug_report">bug_report</span>
+<span class="font-headline-sm text-headline-sm uppercase text-on-surface">BREACH DOSSIER</span>
+</div>
+<span class="text-label-sm font-label-sm text-error uppercase font-bold">[SYS: THREAT]</span>
+</div>
+<div class="space-y-2.5">
+<div class="bg-surface-container-lowest p-2 border border-error-container">
+<div class="flex items-center justify-between text-label-sm font-label-sm mb-1">
+<span class="text-error font-bold flex items-center gap-1">
+<span class="inline-block w-1.5 h-1.5 bg-error rounded-full animate-ping"></span>
+                ATTACK PURGE TIMER
+              </span>
+<span class="text-on-surface font-bold text-error">18s</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-error-container leading-tight">
+              FIREWALL RETALIATION IMMINENT: INTRUSION PURGE IN 18 SECONDS. Solve Full-Adder bit-slice to disrupt retaliatory lock.
+            </p>
+</div>
+<div class="space-y-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant block uppercase">INCIDENT FEED</span>
+<div class="bg-surface-container-lowest p-2 border border-outline-variant font-body-sm text-body-sm space-y-1 text-on-surface">
+<p class="text-error-container text-on-error-container text-[11px] font-bold">&gt; WARNING: QUANTUM CIPHER ENTROPY SPIKE AT DAEMON_09</p>
+<p class="text-[11px] text-on-surface-variant">&gt; Full-Adder Carry logic bypass initiated...</p>
+<p class="text-[11px] text-tertiary-fixed-dim">&gt; Gate slot 01 / 02 / 03 signatures scrambled</p>
+<p class="text-[11px] text-primary-container">&gt; Bypass telemetry loaded: test bench ready</p>
+</div>
+</div>
+<!-- Redacted Memory Register Dump -->
+<div>
+<div class="flex items-center justify-between text-label-sm font-label-sm mb-1 text-on-surface-variant">
+<span>MEMORY CORE DUMP</span>
+<span class="text-outline">HEX VIEW</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-2 font-body-sm text-[11px] space-y-1 leading-none">
+<div class="flex justify-between items-center group cursor-pointer hover:bg-surface-container-high px-1">
+<span class="text-outline">0x00FF81</span>
+<span class="bg-surface-container-highest px-1 text-on-surface-variant group-hover:bg-transparent">█████████ [REDACTED]</span>
+</div>
+<div class="flex justify-between items-center group cursor-pointer hover:bg-surface-container-high px-1">
+<span class="text-outline">0x00FF85</span>
+<span class="text-error font-mono">0x41 0x45 0x47 0x49 0x53</span>
+</div>
+<div class="flex justify-between items-center group cursor-pointer hover:bg-surface-container-high px-1">
+<span class="text-outline">0x00FF8A</span>
+<span class="bg-surface-container-highest px-1 text-on-surface-variant group-hover:bg-transparent">████ [XOR_CARRIER]</span>
+</div>
+<div class="flex justify-between items-center group cursor-pointer hover:bg-surface-container-high px-1">
+<span class="text-outline">0x00FF90</span>
+<span class="text-primary-container">BIT_SUM_OP: VALID</span>
+</div>
+</div>
+</div>
+<!-- Tactical Dossier File Tag -->
+<div class="border border-dashed border-error-container p-2 bg-surface-container-low flex items-center justify-between">
+<div>
+<span class="text-label-sm font-label-sm text-error block font-bold">SCHEMATIC ID</span>
+<span class="text-body-sm font-body-sm text-on-surface">FULL-ADDER (1-BIT SLICE)</span>
+</div>
+<span class="material-symbols-outlined text-error text-xl" data-icon="fingerprint">fingerprint</span>
+</div>
+</div>
+</div>
+<!-- Operative Instruction Sub-Tray -->
+<div class="bg-surface-container-lowest border border-outline-variant p-3">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase block mb-1">MISSION DIRECTIVE</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug">
+          Identify all three missing logic gates to complete the binary arithmetic cell. Route Sum (S) and Carry-Out (Cout) lines accurately before purge countdown reaches zero.
+        </p>
+</div>
+</aside>
+<!-- ========== CENTER PANEL: SCHEMATIC BLUEPRINT & GATE ARSENAL (Col 4 to 9) ========== -->
+<section class="lg:col-span-6 flex flex-col gap-4">
+<!-- Technical Circuit Blueprint Centerpiece -->
+<div class="bg-surface-container-low border border-outline-variant p-4 relative danger-border-pulse">
+<!-- Blueprint Grid Accents -->
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container" data-icon="schema">schema</span>
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-wide">
+              SCHEMATIC // FULL-ADDER LOGIC MATRIX
+            </span>
+</div>
+<span class="text-label-sm font-label-sm px-2 py-0.5 bg-surface-container text-secondary-container border border-outline-variant">
+            TOPOLOGY: 2-XOR / 2-AND / 1-OR
+          </span>
+</div>
+<!-- Real SVG Circuit Schematic Diagram -->
+<div class="relative bg-surface-container-lowest border border-outline-variant p-3 overflow-x-auto">
+<!-- Ambient Watermark in Center -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
+<span class="text-headline-xl font-headline-xl tracking-widest text-error">MAIN_TITAN</span>
+</div>
+<svg class="w-full h-72 min-w-[500px]" fill="none" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+<!-- Grid Lines Background -->
+<defs>
+<pattern height="20" id="grid" patternUnits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1F2E3D" stroke-width="0.75"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="300" opacity="0.4" width="600"></rect>
+<!-- Input Wire Rails (Bit A, Bit B, Cin) -->
+<!-- Input A Line -->
+<path class="wire-active" d="M 30 60 L 160 60" stroke="#00e3fd" stroke-width="2"></path>
+<circle cx="30" cy="60" fill="#00e3fd" r="4"></circle>
+<text class="font-body-sm text-[12px] font-bold" fill="#00e3fd" x="35" y="52">INPUT A [1]</text>
+<!-- Input B Line -->
+<path class="wire-active" d="M 30 110 L 160 110" stroke="#00e3fd" stroke-width="2"></path>
+<circle cx="30" cy="110" fill="#00e3fd" r="4"></circle>
+<text class="font-body-sm text-[12px] font-bold" fill="#00e3fd" x="35" y="102">INPUT B [1]</text>
+<!-- T-junction from A & B down to Target Gate 2 -->
+<path d="M 100 60 L 100 190 L 160 190" stroke="#00e3fd" stroke-dasharray="3,3" stroke-width="1.5"></path>
+<circle cx="100" cy="60" fill="#00e3fd" r="3"></circle>
+<path d="M 80 110 L 80 220 L 160 220" stroke="#00e3fd" stroke-dasharray="3,3" stroke-width="1.5"></path>
+<circle cx="80" cy="110" fill="#00e3fd" r="3"></circle>
+<!-- Carry In (Cin) Input Wire -->
+<path class="wire-active" d="M 30 260 L 260 260 L 260 120 L 320 120" stroke="#ffba43" stroke-width="2"></path>
+<circle cx="30" cy="260" fill="#ffba43" r="4"></circle>
+<text class="font-body-sm text-[12px] font-bold" fill="#ffba43" x="35" y="252">CARRY IN (Cin) [0]</text>
+<!-- Wire from Slot 1 to Slot 2 (Cin and Intermediate Sum) -->
+<path class="wire-active" d="M 240 85 L 320 85" stroke="#39ff14" stroke-width="2"></path>
+<!-- Branch from Slot 1 intermediate Sum down to Gate 3 helper -->
+<path d="M 270 85 L 270 170 L 320 170" stroke="#39ff14" stroke-dasharray="4,4" stroke-width="1.5"></path>
+<circle cx="270" cy="85" fill="#39ff14" r="3"></circle>
+<!-- Output from Gate 2 (A AND B intermediate carry) -->
+<path d="M 240 205 L 430 205 L 430 190" stroke="#39ff14" stroke-width="1.5"></path>
+<!-- Output from Slot 1+Cin into Final Sum (S) -->
+<path class="wire-active" d="M 400 100 L 530 100" stroke="#39ff14" stroke-width="2.5"></path>
+<circle cx="530" cy="100" fill="#39ff14" r="5"></circle>
+<text class="font-body-sm text-[12px] font-bold" fill="#39ff14" x="475" y="90">SUM (S) = [0]</text>
+<!-- Outputs converging to Target Gate 3 (OR) -->
+<path d="M 400 170 L 440 170" stroke="#00e3fd" stroke-width="1.5"></path>
+<path class="wire-active" d="M 510 180 L 545 180" stroke="#ff2a55" stroke-width="2.5"></path>
+<circle cx="545" cy="180" fill="#ff2a55" r="5"></circle>
+<text class="font-body-sm text-[12px] font-bold" fill="#ff2a55" x="470" y="205">CARRY OUT (Cout) = [1]</text>
+<!-- ================= MYSTERY GATE SLOTS (HUD Target Boxes) ================= -->
+<!-- TARGET GATE 1: Expected XOR -->
+<g class="cursor-pointer group" transform="translate(160, 50)">
+<rect class="group-hover:stroke-primary-container transition-all" fill="#161f2c" height="70" stroke="#ff2e4c" stroke-dasharray="5,3" stroke-width="1.5" width="80"></rect>
+<line stroke="#ff2e4c" stroke-width="2" x1="0" x2="10" y1="35" y2="35"></line>
+<line stroke="#ff2e4c" stroke-width="2" x1="70" x2="80" y1="35" y2="35"></line>
+<text class="font-label-sm text-[9px] font-bold" fill="#ffb4ab" text-anchor="middle" x="40" y="24">TARGET 1</text>
+<text class="font-headline-sm text-base font-bold animate-pulse group-hover:text-primary-container" fill="#ff2e4c" text-anchor="middle" x="40" y="44">? XOR</text>
+<text class="font-label-sm text-[8px]" fill="#dfe2eb" text-anchor="middle" x="40" y="58">[A ⊕ B]</text>
+<!-- Target Crosshairs -->
+<circle cx="40" cy="38" r="14" stroke="#ff2e4c" stroke-dasharray="2,2" stroke-width="0.5"></circle>
+</g>
+<!-- TARGET GATE 2: Expected AND -->
+<g class="cursor-pointer group" transform="translate(160, 170)">
+<rect class="group-hover:stroke-primary-container transition-all" fill="#161f2c" height="70" stroke="#ff2e4c" stroke-dasharray="5,3" stroke-width="1.5" width="80"></rect>
+<text class="font-label-sm text-[9px] font-bold" fill="#ffb4ab" text-anchor="middle" x="40" y="24">TARGET 2</text>
+<text class="font-headline-sm text-base font-bold animate-pulse group-hover:text-primary-container" fill="#ff2e4c" text-anchor="middle" x="40" y="44">? AND</text>
+<text class="font-label-sm text-[8px]" fill="#dfe2eb" text-anchor="middle" x="40" y="58">[A · B]</text>
+<circle cx="40" cy="38" r="14" stroke="#ff2e4c" stroke-dasharray="2,2" stroke-width="0.5"></circle>
+</g>
+<!-- TARGET GATE 3: Expected OR -->
+<g class="cursor-pointer group" transform="translate(435, 145)">
+<rect class="group-hover:stroke-primary-container transition-all" fill="#161f2c" height="70" stroke="#ff2e4c" stroke-dasharray="5,3" stroke-width="1.5" width="75"></rect>
+<text class="font-label-sm text-[9px] font-bold" fill="#ffb4ab" text-anchor="middle" x="37" y="24">TARGET 3</text>
+<text class="font-headline-sm text-base font-bold animate-pulse group-hover:text-primary-container" fill="#ff2e4c" text-anchor="middle" x="37" y="44">? OR</text>
+<text class="font-label-sm text-[8px]" fill="#dfe2eb" text-anchor="middle" x="37" y="58">[C1 + C2]</text>
+<circle cx="37" cy="38" r="14" stroke="#ff2e4c" stroke-dasharray="2,2" stroke-width="0.5"></circle>
+</g>
+<!-- Secondary XOR Gate (Slot Cin + Intermediate) -->
+<g transform="translate(320, 65)">
+<rect fill="#121820" height="70" stroke="#85967c" stroke-width="1" width="80"></rect>
+<text class="font-label-sm text-[10px] font-bold" fill="#dfe2eb" text-anchor="middle" x="40" y="32">STAGE 2 XOR</text>
+<text class="font-headline-sm text-[12px] font-bold" fill="#39ff14" text-anchor="middle" x="40" y="48">⊕ SUM</text>
+<text class="font-label-sm text-[8px]" fill="#85967c" text-anchor="middle" x="40" y="60">INTERMEDIATE</text>
+</g>
+</svg>
+</div>
+<!-- Truth Vector Bench Strip Below Schematic -->
+<div class="mt-3 p-2.5 bg-surface-container-lowest border border-outline-variant flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant font-bold">ACTIVE TEST VECTOR:</span>
+<span class="px-2 py-0.5 bg-surface-container text-secondary-container font-mono text-body-sm border border-outline-variant">
+              A=1, B=1, Cin=0
+            </span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-label-sm font-label-sm text-primary-container">EXPECTED SUM (S): 0</span>
+<span class="text-label-sm font-label-sm text-error font-bold">EXPECTED CARRY (Cout): 1</span>
+<span class="px-1.5 py-0.5 bg-primary-container text-on-primary-fixed font-label-sm text-[9px] font-bold">MATCH VALID</span>
+</div>
+</div>
+</div>
+<!-- Gate Arsenal / Weaponized Logic Selection Deck -->
+<div class="bg-surface-container-low border border-outline-variant p-4">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-base" data-icon="memory">memory</span>
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase">
+              GATE ARSENAL // WEAPONIZED LOGIC PAYLOAD
+            </span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">SELECT AND DRAG TO TARGET SLOT</span>
+</div>
+<!-- Arsenal Buttons (6 Logic Gates) -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 mb-3">
+<!-- XOR Gate -->
+<button class="flex flex-col items-center justify-center p-2.5 bg-surface-container-lowest border-2 border-primary-container hover:bg-surface-container-high transition-transform active:scale-95 text-left">
+<span class="text-headline-sm font-headline-sm text-primary-container font-bold">XOR</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant text-[9px]">A ⊕ B</span>
+<span class="text-label-sm font-label-sm text-secondary-fixed-dim text-[8px] mt-1 font-mono">DIF: 1</span>
+</button>
+<!-- AND Gate -->
+<button class="flex flex-col items-center justify-center p-2.5 bg-surface-container-lowest border border-outline-variant hover:border-secondary-container hover:bg-surface-container-high transition-transform active:scale-95">
+<span class="text-headline-sm font-headline-sm text-secondary-container font-bold">AND</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant text-[9px]">A · B</span>
+<span class="text-label-sm font-label-sm text-secondary-fixed-dim text-[8px] mt-1 font-mono">CONJ: 1</span>
+</button>
+<!-- OR Gate -->
+<button class="flex flex-col items-center justify-center p-2.5 bg-surface-container-lowest border border-outline-variant hover:border-tertiary-fixed-dim hover:bg-surface-container-high transition-transform active:scale-95">
+<span class="text-headline-sm font-headline-sm text-tertiary-fixed-dim font-bold">OR</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant text-[9px]">A + B</span>
+<span class="text-label-sm font-label-sm text-secondary-fixed-dim text-[8px] mt-1 font-mono">DISJ: 1</span>
+</button>
+<!-- NAND Gate -->
+<button class="flex flex-col items-center justify-center p-2.5 bg-surface-container-lowest border border-outline-variant hover:border-error hover:bg-surface-container-high transition-transform active:scale-95">
+<span class="text-headline-sm font-headline-sm text-error font-bold">NAND</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant text-[9px]">!(A · B)</span>
+<span class="text-label-sm font-label-sm text-secondary-fixed-dim text-[8px] mt-1 font-mono">INV: 0</span>
+</button>
+<!-- NOR Gate -->
+<button class="flex flex-col items-center justify-center p-2.5 bg-surface-container-lowest border border-outline-variant hover:border-error hover:bg-surface-container-high transition-transform active:scale-95">
+<span class="text-headline-sm font-headline-sm text-error font-bold">NOR</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant text-[9px]">!(A + B)</span>
+<span class="text-label-sm font-label-sm text-secondary-fixed-dim text-[8px] mt-1 font-mono">INV: 0</span>
+</button>
+<!-- XNOR Gate -->
+<button class="flex flex-col items-center justify-center p-2.5 bg-surface-container-lowest border border-outline-variant hover:border-secondary-container hover:bg-surface-container-high transition-transform active:scale-95">
+<span class="text-headline-sm font-headline-sm text-secondary-container font-bold">XNOR</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant text-[9px]">!(A ⊕ B)</span>
+<span class="text-label-sm font-label-sm text-secondary-fixed-dim text-[8px] mt-1 font-mono">EQ: 1</span>
+</button>
+</div>
+<!-- Action Command Buttons -->
+<div class="flex flex-col sm:flex-row items-center gap-3">
+<button class="w-full sm:flex-1 py-3 px-4 bg-error-container hover:bg-error border border-error text-on-error font-headline-sm text-headline-sm uppercase tracking-wider font-bold transition-all active:scale-95 shadow-[0_0_14px_rgba(255,46,76,0.6)] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="bolt">bolt</span>
+            [ INJECT LOGIC OVERLOAD // FIRE AT FIREWALL CORE ]
+          </button>
+<div class="flex w-full sm:w-auto items-center gap-2">
+<button class="flex-1 sm:flex-none px-3 py-3 bg-surface-container-lowest hover:bg-surface-container-high border border-outline-variant text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider transition-colors">
+              [ FLUSH BUFFER ]
+            </button>
+<button class="flex-1 sm:flex-none px-3 py-3 bg-surface-container-lowest hover:bg-surface-container-high border border-secondary-container text-secondary-container font-label-sm text-label-sm uppercase tracking-wider transition-colors">
+              [ SIMULATE CARRY ]
+            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- ========== RIGHT PANEL: REAL-TIME OSCILLOSCOPE & LOGIC ANALYZER (Col 10 to 12) ========== -->
+<aside class="lg:col-span-3 flex flex-col gap-4">
+<!-- Logic Analyzer & Signal Waveforms -->
+<div class="bg-surface-container-low border border-outline-variant p-3.5 relative flex flex-col">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-3">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary-container text-sm" data-icon="show_chart">show_chart</span>
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase">LOGIC ANALYZER</span>
+</div>
+<span class="text-label-sm font-label-sm text-secondary-container font-bold">500 MHz</span>
+</div>
+<!-- Simulated CRT Waveform Screen -->
+<div class="bg-surface-container-lowest border border-outline-variant p-2.5 space-y-3 font-mono text-[11px]">
+<!-- Input A Wave -->
+<div>
+<div class="flex justify-between text-secondary-container text-[10px] mb-0.5">
+<span>CH1: BIT_A</span>
+<span class="text-primary-container">HIGH [1]</span>
+</div>
+<div class="h-5 w-full bg-surface-container-low border border-outline-variant relative overflow-hidden flex items-center">
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 20">
+<path d="M 0 18 L 25 18 L 25 3 L 75 3 L 75 18 L 100 18" fill="none" stroke="#00e3fd" stroke-width="1.5"></path>
+</svg>
+</div>
+</div>
+<!-- Input B Wave -->
+<div>
+<div class="flex justify-between text-secondary-container text-[10px] mb-0.5">
+<span>CH2: BIT_B</span>
+<span class="text-primary-container">HIGH [1]</span>
+</div>
+<div class="h-5 w-full bg-surface-container-low border border-outline-variant relative overflow-hidden flex items-center">
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 20">
+<path d="M 0 18 L 35 18 L 35 3 L 85 3 L 85 18 L 100 18" fill="none" stroke="#00e3fd" stroke-width="1.5"></path>
+</svg>
+</div>
+</div>
+<!-- Cin Wave -->
+<div>
+<div class="flex justify-between text-tertiary-fixed-dim text-[10px] mb-0.5">
+<span>CH3: C_IN</span>
+<span class="text-outline">LOW [0]</span>
+</div>
+<div class="h-5 w-full bg-surface-container-low border border-outline-variant relative overflow-hidden flex items-center">
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 20">
+<path d="M 0 18 L 100 18" fill="none" stroke="#ffba43" stroke-width="1.5"></path>
+</svg>
+</div>
+</div>
+<!-- Sum Output Waveform -->
+<div>
+<div class="flex justify-between text-primary-container text-[10px] mb-0.5">
+<span>CH4: SUM_OUT</span>
+<span class="text-outline">STEADY LOW [0]</span>
+</div>
+<div class="h-5 w-full bg-surface-container-low border border-outline-variant relative overflow-hidden flex items-center">
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 20">
+<path d="M 0 18 L 40 18 L 40 18 L 100 18" fill="none" stroke="#39ff14" stroke-width="1.5"></path>
+</svg>
+</div>
+</div>
+<!-- Cout Output Waveform -->
+<div>
+<div class="flex justify-between text-error text-[10px] mb-0.5">
+<span>CH5: CARRY_OUT</span>
+<span class="text-error font-bold">LOCKED HIGH [1]</span>
+</div>
+<div class="h-5 w-full bg-surface-container-low border border-outline-variant relative overflow-hidden flex items-center">
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 20">
+<path class="wire-active" d="M 0 3 L 100 3" fill="none" stroke="#ff2a55" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Telemetry Spec Chips -->
+<div class="mt-3 grid grid-cols-2 gap-2 text-label-sm font-label-sm">
+<div class="bg-surface-container-lowest p-2 border border-outline-variant">
+<span class="text-on-surface-variant block">CORE VOLTAGE</span>
+<span class="text-error font-bold">5.24 V</span>
+</div>
+<div class="bg-surface-container-lowest p-2 border border-outline-variant">
+<span class="text-on-surface-variant block">CHIP TEMP</span>
+<span class="text-error font-bold">89.4 °C</span>
+</div>
+</div>
+<!-- Emergency Clue CTA Button -->
+<div class="mt-3">
+<button class="w-full py-2.5 px-3 bg-surface-container border border-error-container hover:border-error text-error font-label-sm text-label-sm uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 active:scale-95">
+<span class="material-symbols-outlined text-sm" data-icon="help_outline">help_outline</span>
+            [ SACRIFICE 20s FOR EMERGENCY CLUE ]
+          </button>
+<span class="text-[10px] text-outline text-center block mt-1">Deducts from global countdown</span>
+</div>
+</div>
+<!-- 4-Bit Hardware DIP Switches Metaphor Sub-panel -->
+<div class="bg-surface-container-low border border-outline-variant p-3">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase block mb-2">MANUAL BUS OVERRIDE [DIP]</span>
+<div class="grid grid-cols-4 gap-2 bg-surface-container-lowest p-2 border border-outline-variant text-center">
+<div>
+<div class="w-full h-8 bg-surface-container-high border border-primary-container flex items-start justify-center p-0.5">
+<span class="w-full h-3.5 bg-primary-container"></span>
+</div>
+<span class="text-[9px] font-mono text-primary-container mt-1 block">SW1 [1]</span>
+</div>
+<div>
+<div class="w-full h-8 bg-surface-container-high border border-primary-container flex items-start justify-center p-0.5">
+<span class="w-full h-3.5 bg-primary-container"></span>
+</div>
+<span class="text-[9px] font-mono text-primary-container mt-1 block">SW2 [1]</span>
+</div>
+<div>
+<div class="w-full h-8 bg-surface-container-high border border-outline-variant flex items-end justify-center p-0.5">
+<span class="w-full h-3.5 bg-outline"></span>
+</div>
+<span class="text-[9px] font-mono text-outline mt-1 block">SW3 [0]</span>
+</div>
+<div>
+<div class="w-full h-8 bg-surface-container-high border border-error flex items-start justify-center p-0.5">
+<span class="w-full h-3.5 bg-error"></span>
+</div>
+<span class="text-[9px] font-mono text-error mt-1 block">LOCK</span>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- ================= BOTTOM NAVIGATION BAR (Shared Components JSON Anchor) ================= -->
+<!-- On mobile/tablet docked navigation, mapping active context to DECRYPT since this is a boss decrypt stage -->
+<nav class="bg-surface-container-lowest text-primary-container docked full-width bottom-0 border-t border-outline-variant flat no shadows fixed bottom-0 w-full z-50 flex justify-around items-center px-2 bg-surface-container-lowest">
+<!-- 1: DECK (Inactive) -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95" href="#deck">
+<span class="material-symbols-outlined text-xl" data-icon="memory">memory</span>
+<span class="font-label-sm text-label-sm">DECK</span>
+</a>
+<!-- 2: DOSSIER (Inactive) -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95" href="#dossier">
+<span class="material-symbols-outlined text-xl" data-icon="folder_open">folder_open</span>
+<span class="font-label-sm text-label-sm">DOSSIER</span>
+</a>
+<!-- 3: LOGS (Inactive) -->
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95" href="#logs">
+<span class="material-symbols-outlined text-xl" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-label-sm">LOGS</span>
+</a>
+<!-- 4: DECRYPT (ACTIVE - Since we are solving and decrypting logic gates on the boss screen) -->
+<a class="flex flex-col items-center justify-center text-primary-container dark:text-primary-container font-bold border-t-2 border-primary-container p-2 hover:text-secondary hover:bg-surface-container-low transition-colors duration-150 active:scale-95" href="#decrypt">
+<span class="material-symbols-outlined text-xl" data-icon="lock_open">lock_open</span>
+<span class="font-label-sm text-label-sm">DECRYPT</span>
+</a>
+</nav>
+<!-- Bottom buffer for fixed navigation bar -->
+<div class="h-14 w-full"></div>
+<script src="js/heist-api.js"></script>
+<script src="js/boss.js"></script>
+</body></html>
