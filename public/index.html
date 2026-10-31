@@ -27,12 +27,36 @@
 table.board{width:100%;border-collapse:collapse;text-align:left;font:12px 'JetBrains Mono'}table.board th,table.board td{padding:13px;border-bottom:1px solid #333}table.board th{color:var(--gold)}
 @media(max-width:950px){.game-layout{grid-template-columns:1fr 1fr}.game-layout .puzzle{grid-column:1/-1;grid-row:1}.hud{grid-template-columns:repeat(3,1fr)}.grid3,.case-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.screen{padding:15px}.login-wrap{margin:4vh auto;padding:25px 20px}.topbar{align-items:flex-start;flex-direction:column}.grid3,.case-grid,.game-layout,.versus-grid{grid-template-columns:1fr}.game-layout .puzzle{grid-column:auto}.hud{grid-template-columns:repeat(2,1fr)}.bit{width:55px;height:65px}.bit-row{gap:6px}.step{font-size:8px;padding:8px 2px}.page-title{margin-bottom:18px}.stats{gap:15px}}
-.auth-error{display:none;margin:12px 0;padding:11px;border-radius:5px;background:#280e10;border:1px solid #702329;color:#ff7777;font:11px 'JetBrains Mono',monospace;line-height:1.5}.auth-error.show{display:block}
-.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;max-width:90vw;padding:12px 18px;border-radius:6px;background:#280e10;border:1px solid #702329;color:#ff7777;font:12px 'JetBrains Mono',monospace;display:none;box-shadow:0 0 20px #00000090}.toast.show{display:block}
+.vs-two{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.vs-input{display:block;width:100%;background:#090909;color:#fff;border:1px solid #383838;border-radius:5px;padding:12px;margin:12px 0;font:600 14px 'JetBrains Mono';letter-spacing:2px;text-transform:uppercase}
+.vs-msg{display:none;margin:0 0 14px;padding:11px 14px;border-radius:6px;border:1px solid #704044;background:#2a1214;color:#ffb3b3;font:12px 'JetBrains Mono'}
+.vs-msg.show{display:block}.vs-msg.ok{border-color:#1f6b2a;background:#0e2412;color:#8dff9a}
+.vs-code{display:flex;align-items:center;gap:14px;justify-content:center;background:#0d0d0d;border:1px dashed var(--gold);border-radius:8px;padding:14px;flex-wrap:wrap}
+.vs-code small{font:10px 'JetBrains Mono';color:var(--muted);letter-spacing:2px}
+.vs-code b{font:700 28px Orbitron;letter-spacing:6px;color:var(--gold)}
+.vs-arena{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;margin:18px 0}
+.vs-side{padding:20px;border:1px solid #343434;background:#111;border-radius:8px;text-align:center;min-height:150px;display:flex;flex-direction:column;gap:9px;align-items:center;justify-content:center}
+.vs-side.win{border-color:var(--green);box-shadow:0 0 18px #39ff1433}
+.vs-vs{align-self:center;font:700 20px Orbitron;color:var(--red)}
+.vs-name{font:600 15px Orbitron;word-break:break-word}
+.vs-pill{font:700 10px 'JetBrains Mono';letter-spacing:1px;padding:5px 10px;border-radius:20px;border:1px solid #555;color:#ccc}
+.vs-pill.live{border-color:var(--cyan);color:var(--cyan);animation:vp 1.2s infinite}.vs-pill.ready{border-color:var(--gold);color:var(--gold)}.vs-pill.won{border-color:var(--green);color:var(--green)}.vs-pill.lost{border-color:var(--bright);color:var(--bright)}.vs-pill.wait{color:var(--muted)}
+@keyframes vp{50%{opacity:.4}}
+.vs-det{font:11px/1.7 'JetBrains Mono';color:var(--muted)}.vs-det .big{font:700 24px Orbitron;color:#fff}
+.vs-crown{font:700 11px Orbitron;color:var(--green);letter-spacing:2px}
+.vs-banner{text-align:center;font:700 20px Orbitron;padding:15px;border-radius:8px;margin-bottom:16px;border:1px solid var(--gold);color:var(--gold)}
+.vs-banner.good{border-color:var(--green);color:var(--green)}.vs-banner.bad{border-color:var(--bright);color:var(--bright)}
+.vs-actions{display:flex;gap:10px;flex-wrap:wrap}.vs-actions .full{flex:1;min-width:200px}
+@media(max-width:700px){.vs-two,.vs-arena{grid-template-columns:1fr}.vs-vs{justify-self:center}}
+.toast{position:fixed;top:18px;left:50%;transform:translate(-50%,-20px);z-index:999;max-width:92vw;min-width:260px;padding:13px 42px 13px 16px;border-radius:8px;background:#2a1214;border:1px solid var(--bright);color:#ffd0d0;font:13px/1.5 'JetBrains Mono',monospace;box-shadow:0 10px 30px #000a;opacity:0;pointer-events:none;transition:.25s}
+.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast.ok{background:#0e2412;border-color:#1f6b2a;color:#8dff9a}
+.toast button{position:absolute;right:12px;top:9px;color:inherit;font-size:16px;background:none;border:0;cursor:pointer}
 </style>
 </head>
 <body>
 <div id="app">
+<div id="toastBox" class="toast"><span id="toastText"></span><button onclick="this.parentNode.classList.remove('show')">✕</button></div>
 <section id="auth" class="screen active">
  <div class="login-wrap">
   <div class="brand"><h1>BINARY HEIST</h1><div class="case">CASE 0101</div></div>
@@ -40,7 +64,6 @@ table.board{width:100%;border-collapse:collapse;text-align:left;font:12px 'JetBr
   <div id="loginForm">
    <label class="field"><span>Agent ID / Username</span><input id="agentId" placeholder="Enter agent ID" autocomplete="username"></label>
    <label class="field"><span>Password</span><input id="password" type="password" placeholder="Enter password" autocomplete="current-password"></label>
-   <div class="auth-error" id="loginMsg" role="alert"></div>
    <button class="btn full" id="loginBtn">LOGIN</button>
    <button class="linkbtn" id="showRegister">CREATE ACCOUNT →</button>
   </div>
@@ -49,7 +72,6 @@ table.board{width:100%;border-collapse:collapse;text-align:left;font:12px 'JetBr
    <label class="field"><span>Agent ID / Username</span><input id="regId" placeholder="Choose an agent ID"></label>
    <label class="field"><span>Password</span><input id="regPass" type="password" placeholder="Create password"></label>
    <label class="field"><span>Confirm Password</span><input id="regConfirm" type="password" placeholder="Repeat password"></label>
-   <div class="auth-error" id="regMsg" role="alert"></div>
    <button class="btn full" id="registerBtn">CREATE ACCOUNT</button>
    <button class="linkbtn" id="showLogin">← BACK TO LOGIN</button>
   </div>
@@ -94,43 +116,44 @@ table.board{width:100%;border-collapse:collapse;text-align:left;font:12px 'JetBr
 
 <section id="notes" class="screen"><div class="card notes"><div class="eyebrow">Evidence verified / stage cleared</div><h2>CASE NOTES</h2><p class="muted" id="noteQuestion"></p><div class="explain" id="noteExplanation"></div><div class="tiny" id="noteAnswer"></div><div class="big-code" id="noteBit"></div><button class="btn full" id="nextStage">NEXT STAGE</button></div></section>
 
-<section id="versus" class="screen"><div class="wrap"><div class="topbar"><div class="mini-brand">BINARY HEIST <small>VERSUS OPERATIONS</small></div><button class="btn ghost" id="versusBack">MAIN MENU</button></div><div class="eyebrow">Competitive operation</div><h1 class="page-title">VERSUS MODE</h1><div class="card"><div class="versus-grid"><div class="player"><h3>PLAYER 01</h3><p id="vsP1">Awaiting match</p></div><div class="player p2"><h3>PLAYER 02</h3><p id="vsP2" class="muted">Awaiting opponent</p></div></div><div class="disabled-note" id="vsNote">Asynchronous race: <b>CREATE MATCH</b> to play first and get a match code. Another agent then uses <b>JOIN MATCH</b> with that code to play the same case. Higher score wins; ties go to the most time left.</div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><select id="vsCase" class="field" style="background:#090909;color:#fff;border:1px solid #383838;border-radius:5px;padding:11px"></select><button class="btn" id="createMatch">CREATE MATCH</button><input id="joinCode" placeholder="MATCH CODE" maxlength="6" autocomplete="off" style="background:#090909;color:#fff;border:1px solid #383838;border-radius:5px;padding:11px;width:130px;text-transform:uppercase;font:13px 'JetBrains Mono',monospace"><button class="btn secondary" id="joinMatch">JOIN MATCH</button><button class="btn goldbtn hidden" id="playMatch">PLAY MY RUN</button><button class="btn ghost" id="refreshMatch">REFRESH</button></div></div></div></section>
+<section id="versus" class="screen"><div class="wrap"><div class="topbar"><div class="mini-brand">BINARY HEIST <small>VERSUS OPERATIONS</small></div><button class="btn ghost" id="versusBack">MAIN MENU</button></div><div class="eyebrow">Competitive operation</div><h1 class="page-title">VERSUS MODE</h1><div id="vsMsg" class="vs-msg"></div>
+<div id="vsLobby" class="vs-two">
+<div class="card"><span class="tag">OPTION 1</span><h3>CREATE A MATCH</h3><p class="tiny">Pick a case, get a code and send it to your rival.</p><select id="vsCase" class="vs-input"></select><button class="btn full" id="createMatch">CREATE MATCH</button></div>
+<div class="card"><span class="tag">OPTION 2</span><h3>JOIN A MATCH</h3><p class="tiny">Got a code from a friend? Type it here.</p><input id="vsCode" class="vs-input" maxlength="8" placeholder="MATCH CODE" autocomplete="off"><button class="btn secondary full" id="joinMatch">JOIN MATCH</button></div>
+</div>
+<div id="vsRoom" class="card hidden">
+<div class="vs-code"><small>MATCH CODE</small><b id="vsCodeText">------</b><button class="btn ghost" id="copyCode">COPY</button></div>
+<p class="tiny" id="vsCaseName" style="text-align:center;margin-top:10px"></p>
+<div class="vs-arena"><div class="vs-side" id="vsA"></div><div class="vs-vs">VS</div><div class="vs-side" id="vsB"></div></div>
+<div id="vsBanner" class="vs-banner hidden"></div>
+<div class="vs-actions"><button class="btn goldbtn full hidden" id="playMatch">START MY RUN</button><button class="btn ghost" id="leaveMatch">LEAVE ROOM</button></div>
+<p class="tiny" id="vsLive" style="text-align:center;margin-top:12px"></p>
+</div></div></div></section>
 
 <section id="leaderboard" class="screen"><div class="wrap"><div class="topbar"><div class="mini-brand">BINARY HEIST <small>AGENT RECORDS</small></div><button class="btn ghost" id="boardBack">MAIN MENU</button></div><div class="eyebrow">Verified records only</div><h1 class="page-title">LEADERBOARD</h1><div class="card"><div style="display:flex;gap:8px;margin-bottom:12px"><button class="btn secondary" data-p="today">TODAY</button><button class="btn secondary" data-p="week">THIS WEEK</button><button class="btn" data-p="all">ALL TIME</button></div><table class="board"><thead><tr><th>RANK</th><th>AGENT</th><th>SCORE</th><th>BEST TIME</th></tr></thead><tbody id="boardBody"></tbody></table></div></div></section>
 
 <section id="victory" class="screen"><div class="center-screen card"><div class="eyebrow gold">Mission accomplished</div><div class="vault">◉</div><h1>VAULT BREACHED</h1><p class="muted" id="victoryMsg">The five-stage case has been completed.</p><div class="stats"><div><small>FINAL SCORE</small><strong id="finalScore">0000</strong></div><div><small>TIME LEFT</small><strong id="finalTime">00:00</strong></div><div><small>LIVES LEFT</small><strong id="finalLives">3</strong></div></div><div class="big-code" id="finalCode">1011</div><button class="btn full" id="replayBtn">REPLAY CASE</button><button class="btn secondary full" id="victoryMenu" style="margin-top:9px">MAIN MENU</button></div></section>
 <section id="failure" class="screen"><div class="center-screen card"><div class="eyebrow red">Operation terminated</div><h1>MISSION FAILED</h1><p id="failureReason" class="muted">OUT OF LIVES</p><div class="stats"><div><small>FINAL SCORE</small><strong id="failedScore">0000</strong></div><div><small>STAGE REACHED</small><strong id="failedStage">01 / 05</strong></div></div><button class="btn full" id="retryBtn">RETRY CASE</button><button class="btn secondary full" id="failureMenu" style="margin-top:9px">MAIN MENU</button></div></section>
 </div>
-<div class="toast" id="toast" role="alert"></div>
 <script>
 const $=id=>document.getElementById(id);
-function authMsg(id,msg){const e=$(id);e.textContent=msg||'';e.classList.toggle('show',!!msg)}
-let toastT;function toast(msg){if($('auth').classList.contains('active'))return;const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),5000)}
-function vsErr(msg){$('vsNote').innerHTML='<span class="red">'+esc(msg)+'</span>'}
+function toast(t,ok){const e=$('toastBox');$('toastText').textContent=t;e.className='toast show'+(ok?' ok':'');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),5000)}
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const api=async(m,u,b)=>{const tk=(player&&player.token)||'';const r=await fetch(u,{method:m,headers:{'content-type':'application/json',...(tk?{authorization:'Bearer '+tk}:{})},body:b?JSON.stringify(b):undefined});let d={};try{d=await r.json()}catch(e){}if(r.status===401&&tk&&u!=='/api/login'){clearInterval(timer);sessionStorage.clear();player=null;show('auth');authMsg('loginMsg','Your session expired. Please log in again.')}if(!r.ok)throw Object.assign(new Error(d.error||'Request failed'),{data:d,status:r.status});return d};
+const api=async(m,u,b)=>{const tk=(player&&player.token)||'';const r=await fetch(u,{method:m,headers:{'content-type':'application/json',...(tk?{authorization:'Bearer '+tk}:{})},body:b?JSON.stringify(b):undefined});let d={};try{d=await r.json()}catch(e){}if(r.status===401&&tk&&u!=='/api/login'){clearInterval(timer);sessionStorage.clear();player=null;show('auth');toast('Your session expired. Please log in again.')}if(!r.ok)throw Object.assign(new Error(d.error||'Request failed'),{data:d,status:r.status});return d};
 const stageNames=['BINARY CLUE','LOGIC LOCK','TRUTH TABLE','ADDER BOSS','FINAL CODE'],titles=['Decode the signal','Break the logic lock','Identify the hidden gate','Defeat the firewall boss','Open the vault'];
 let player=null,sess=null,cases=[],cur=null,snap=null,timeLeft=0,timer=null,selected=null,bits=[0,0,0,0],curPuz=null,lastSummary=null,lastAnswer='',match=null,vsCode=null,vsPoll=null,busy=false;
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');clearInterval(vsPoll);if(id==='versus'&&vsCode)vsPoll=setInterval(renderVersus,4000)}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');clearInterval(vsPoll);if(id==='versus'&&vsCode)vsPoll=setInterval(renderRoom,3000)}
 function log(msg,type=''){let d=document.createElement('div');d.textContent='> '+msg;if(type)d.className='log-'+type;$('terminal').appendChild(d);$('terminal').scrollTop=$('terminal').scrollHeight}
 const fmt=t=>String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');
 const pname=p=>p.display_name||p.agent_name;
 function feedback(msg,type){$('feedback').textContent=msg;$('feedback').className='feedback show '+type}
 /* ---------- auth ---------- */
-function enter(p){player=p;sessionStorage.setItem('player',JSON.stringify(p));['agentName','sideAgent'].forEach(i=>$(i).textContent=pname(p).toUpperCase());$('agentCode').textContent=p.agent_name;['agentId','password','regName','regId','regPass','regConfirm'].forEach(i=>$(i).value='');authMsg('loginMsg');authMsg('regMsg');$('registerForm').classList.add('hidden');$('loginForm').classList.remove('hidden');loadCases().then(()=>show('menu'))}
-$('loginBtn').onclick=async()=>{const id=$('agentId').value.trim(),pw=$('password').value;authMsg('loginMsg');if(!id||!pw){authMsg('loginMsg','Enter your agent ID and password.');return}
- $('loginBtn').disabled=true;try{enter(await api('POST','/api/login',{agent_name:id,password:pw}))}catch(e){authMsg('loginMsg',e.message)}finally{$('loginBtn').disabled=false}};
-$('registerBtn').onclick=async()=>{const n=$('regName').value.trim(),id=$('regId').value.trim(),p=$('regPass').value,c=$('regConfirm').value;authMsg('regMsg');
- if(!n||!id||!p||!c){authMsg('regMsg','Please complete every field.');return}
- if(!/^[A-Za-z0-9_]{3,40}$/.test(id)){authMsg('regMsg','Agent ID must be 3-40 letters, digits or underscores.');return}
- if(p.length<6){authMsg('regMsg','Password must be at least 6 characters.');return}
- if(p!==c){authMsg('regMsg','Password confirmation does not match.');return}
- $('registerBtn').disabled=true;try{enter(await api('POST','/api/login',{agent_name:id,password:p,display_name:n,register:true}))}catch(e){authMsg('regMsg',e.message)}finally{$('registerBtn').disabled=false}};
-['agentId','password','regName','regId','regPass','regConfirm'].forEach(i=>$(i).addEventListener('input',()=>{authMsg('loginMsg');authMsg('regMsg')}));
+function enter(p){player=p;sessionStorage.setItem('player',JSON.stringify(p));['agentName','sideAgent'].forEach(i=>$(i).textContent=pname(p).toUpperCase());$('agentCode').textContent=p.agent_name;['agentId','password','regName','regId','regPass','regConfirm'].forEach(i=>$(i).value='');loadCases().then(()=>show('menu'))}
+$('loginBtn').onclick=async()=>{const id=$('agentId').value.trim(),pw=$('password').value;if(!id||!pw){toast('Enter your agent ID and password.');return}try{enter(await api('POST','/api/login',{agent_name:id,password:pw}))}catch(e){toast(e.message)}};
+$('registerBtn').onclick=async()=>{const n=$('regName').value.trim(),id=$('regId').value.trim(),p=$('regPass').value,c=$('regConfirm').value;if(!n||!id||!p||!c){toast('Please complete every field.');return}if(p!==c){toast('Password confirmation does not match.');return}try{enter(await api('POST','/api/login',{agent_name:id,password:p,display_name:n,register:true}))}catch(e){toast(e.message)}};
 ['agentId','password'].forEach(i=>$(i).addEventListener('keydown',e=>{if(e.key==='Enter')$('loginBtn').click()}));
-['regName','regId','regPass','regConfirm'].forEach(i=>$(i).addEventListener('keydown',e=>{if(e.key==='Enter')$('registerBtn').click()}));
-$('showRegister').onclick=()=>{authMsg('loginMsg');authMsg('regMsg');$('loginForm').classList.add('hidden');$('registerForm').classList.remove('hidden')};
-$('showLogin').onclick=()=>{authMsg('loginMsg');authMsg('regMsg');$('registerForm').classList.add('hidden');$('loginForm').classList.remove('hidden')};
+$('showRegister').onclick=()=>{$('loginForm').classList.add('hidden');$('registerForm').classList.remove('hidden')};
+$('showLogin').onclick=()=>{$('registerForm').classList.add('hidden');$('loginForm').classList.remove('hidden')};
 $('logoutBtn').onclick=()=>{clearInterval(timer);sessionStorage.clear();player=null;vsCode=null;show('auth')};
 /* ---------- cases / menu ---------- */
 async function loadCases(){try{cases=await api('GET','/api/cases')}catch(e){cases=[]}
@@ -141,8 +164,8 @@ $('playSolo').onclick=()=>cases[0]?startCase(cases[0]):toast('No cases available
 $('replayBtn').onclick=$('retryBtn').onclick=()=>startCase(cur);
 $('victoryMenu').onclick=$('failureMenu').onclick=()=>show('menu');
 /* ---------- game ---------- */
-async function startCase(c,m){try{const s=await api('POST','/api/sessions',{player_id:player.player_id,case_id:c.case_id});sess=s.session_id;cur=c;match=m||null;if(m)await api('POST',`/api/matches/${m}/session`,{player_id:player.player_id,session_id:sess});
- $('terminal').innerHTML='';log('SYSTEM READY');log('CASE LOADED: '+c.title.toUpperCase());$('gameTitle').textContent=(m?'VERSUS '+m:'SOLO MISSION')+' / '+c.title.toUpperCase();apply(s);show('game');renderStage();clearInterval(timer);timer=setInterval(()=>{if(!snap||snap.status!=='active')return;timeLeft--;updateHud();if(timeLeft<=0){clearInterval(timer);sync()}},1000)}catch(e){toast(e.message)}}
+async function startCase(c,m){let s;try{s=await api('POST','/api/sessions',{case_id:c.case_id});sess=s.session_id;if(m){await api('POST',`/api/matches/${m}/session`,{session_id:sess});sessionStorage.setItem('vsSess',sess+':'+m)}}catch(e){if(s&&m)api('POST',`/api/sessions/${s.session_id}/abandon`).catch(()=>{});if(m)vsMsg(e.message);else toast(e.message);return}beginGame(c,m,s)}
+function beginGame(c,m,s){cur=c;match=m||null;$('terminal').innerHTML='';log('SYSTEM READY');log('CASE LOADED: '+c.title.toUpperCase());$('gameTitle').textContent=(m?'VERSUS '+m:'SOLO MISSION')+' / '+c.title.toUpperCase();apply(s);show('game');renderStage();clearInterval(timer);timer=setInterval(()=>{if(!snap||snap.status!=='active')return;timeLeft--;updateHud();if(timeLeft<=0){clearInterval(timer);sync()}},1000)}
 function apply(s){snap=s;timeLeft=s.time_left;updateHud()}
 async function sync(){try{const s=await api('GET','/api/sessions/'+sess);if(s.status!=='active')return finish(s);apply(s)}catch(e){}}
 function updateHud(){if(!snap)return;const done=snap.status==='win'?5:snap.stage-1;$('hudStage').textContent=String(snap.stage).padStart(2,'0')+' / 05';$('hudLives').textContent=Array.from({length:snap.max_lives},(_,i)=>i<snap.lives_left?'♥':'♡').join(' ');$('hudScore').textContent=String(snap.score).padStart(4,'0');$('hudTimer').textContent=fmt(Math.max(0,timeLeft));$('hudTimer').classList.toggle('warning',timeLeft<60);$('sideProgress').textContent=done+' / 5 STAGES';$('fsmState').textContent=snap.fsm_state;$('gameStatus').textContent=snap.status.toUpperCase();
@@ -178,16 +201,38 @@ async function renderBoard(period='all'){document.querySelectorAll('[data-p]').f
 document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>renderBoard(b.dataset.p));
 $('openBoard').onclick=()=>{renderBoard();show('leaderboard')};$('boardBack').onclick=$('versusBack').onclick=()=>show('menu');
 /* ---------- versus (server-backed async race) ---------- */
-const sideTxt=s=>!s?'Awaiting opponent':`${esc(s.name)}<br><span class="tiny">${!s.session?'NOT STARTED':s.session.result==='active'?'RUN IN PROGRESS':`SCORE ${s.session.score} · ${s.session.result==='win'?'VAULT BREACHED':'MISSION FAILED'} · TIME ${fmt(s.session.time_taken_sec)}`}</span>`;
-async function renderVersus(){if(!vsCode){$('vsP1').textContent=pname(player);$('vsP2').textContent='Awaiting opponent';$('playMatch').classList.add('hidden');return}
- try{const m=await api('GET','/api/matches/'+vsCode);$('vsP1').innerHTML=sideTxt(m.a);$('vsP2').innerHTML=sideTxt(m.b);const mine=m.a.player_id===player.player_id?m.a:(m.b&&m.b.player_id===player.player_id?m.b:null);
-  let n='MATCH CODE: <b class="gold">'+m.code+'</b> · '+esc((cases.find(c=>c.case_id===m.case_id)||{}).title||'')+'<br>';
-  n+=m.winner?(m.winner==='draw'?'RESULT: <b class="gold">DRAW</b>':'WINNER: <b class="green">'+esc(m[m.winner].name)+'</b>'):(!m.b?'Share this code. Player 02 uses JOIN MATCH to enter it.':'Match in progress. Higher result wins; ties go to the faster time.');
-  $('vsNote').innerHTML=n;$('playMatch').classList.toggle('hidden',!(mine&&!mine.session));$('playMatch').onclick=()=>startCase(cases.find(c=>c.case_id===m.case_id),m.code)}catch(e){$('vsNote').textContent=e.message}}
-$('playVersus').onclick=()=>{renderVersus();show('versus')};
-$('refreshMatch').onclick=renderVersus;
-$('createMatch').onclick=async()=>{const c=cases.find(x=>x.case_id==$('vsCase').value);if(!c)return;try{const m=await api('POST','/api/matches',{player_id:player.player_id,case_id:c.case_id});vsCode=m.code;await startCase(c,m.code)}catch(e){vsErr(e.message)}};
-$('joinMatch').onclick=async()=>{const code=$('joinCode').value.trim().toUpperCase();if(!code){vsErr('Enter the match code first.');return}try{const m=await api('POST',`/api/matches/${code}/join`,{player_id:player.player_id});vsCode=code;const mine=m.a.player_id===player.player_id?m.a:m.b;if(mine&&mine.session){renderVersus();show('versus')}else await startCase(cases.find(c=>c.case_id===m.case_id),code)}catch(e){vsErr(e.message)}};
+let vsLast='';
+const vsMsg=(t,ok)=>{const e=$('vsMsg');e.textContent=t||'';e.className='vs-msg'+(t?' show':'')+(ok?' ok':'');clearTimeout(vsMsg.t);if(t)vsMsg.t=setTimeout(()=>vsMsg(''),5000)};
+const vsBusy=(b,...ids)=>ids.forEach(i=>$(i).disabled=b);
+const pill=(c,t)=>`<span class="vs-pill ${c}">${t}</span>`;
+function sideHtml(s,me,win){if(!s)return `<div class="vs-name muted">Waiting for rival…</div>${pill('wait','● WAITING')}<div class="vs-det">Send the match code to your rival.</div>`;
+ const r=s.session;let st,det;
+ if(!r){st=pill('ready','READY');det='Has not started yet.'}
+ else if(r.result==='active'){st=pill('live','● PLAYING');det='Run in progress…'}
+ else{st=pill(r.result==='win'?'won':'lost',r.result==='win'?'VAULT BREACHED':'FAILED');det=`<span class="big">${r.score}</span> pts<br>${fmt(r.time_taken_sec||0)} · ${r.lives_left} lives left`}
+ return `<div class="vs-name">${esc(s.name)}${me?' <span class="tag">YOU</span>':''}</div>${st}<div class="vs-det">${det}</div>${win?'<div class="vs-crown">★ WINNER ★</div>':''}`}
+async function renderRoom(){if(!vsCode)return;try{const m=await api('GET','/api/matches/'+vsCode),key=JSON.stringify(m);if(key===vsLast)return;vsLast=key;
+ const me=player.player_id,mine=m.a.player_id===me?m.a:(m.b&&m.b.player_id===me?m.b:null),w=m.winner;
+ $('vsLobby').classList.add('hidden');$('vsRoom').classList.remove('hidden');$('vsCodeText').textContent=m.code;
+ const c=cases.find(x=>x.case_id===m.case_id)||{};$('vsCaseName').textContent='CASE: '+(c.title||'').toUpperCase()+' · '+(c.difficulty||'').toUpperCase();
+ $('vsA').innerHTML=sideHtml(m.a,m.a.player_id===me,w==='a');$('vsB').innerHTML=sideHtml(m.b,!!m.b&&m.b.player_id===me,w==='b');
+ $('vsA').classList.toggle('win',w==='a');$('vsB').classList.toggle('win',w==='b');
+ const bn=$('vsBanner');bn.classList.toggle('hidden',!w);if(w){const won=(w==='a')===(mine===m.a)&&mine;bn.textContent=w==='draw'?"IT'S A DRAW":mine?(won?'🏆 YOU WIN!':'YOU LOST THIS ROUND'):m[w].name.toUpperCase()+' WINS';bn.className='vs-banner'+(w==='draw'?'':mine?(won?' good':' bad'):'')}
+ const pb=$('playMatch'),saved=(sessionStorage.getItem('vsSess')||'').split(':');let lab=null,fn=null;
+ if(mine&&!w){if(!mine.session){lab='START MY RUN';fn=()=>startRun(m)}else if(mine.session.result==='active'&&saved[1]===m.code){lab='RESUME MY RUN';fn=()=>resumeRun(m)}}
+ pb.classList.toggle('hidden',!lab);if(lab){pb.textContent=lab;pb.onclick=fn}
+ $('vsLive').textContent=w?'Match finished.':(!m.b?'● Waiting for a rival. This page updates by itself.':'● Live. This page updates every few seconds.');
+ if(w)clearInterval(vsPoll)}catch(e){vsMsg(e.message)}}
+function renderVersus(){vsLast='';if(!vsCode){$('vsRoom').classList.add('hidden');$('vsLobby').classList.remove('hidden');return}renderRoom()}
+async function startRun(m){const c=cases.find(x=>x.case_id===m.case_id);if(!c){vsMsg('Case not found.');return}vsBusy(true,'playMatch');await startCase(c,m.code);vsBusy(false,'playMatch')}
+async function resumeRun(m){sess=+(sessionStorage.getItem('vsSess')||'').split(':')[0];try{const s=await api('GET','/api/sessions/'+sess);if(s.status!=='active'){vsLast='';renderRoom();return}beginGame(cases.find(x=>x.case_id===m.case_id),m.code,s)}catch(e){vsMsg(e.message)}}
+$('playVersus').onclick=()=>{show('versus');renderVersus()};
+$('createMatch').onclick=async()=>{const c=cases.find(x=>x.case_id==$('vsCase').value);if(!c){vsMsg('Pick a case first.');return}vsBusy(true,'createMatch','joinMatch');try{const m=await api('POST','/api/matches',{case_id:c.case_id});vsCode=m.code;show('versus');renderVersus();vsMsg('Match created. Share the code, then start your run.',true)}catch(e){vsMsg(e.message)}vsBusy(false,'createMatch','joinMatch')};
+$('joinMatch').onclick=async()=>{const code=$('vsCode').value.trim().toUpperCase();if(code.length<4){vsMsg('Type the match code first.');return}vsBusy(true,'createMatch','joinMatch');try{await api('POST',`/api/matches/${code}/join`,{});vsCode=code;$('vsCode').value='';show('versus');renderVersus();vsMsg('Joined. Press START MY RUN when you are ready.',true)}catch(e){vsMsg(e.message)}vsBusy(false,'createMatch','joinMatch')};
+$('vsCode').addEventListener('input',e=>{e.target.value=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'')});
+$('vsCode').addEventListener('keydown',e=>{if(e.key==='Enter')$('joinMatch').click()});
+$('copyCode').onclick=()=>{const b=$('copyCode');navigator.clipboard.writeText(vsCode).then(()=>{b.textContent='COPIED ✓';setTimeout(()=>b.textContent='COPY',1500)}).catch(()=>vsMsg('Your match code is '+vsCode,true))};
+$('leaveMatch').onclick=()=>{vsCode=null;clearInterval(vsPoll);renderVersus()};
 /* ---------- boot ---------- */
 try{const saved=JSON.parse(sessionStorage.getItem('player'));if(saved&&saved.token){player=saved;api('GET','/api/players/'+saved.player_id).then(p=>enter({...p,token:saved.token}),()=>{player=null})}}catch(e){}
 </script>

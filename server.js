@@ -514,6 +514,7 @@ async function matchView(code) {
   const side = async (pid, sid) => {
     if (!pid) return null;
     const p = await db.get('SELECT agent_name, display_name FROM players WHERE player_id=?', [pid]);
+    if (sid) await loadSession(sid); // auto-finishes the run if its countdown already hit zero
     const s = sid ? await db.get('SELECT result, score, time_taken_sec, lives_left FROM game_sessions WHERE session_id=?', [sid]) : null;
     return { player_id: pid, name: p.display_name || p.agent_name, session: s };
   };
